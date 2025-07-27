@@ -27,13 +27,15 @@ void loop()
     return;
   }
 
-  auto client = net::client("www.google.com");
-  auto response = client.get("/");
-
+  auto client = net::client("192.168.1.33", 8080);
+  auto response = client.get("/airsonic/rest/ping.view?u=guest&p=guest&c=subsonic-kiosk&v=1.15.0&f=json");
   logger::info("Response status: " + String(response.status));
   if (response.ok())
   {
-    logger::info("Response body: " + response.body());
+    auto json = response.json();
+    logger::info("Response body: " + response.text());
+    logger::info("Ping response: " + String(json["subsonic-response"]["status"].as<const char *>()));
+    logger::info("Ping response: " + String(json["subsonic-response"]["version"].as<const char *>()));
   }
 
   delay(5000); // Wait before the next ping

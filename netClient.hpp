@@ -1,6 +1,8 @@
 #pragma once
 
 #include <WiFi.h>
+#include <ArduinoJson.h>
+
 #include "logger.hpp"
 
 namespace net
@@ -94,7 +96,7 @@ namespace net
             return line;
         }
 
-        String body()
+        String text()
         {
             if (finished)
             {
@@ -113,23 +115,33 @@ namespace net
 
             if (foundBody)
             {
-                readln();                   // Skip line before the actual body
-                String lastLine = readln(); // Read the first line of the body
-
                 while (client.connected())
                 {
                     String line = readln();
-                    if (line.length() == 0)
-                    {
-                        break; // End of body
-                    }
-                    responseBody += lastLine + "\n"; // Append last line to response body
-                    lastLine = line;                 // Update last line for the next iteration
+                    responseBody += line + "\n"; // Append line to response body
                 }
             }
 
             finished = true; // Mark as finished after reading the body
             return responseBody;
+        }
+
+        JsonDocument json()
+        {
+            if (!ok())
+            {
+                return JsonDocument(); // Return empty document if not OK
+            }
+
+            String body = text();
+            JsonDocument doc;
+            DeserializationError error = deserializeJson(doc, body.c_str());
+            if (error)
+            {
+                logger::error("Failed to parse JSON: " + String(error.c_str()));
+                return JsonDocument(); // Return empty document on error
+            }
+            return doc;
         }
     };
 
