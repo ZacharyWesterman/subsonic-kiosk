@@ -23,6 +23,7 @@ static_assert(false, "Network configuration file not found.\nPlease create 'secr
 #include <WiFi.h>
 
 #include "logger.hpp"
+#include "netClient.hpp"
 
 namespace net
 {
@@ -134,5 +135,10 @@ namespace net
         }
 
         return WiFi.ping(host, timeout);
+    }
+
+    NetClient client(const String &host, int port = 80)
+    {
+        return NetClient(host, port);
     }
 }

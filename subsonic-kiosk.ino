@@ -9,7 +9,7 @@
 void setup()
 {
 #ifdef DEBUG
-  Serial.begin(9600);
+  Serial.begin(115200);
   while (!Serial)
     ; // Wait until serial is up and working.
 #endif
@@ -25,6 +25,15 @@ void loop()
     logger::warn("Network disconnected! Attempting to reconnect...");
     net::connect(0);
     return;
+  }
+
+  auto client = net::client("www.google.com");
+  auto response = client.get("/");
+
+  logger::info("Response status: " + String(response.status));
+  if (response.ok())
+  {
+    logger::info("Response body: " + response.body());
   }
 
   delay(5000); // Wait before the next ping
