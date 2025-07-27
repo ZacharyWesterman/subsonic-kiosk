@@ -15,6 +15,7 @@
                 "/home/zachary/.arduino15/packages/arduino/hardware/mbed_giga/4.4.1/libraries/WiFi/src",
                 "/home/zachary/.arduino15/packages/arduino/hardware/mbed_giga/4.4.1/libraries/SocketWrapper/src",
                 "/home/zachary/Arduino/libraries/ArduinoJson/src",
+                "/home/zachary/Arduino/libraries/Arduino_USBHostMbed5/src",
                 "/home/zachary/.arduino15/packages/arduino/hardware/mbed_giga/4.4.1/cores/arduino/api/deprecated",
                 "/home/zachary/.arduino15/packages/arduino/hardware/mbed_giga/4.4.1/cores/arduino/api/deprecated-avr-comp",
                 "/home/zachary/.arduino15/packages/arduino/tools/arm-none-eabi-gcc/7-2017q4/arm-none-eabi/include/c++/7.2.1",

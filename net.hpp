@@ -22,6 +22,7 @@ static_assert(false, "Network configuration file not found.\nPlease create 'secr
 
 #include <WiFi.h>
 
+#include "pins.hpp"
 #include "logger.hpp"
 #include "netClient.hpp"
 
@@ -35,8 +36,10 @@ namespace net
         }
 
         logger::info("Initializing network...");
+        pins::blue();
 
         int status = WiFi.begin(NETWORK_SSID, NETWORK_PASS);
+        pins::white();
 
         int retries = 0;
         while (
@@ -47,6 +50,7 @@ namespace net
 
             status = WiFi.begin(NETWORK_SSID, NETWORK_PASS);
             retries++;
+            pins::blue();
 
             if (status == WL_CONNECTED)
             {
@@ -57,7 +61,10 @@ namespace net
             logger::info("Waiting for connection...", false);
             for (int i = 5; i > 0; --i)
             {
-                delay(1000);
+                pins::white();
+                delay(500);
+                pins::blue();
+                delay(500);
                 status = WiFi.status();
                 if (status == WL_CONNECTED)
                 {
@@ -72,6 +79,7 @@ namespace net
         if (status != WL_CONNECTED)
         {
             logger::warn("Failed to connect to WiFi network.");
+            pins::off();
             return;
         }
 
@@ -113,6 +121,7 @@ namespace net
             String(mac[5], HEX));
 
         Serial.println();
+        pins::off();
     }
 
     void disconnect()
