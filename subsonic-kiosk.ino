@@ -19,6 +19,9 @@ void setup()
 
   pins::init();
   // net::connect(3);
+
+  fs::Path newFile("/test.txt");
+  newFile.write("Hello, world!");
 }
 
 void loop()

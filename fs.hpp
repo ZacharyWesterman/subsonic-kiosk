@@ -311,6 +311,32 @@ namespace fs
             return content;
         }
 
+        bool write(const String &data) const
+        {
+            if (!connected())
+            {
+                return false;
+            }
+
+            auto file = fopen(_path(path).c_str(), "w");
+            if (!file)
+            {
+                logger::error("Failed to open file for writing: " + path);
+                return false;
+            }
+
+            size_t written = fwrite(data.c_str(), 1, data.length(), file);
+            fclose(file);
+
+            if (written != data.length())
+            {
+                logger::error("Failed to write all data to file: " + path);
+                return false;
+            }
+
+            return true;
+        }
+
         int size() const
         {
             if (!connected())
