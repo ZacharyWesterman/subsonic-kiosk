@@ -2,6 +2,7 @@
 
 #include <WiFi.h>
 #include <ArduinoJson.h>
+#include <vector>
 
 #include "logger.hpp"
 
@@ -46,6 +47,47 @@ namespace net
         bool ok() const
         {
             return status >= 200 && status < 300;
+        }
+
+        std::vector<uint8_t> read(int chunkSize = 1024)
+        {
+            std::vector<uint8_t> data;
+            if (finished)
+            {
+                return data; // Return empty vector if already finished
+            }
+
+            while (client.connected())
+            {
+                int bytes = client.available();
+                if (bytes == 0)
+                {
+                    delay(10); // Wait for data to be available
+                    continue;
+                }
+
+                data.reserve(data.size() + bytes);
+                for (int i = 0; i < bytes; ++i)
+                {
+                    data.push_back(client.read());
+                    if (data.size() >= chunkSize)
+                    {
+                        break; // Stop reading if chunk size is reached
+                    }
+                }
+
+                if (data.size() >= chunkSize)
+                {
+                    break; // Stop reading if chunk size is reached
+                }
+            }
+
+            if (!client.connected())
+            {
+                finished = true; // Mark as finished if connection is lost
+            }
+
+            return data;
         }
 
         String readln()

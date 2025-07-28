@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Arduino_USBHostMbed5.h>
+#include <vector>
 #include <array>
 
 #include "pins.hpp"
@@ -329,6 +330,32 @@ namespace fs
             fclose(file);
 
             if (written != data.length())
+            {
+                logger::error("Failed to write all data to file: " + path);
+                return false;
+            }
+
+            return true;
+        }
+
+        bool write(const std::vector<uint8_t> &data, bool append = false) const
+        {
+            if (!connected())
+            {
+                return false;
+            }
+
+            auto file = fopen(_path(path).c_str(), append ? "ab" : "wb");
+            if (!file)
+            {
+                logger::error("Failed to open file for writing: " + path);
+                return false;
+            }
+
+            size_t written = fwrite(data.data(), 1, data.size(), file);
+            fclose(file);
+
+            if (written != data.size())
             {
                 logger::error("Failed to write all data to file: " + path);
                 return false;

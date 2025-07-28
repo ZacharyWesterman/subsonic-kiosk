@@ -10,7 +10,8 @@
         "vector": "cpp",
         "string_view": "cpp",
         "initializer_list": "cpp",
-        "sstream": "cpp"
+        "sstream": "cpp",
+        "mstd_iterator": "cpp"
     },
     "editor.formatOnSave": true
 }
