@@ -18,17 +18,17 @@ void setup()
   fs::connect();
 
   pins::init();
-  net::connect(3);
+  // net::connect(3);
 }
 
 void loop()
 {
-  if (!net::connected())
-  {
-    logger::warn("Network disconnected! Attempting to reconnect...");
-    net::connect(0);
-    return;
-  }
+  // if (!net::connected())
+  // {
+  //   logger::warn("Network disconnected! Attempting to reconnect...");
+  //   net::connect(0);
+  //   return;
+  // }
 
   if (!fs::connected())
   {
@@ -37,16 +37,23 @@ void loop()
     return;
   }
 
-  logger::info("Network and USB device are connected.");
-  auto dir = fs::dir::open("/");
-  if (!dir)
+  logger::info("Directory listing for /:");
+  for (auto &path : fs::Path("/"))
   {
-    logger::error("Failed to open root directory.");
-  }
-  else
-  {
-    logger::info("Root directory opened successfully.");
-    fs::close(dir);
+    if (path.isDir())
+    {
+      logger::info("Directory: " + path.str());
+    }
+    else if (path.isFile())
+    {
+      logger::info("File: " + path.str());
+      auto content = path.read();
+      logger::info("Content of " + path.str() + ": " + content.length() + " bytes");
+    }
+    else
+    {
+      logger::warn("Unknown type: " + path.str());
+    }
   }
 
   /*

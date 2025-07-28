@@ -77,44 +77,199 @@ namespace fs
         logger::info("USB device disconnected.");
     }
 
-    namespace dir
+    static String _path(const String &path)
     {
-        DIR *open(const String &path)
+        return "/usb" + path;
+    }
+
+    class Path; // Forward declaration
+
+    class IterDir
+    {
+        const Path &parent;
+        DIR *dir;
+        struct dirent *entry;
+
+    public:
+        IterDir(const Path &parent, const String &path, bool end = false)
+            : parent(parent)
+        {
+            dir = nullptr;
+            entry = nullptr;
+
+            if (!end && connected())
+            {
+                dir = opendir(_path(path).c_str());
+                if (dir)
+                {
+                    entry = readdir(dir);
+                }
+            }
+        }
+
+        ~IterDir()
+        {
+            if (dir && connected())
+            {
+                closedir(dir);
+            }
+        }
+
+        bool operator!=(const IterDir &other) const
+        {
+            return entry != nullptr;
+        }
+
+        IterDir &operator++()
+        {
+            if (dir)
+            {
+                entry = readdir(dir);
+            }
+            return *this;
+        }
+
+        const Path operator*() const;
+    };
+
+    class Path
+    {
+        String path;
+
+    public:
+        Path(const String &path)
+        {
+            if (path.endsWith("/"))
+            {
+                this->path = path.substring(0, path.length() - 1); // Remove trailing slash
+            }
+            else
+            {
+                this->path = path;
+            }
+        }
+
+        bool exists() const
+        {
+            if (!fs::connected())
+            {
+                return false;
+            }
+            struct stat st;
+            return stat(_path(path).c_str(), &st) == 0;
+        }
+
+        bool isDir() const
+        {
+            if (!fs::connected())
+            {
+                return false;
+            }
+            struct stat st;
+            if (stat(_path(path).c_str(), &st) != 0)
+            {
+                return false;
+            }
+            return S_ISDIR(st.st_mode);
+        }
+
+        bool isFile() const
+        {
+            if (!fs::connected())
+            {
+                return false;
+            }
+            struct stat st;
+            if (stat(_path(path).c_str(), &st) != 0)
+            {
+                return false;
+            }
+            return S_ISREG(st.st_mode);
+        }
+
+        Path operator/(const String &subPath) const
+        {
+            return Path(path + "/" + subPath);
+        }
+
+        Path &operator/=(const String &subPath)
+        {
+            path += "/" + subPath;
+            return *this;
+        }
+
+        const String &str() const
+        {
+            return path;
+        }
+
+        const char *c_str() const
+        {
+            return path.c_str();
+        }
+
+        String stem() const
+        {
+            int lastSlash = path.lastIndexOf('/');
+            if (lastSlash == -1)
+            {
+                return path;
+            }
+            return path.substring(lastSlash + 1);
+        }
+
+        String parent() const
+        {
+            int lastSlash = path.lastIndexOf('/');
+            if (lastSlash == -1)
+            {
+                return ""; // No parent directory
+            }
+            return path.substring(0, lastSlash);
+        }
+
+        String read() const
         {
             if (!connected())
             {
-                return nullptr;
+                return "";
             }
-            return opendir(("/usb" + path).c_str());
-        }
-    }
 
-    namespace file
-    {
-        FILE *open(const String &path, const char *mode = "r")
-        {
-            if (!connected())
+            auto file = fopen(_path(path).c_str(), "r");
+            if (!file)
             {
-                return nullptr;
+                logger::error("Failed to open file for reading: " + path);
+                return "";
             }
-            return fopen(("/usb" + path).c_str(), mode);
-        }
 
-    }
+            String content;
+            char buffer[256];
+            while (fgets(buffer, sizeof(buffer), file))
+            {
+                content += buffer;
+            }
 
-    void close(DIR *dir)
-    {
-        if (dir)
-        {
-            closedir(dir);
-        }
-    }
-
-    void close(FILE *file)
-    {
-        if (file)
-        {
             fclose(file);
+            return content;
         }
+
+        IterDir begin() const
+        {
+            return IterDir(*this, path);
+        }
+
+        IterDir end() const
+        {
+            return IterDir(*this, path, true);
+        }
+    };
+
+    const Path IterDir::operator*() const
+    {
+        if (entry)
+        {
+            return parent / String(entry->d_name);
+        }
+        return Path(""); // Return an empty path if no entry
     }
 }
