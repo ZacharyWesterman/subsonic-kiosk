@@ -14,14 +14,10 @@ void setup()
   while (!Serial)
     ; // Wait until serial is up and working.
 #endif
+  pins::init();
 
   fs::connect();
-
-  pins::init();
   // net::connect(3);
-
-  fs::Path newFile("/test.txt");
-  newFile.write("Hello, world!");
 }
 
 void loop()
@@ -40,6 +36,7 @@ void loop()
     return;
   }
 
+  /*
   logger::info("Directory listing for /:");
   for (auto &path : fs::Path("/"))
   {
@@ -59,6 +56,7 @@ void loop()
       logger::warn("Unknown type: " + path.str());
     }
   }
+  */
 
   /*
   auto client = net::client("192.168.1.33", 8080);

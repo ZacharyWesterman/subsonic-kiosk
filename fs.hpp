@@ -78,6 +78,68 @@ namespace fs
         logger::info("USB device disconnected.");
     }
 
+    /**
+     * @brief Returns the total space on the USB device in bytes.
+     * @return The amount of total space in bytes.
+     */
+    size_t size()
+    {
+        if (!connected())
+        {
+            return 0;
+        }
+
+        struct statvfs fsInfo;
+        if (statvfs("/usb", &fsInfo) != 0)
+        {
+            logger::error("Failed to get filesystem info.");
+            return 0;
+        }
+        return fsInfo.f_blocks * fsInfo.f_bsize;
+    }
+
+    /**
+     * @brief Returns the used space on the USB device in bytes.
+     * @return The amount of used space in bytes.
+     */
+    size_t used()
+    {
+        if (!connected())
+        {
+            return 0;
+        }
+
+        struct statvfs fsInfo;
+        if (statvfs("/usb", &fsInfo) != 0)
+        {
+            logger::error("Failed to get filesystem info.");
+            return 0;
+        }
+        return (
+            fsInfo.f_blocks * fsInfo.f_bsize -
+            fsInfo.f_bfree * fsInfo.f_bsize);
+    }
+
+    /**
+     * @brief Returns the free space on the USB device in bytes.
+     * @return The amount of free space in bytes.
+     */
+    size_t free()
+    {
+        if (!connected())
+        {
+            return 0;
+        }
+
+        struct statvfs fsInfo;
+        if (statvfs("/usb", &fsInfo) != 0)
+        {
+            logger::error("Failed to get filesystem info.");
+            return 0;
+        }
+        return fsInfo.f_bfree * fsInfo.f_bsize;
+    }
+
     static String _path(const String &path)
     {
         return "/usb" + path;
