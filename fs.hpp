@@ -312,14 +312,14 @@ namespace fs
             return content;
         }
 
-        bool write(const String &data) const
+        bool write(const String &data, bool append = false) const
         {
             if (!connected())
             {
                 return false;
             }
 
-            auto file = fopen(_path(path).c_str(), "w");
+            auto file = fopen(_path(path).c_str(), append ? "a" : "w");
             if (!file)
             {
                 logger::error("Failed to open file for writing: " + path);
