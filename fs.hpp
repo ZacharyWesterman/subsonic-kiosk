@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Arduino_USBHostMbed5.h>
+#include <array>
 
 #include "pins.hpp"
 #include "logger.hpp"
@@ -81,6 +82,41 @@ namespace fs
     {
         return "/usb" + path;
     }
+
+    class FileStream
+    {
+        FILE *file;
+
+    public:
+        FileStream(FILE *file = nullptr) : file(file) {}
+
+        ~FileStream()
+        {
+            if (file)
+            {
+                fclose(file);
+            }
+        }
+
+        std::array<uint8_t, 256> read()
+        {
+            if (!file)
+            {
+                logger::error("FileStream is not initialized.");
+                return {};
+            }
+
+            std::array<uint8_t, 256> buffer = {};
+            size_t bytesRead = fread(buffer.data(), 1, buffer.size(), file);
+            if (bytesRead == 0 && ferror(file))
+            {
+                logger::error("Error reading from file.");
+                return buffer;
+            }
+
+            return buffer;
+        }
+    };
 
     class Path; // Forward declaration
 
@@ -208,7 +244,7 @@ namespace fs
             return path.c_str();
         }
 
-        String stem() const
+        String name() const
         {
             int lastSlash = path.lastIndexOf('/');
             if (lastSlash == -1)
@@ -216,6 +252,28 @@ namespace fs
                 return path;
             }
             return path.substring(lastSlash + 1);
+        }
+
+        String stem() const
+        {
+            String n = name();
+            int dotIndex = n.lastIndexOf('.');
+            if (dotIndex == -1)
+            {
+                return n;
+            }
+            return n.substring(0, dotIndex);
+        }
+
+        String ext() const
+        {
+            String n = name();
+            int dotIndex = n.lastIndexOf('.');
+            if (dotIndex == -1)
+            {
+                return ""; // No extension
+            }
+            return n.substring(dotIndex + 1);
         }
 
         String parent() const
@@ -251,6 +309,39 @@ namespace fs
 
             fclose(file);
             return content;
+        }
+
+        int size() const
+        {
+            if (!connected())
+            {
+                return -1;
+            }
+
+            struct stat st;
+            if (stat(_path(path).c_str(), &st) != 0)
+            {
+                logger::error("Failed to get file size: " + path);
+                return -1;
+            }
+            return st.st_size;
+        }
+
+        FileStream stream() const
+        {
+            if (!connected())
+            {
+                return FileStream();
+            }
+
+            auto file = fopen(_path(path).c_str(), "r");
+            if (!file)
+            {
+                logger::error("Failed to open file for streaming: " + path);
+                return FileStream();
+            }
+
+            return FileStream(file);
         }
 
         IterDir begin() const

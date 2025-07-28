@@ -47,8 +47,9 @@ void loop()
     else if (path.isFile())
     {
       logger::info("File: " + path.str());
-      auto content = path.read();
-      logger::info("Content of " + path.str() + ": " + content.length() + " bytes");
+      logger::info("File extension: " + path.ext());
+      logger::info("File size: " + String(path.size()) + " bytes");
+      logger::info("File content: " + String((const char *)path.stream().read().data()));
     }
     else
     {
