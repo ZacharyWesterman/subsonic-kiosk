@@ -62,6 +62,7 @@ namespace fs
             return false;
         }
 
+        pins::off();
         initialized = true;
         return true;
     }

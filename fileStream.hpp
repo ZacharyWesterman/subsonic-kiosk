@@ -22,7 +22,8 @@ namespace fs
             }
         }
 
-        std::vector<uint8_t> read(int chunkSize = 1024)
+        template <typename T>
+        std::vector<T> read(int chunkSize = 1024)
         {
             if (!file)
             {
@@ -30,19 +31,19 @@ namespace fs
                 return {};
             }
 
-            std::vector<uint8_t> buffer(chunkSize);
-            size_t bytesRead = fread(buffer.data(), 1, chunkSize, file);
-            if (bytesRead == 0 && ferror(file))
+            std::vector<T> buffer(chunkSize);
+            size_t dataRead = fread(buffer.data(), sizeof(T), chunkSize, file);
+            if (dataRead == 0 && ferror(file))
             {
                 logger::error("Error reading from file.");
                 return {};
             }
 
-            buffer.resize(bytesRead);
+            buffer.resize(dataRead);
             return buffer;
         }
 
-        bool seek(size_t position)
+        bool seek(size_t position, int flag = SEEK_SET)
         {
             if (!file)
             {
@@ -50,7 +51,7 @@ namespace fs
                 return false;
             }
 
-            if (fseek(file, position, SEEK_SET) != 0)
+            if (fseek(file, position, flag) != 0)
             {
                 logger::error("Failed to seek in file.");
                 return false;

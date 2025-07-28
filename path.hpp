@@ -267,6 +267,7 @@ namespace fs
         {
             if (!connected())
             {
+                logger::error("FileStream is not connected to a USB device.");
                 return FileStream();
             }
 

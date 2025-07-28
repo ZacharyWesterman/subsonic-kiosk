@@ -1,22 +1,35 @@
 
-#define DEBUG
+#define SERIAL_DEBUG
 
 #include <WiFi.h>
 
 #include "pins.hpp"
 #include "net.hpp"
 #include "fs.hpp"
+#include "audio.hpp"
+
+audio::Player *player;
 
 void setup()
 {
-#ifdef DEBUG
-  Serial.begin(115200);
-  while (!Serial)
-    ; // Wait until serial is up and working.
-#endif
   pins::init();
 
+#ifdef SERIAL_DEBUG
+  Serial.begin(115200);
+  // Wait for serial to be ready
+  while (!Serial)
+  {
+    pins::white();
+    delay(100);
+    pins::off();
+    delay(100);
+  }
+#endif
+
   fs::connect();
+  player = new audio::Player("/spark.wav");
+  // player.init();
+
   // net::connect(3);
 }
 
@@ -35,6 +48,8 @@ void loop()
     fs::connect(0);
     return;
   }
+
+  player->play();
 
   /*
   logger::info("Directory listing for /:");
@@ -71,5 +86,5 @@ void loop()
   }
   */
 
-  delay(5000); // Wait before the next ping
+  // delay(5000); // Wait before the next ping
 }
