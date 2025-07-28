@@ -2,7 +2,6 @@
 
 #include <Arduino_USBHostMbed5.h>
 #include <vector>
-#include <array>
 
 #include "pins.hpp"
 #include "logger.hpp"
@@ -100,7 +99,7 @@ namespace fs
             }
         }
 
-        std::array<uint8_t, 256> read()
+        std::vector<uint8_t> read(int chunkSize = 1024)
         {
             if (!file)
             {
@@ -108,14 +107,15 @@ namespace fs
                 return {};
             }
 
-            std::array<uint8_t, 256> buffer = {};
-            size_t bytesRead = fread(buffer.data(), 1, buffer.size(), file);
+            std::vector<uint8_t> buffer(chunkSize);
+            size_t bytesRead = fread(buffer.data(), 1, chunkSize, file);
             if (bytesRead == 0 && ferror(file))
             {
                 logger::error("Error reading from file.");
-                return buffer;
+                return {};
             }
 
+            buffer.resize(bytesRead);
             return buffer;
         }
 
