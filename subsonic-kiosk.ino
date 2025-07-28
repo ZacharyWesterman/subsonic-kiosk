@@ -27,7 +27,14 @@ void setup()
 #endif
 
   fs::connect();
-  player = new audio::Player("/spark.wav");
+
+  // Initialize the audio player with a specific file, if supported.
+  fs::Path filename("/spark.wav");
+  if (filename.isFile() && audio::supported(filename.ext()))
+  {
+    player = new audio::Player("/spark.wav");
+  }
+
   // player.init();
 
   // net::connect(3);
@@ -49,7 +56,10 @@ void loop()
     return;
   }
 
-  player->play();
+  if (player)
+  {
+    player->play();
+  }
 
   /*
   logger::info("Directory listing for /:");

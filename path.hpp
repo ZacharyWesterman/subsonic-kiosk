@@ -157,7 +157,9 @@ namespace fs
             {
                 return ""; // No extension
             }
-            return n.substring(dotIndex + 1);
+            n = n.substring(dotIndex + 1);
+            n.toLowerCase();
+            return n;
         }
 
         String parent() const

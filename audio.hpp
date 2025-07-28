@@ -29,6 +29,15 @@ namespace audio
         unsigned long size; // Chunk size
     };
 
+    const std::vector<const char *> supportedTypes = {
+        "wav",
+    };
+
+    bool supported(const String &ext)
+    {
+        return std::find(supportedTypes.begin(), supportedTypes.end(), ext) != supportedTypes.end();
+    }
+
     class Player
     {
         fs::Path path;
@@ -40,7 +49,6 @@ namespace audio
         Player(const String &filePath) : path(filePath), initialized(false), stream(path.stream())
         {
             auto ext = path.ext();
-            ext.toLowerCase();
 
             if (ext != "wav")
             {
