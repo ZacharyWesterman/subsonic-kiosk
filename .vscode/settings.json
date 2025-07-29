@@ -11,7 +11,8 @@
         "string_view": "cpp",
         "initializer_list": "cpp",
         "sstream": "cpp",
-        "mstd_iterator": "cpp"
+        "mstd_iterator": "cpp",
+        "chrono": "cpp"
     },
     "editor.formatOnSave": true
 }

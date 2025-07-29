@@ -8,7 +8,7 @@
 #include "fs.hpp"
 #include "audio.hpp"
 
-// audio::Player *player;
+audio::Player *player;
 // int counter = 0;
 
 void setup()
@@ -30,12 +30,12 @@ void setup()
   fs::connect();
 
   // Initialize the audio player with a specific file, if supported.
-  // fs::Path filename("/spark.wav");
-  // if (filename.isFile() && audio::supported(filename.ext()))
-  // {
-  //   player = new audio::Player("/spark.wav");
-  //   player->play();
-  // }
+  fs::Path filename("/spark.wav");
+  if (filename.isFile() && audio::supported(filename.ext()))
+  {
+    player = new audio::Player("/spark.wav");
+    player->play();
+  }
 
   // player.init();
 
@@ -57,9 +57,9 @@ void loop()
     fs::connect();
   }
 
-  /*
-  if (player)
+  if (player && player->good())
   {
+    /*
     counter++;
     if (counter > 20000)
     {
@@ -70,15 +70,25 @@ void loop()
     {
       pins::green();
     }
+    */
 
-    player->output();
+    if (player->finished())
+    {
+      logger::info("Playback finished.");
+      delete player;
+    }
+    else
+    {
+      player->output();
+    }
 
+    /*
     if (counter % 10000 == 0)
     {
       logger::info("Elapsed: " + String(player->progress()) + "s / " + String(player->duration()) + "s.");
     }
+    */
   }
-  */
 
   /*
   logger::info("Directory listing for /:");
@@ -114,5 +124,5 @@ void loop()
   }
   */
 
-  delay(5000); // Wait before the next ping
+  // delay(5000); // Wait before the next ping
 }

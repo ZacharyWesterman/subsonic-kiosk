@@ -145,6 +145,11 @@ namespace audio
             playing = false;
         }
 
+        void finished() const
+        {
+            return !initialized;
+        }
+
         void seek(float seconds)
         {
             if (!initialized)
@@ -180,6 +185,11 @@ namespace audio
 
             // Calculate the total duration in seconds
             return static_cast<float>(totalSize) / (header.sampleRate * (header.bitsPerSample / 8)) / 2.0f;
+        }
+
+        bool good() const
+        {
+            return initialized;
         }
     };
 }
