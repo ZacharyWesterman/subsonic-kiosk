@@ -1,5 +1,5 @@
 
-// #define SERIAL_DEBUG
+#define SERIAL_DEBUG
 
 #include <WiFi.h>
 
@@ -8,8 +8,8 @@
 #include "fs.hpp"
 #include "audio.hpp"
 
-audio::Player *player;
-int counter = 0;
+// audio::Player *player;
+// int counter = 0;
 
 void setup()
 {
@@ -21,21 +21,21 @@ void setup()
   while (!Serial)
   {
     pins::white();
-    delay(100);
+    delay(50);
     pins::off();
-    delay(100);
+    delay(1000);
   }
 #endif
 
   fs::connect();
 
   // Initialize the audio player with a specific file, if supported.
-  fs::Path filename("/spark.wav");
-  if (filename.isFile() && audio::supported(filename.ext()))
-  {
-    player = new audio::Player("/spark.wav");
-    player->play();
-  }
+  // fs::Path filename("/spark.wav");
+  // if (filename.isFile() && audio::supported(filename.ext()))
+  // {
+  //   player = new audio::Player("/spark.wav");
+  //   player->play();
+  // }
 
   // player.init();
 
@@ -57,6 +57,7 @@ void loop()
     fs::connect();
   }
 
+  /*
   if (player)
   {
     counter++;
@@ -77,6 +78,7 @@ void loop()
       logger::info("Elapsed: " + String(player->progress()) + "s / " + String(player->duration()) + "s.");
     }
   }
+  */
 
   /*
   logger::info("Directory listing for /:");
@@ -91,7 +93,6 @@ void loop()
       logger::info("File: " + path.str());
       logger::info("File extension: " + path.ext());
       logger::info("File size: " + String(path.size()) + " bytes");
-      logger::info("File content: " + String((const char *)path.stream().read().data()));
     }
     else
     {
@@ -113,5 +114,5 @@ void loop()
   }
   */
 
-  // delay(5000); // Wait before the next ping
+  delay(5000); // Wait before the next ping
 }

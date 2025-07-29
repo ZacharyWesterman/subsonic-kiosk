@@ -26,11 +26,12 @@ namespace fs
             initialized = false; // Reset initialization state
             filesystem.unmount();
 
-            logger::info("Connecting USB device... ", false);
+            logger::info("Connecting USB device", false);
             // Attempt to connect to the USB mass storage device.
             for (int i = 0; i < maxRetries; ++i)
             {
-                if (device.connect())
+                device.connect();
+                if (device.connected())
                 {
                     logger::raw("Done.\n");
                     break;
