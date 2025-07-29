@@ -145,7 +145,7 @@ namespace audio
             playing = false;
         }
 
-        void finished() const
+        bool finished() const
         {
             return !initialized;
         }
