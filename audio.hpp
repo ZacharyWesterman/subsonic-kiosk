@@ -44,9 +44,12 @@ namespace audio
         bool initialized;
         wav_header_t header;
         fs::FileStream stream;
+        size_t totalSize;
 
     public:
-        Player(const String &filePath) : path(filePath), initialized(false), stream(path.stream())
+        bool playing = false;
+
+        Player(const String &filePath) : path(filePath), initialized(false), stream(path.stream()), playing(false)
         {
             auto ext = path.ext();
 
@@ -93,14 +96,20 @@ namespace audio
                     return;
                 }
 
-                initialized = true;
-
                 logger::info("WAV Player initialized for file: " + ext);
             }
+
+            initialized = true;
+            totalSize = stream.size();
         }
 
-        bool play()
+        bool output()
         {
+            if (!playing)
+            {
+                return false;
+            }
+
             if (!initialized || !dac0.available())
             {
                 return false;
@@ -124,6 +133,53 @@ namespace audio
 
             /* Write the buffer to DAC. */
             dac0.write(buf);
+        }
+
+        void play()
+        {
+            playing = true;
+        }
+
+        void pause()
+        {
+            playing = false;
+        }
+
+        void seek(float seconds)
+        {
+            if (!initialized)
+            {
+                logger::error("Player not initialized.");
+                return;
+            }
+
+            // Calculate the byte offset based on the sample rate and bits per sample
+            unsigned long offset = static_cast<unsigned long>(seconds * header.sampleRate * (header.bitsPerSample / 8)) / 2.0f;
+            stream.seek(offset, SEEK_SET);
+        }
+
+        float progress()
+        {
+            if (!initialized)
+            {
+                logger::error("Player not initialized.");
+                return 0.0f;
+            }
+
+            // Calculate the current playback position as a percentage
+            return (static_cast<float>(stream.tell()) / totalSize) * duration();
+        }
+
+        float duration()
+        {
+            if (!initialized)
+            {
+                logger::error("Player not initialized.");
+                return 0.0f;
+            }
+
+            // Calculate the total duration in seconds
+            return static_cast<float>(totalSize) / (header.sampleRate * (header.bitsPerSample / 8)) / 2.0f;
         }
     };
 }

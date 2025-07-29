@@ -9,10 +9,9 @@ namespace fs
     class FileStream
     {
         FILE *file;
-        size_t index;
 
     public:
-        FileStream(FILE *file = nullptr) : file(file), index(0) {}
+        FileStream(FILE *file = nullptr) : file(file) {}
 
         ~FileStream()
         {
@@ -56,8 +55,27 @@ namespace fs
                 logger::error("Failed to seek in file.");
                 return false;
             }
-            index = position;
             return true;
+        }
+
+        size_t tell() const
+        {
+            return ftell(file);
+        }
+
+        size_t size() const
+        {
+            if (!file)
+            {
+                logger::error("FileStream is not initialized.");
+                return 0;
+            }
+
+            auto currentPos = ftell(file);
+            fseek(file, 0, SEEK_END);
+            auto fileSize = ftell(file);
+            fseek(file, currentPos, SEEK_SET);
+            return fileSize;
         }
     };
 }

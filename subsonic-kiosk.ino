@@ -1,5 +1,5 @@
 
-#define SERIAL_DEBUG
+// #define SERIAL_DEBUG
 
 #include <WiFi.h>
 
@@ -9,6 +9,7 @@
 #include "audio.hpp"
 
 audio::Player *player;
+int counter = 0;
 
 void setup()
 {
@@ -33,6 +34,7 @@ void setup()
   if (filename.isFile() && audio::supported(filename.ext()))
   {
     player = new audio::Player("/spark.wav");
+    player->play();
   }
 
   // player.init();
@@ -52,13 +54,28 @@ void loop()
   if (!fs::connected())
   {
     logger::warn("USB device disconnected! Attempting to reconnect...");
-    fs::connect(0);
-    return;
+    fs::connect();
   }
 
   if (player)
   {
-    player->play();
+    counter++;
+    if (counter > 20000)
+    {
+      pins::off();
+      counter = 0;
+    }
+    else if (counter > 10000)
+    {
+      pins::green();
+    }
+
+    player->output();
+
+    if (counter % 10000 == 0)
+    {
+      logger::info("Elapsed: " + String(player->progress()) + "s / " + String(player->duration()) + "s.");
+    }
   }
 
   /*
