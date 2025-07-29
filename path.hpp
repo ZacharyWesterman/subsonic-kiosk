@@ -249,6 +249,36 @@ namespace fs
             return true;
         }
 
+        bool mkdir(bool exist_ok = false) const
+        {
+            if (!connected())
+            {
+                return false;
+            }
+
+            if (exists())
+            {
+                if (exist_ok)
+                {
+                    if (!isDir())
+                    {
+                        logger::error("Path exists but is not a directory: " + path);
+                        return false;
+                    }
+                    return true;
+                }
+                logger::error("Directory already exists: " + path);
+                return false;
+            }
+
+            if (::mkdir(_path(path).c_str(), 0755) != 0)
+            {
+                logger::error("Failed to create directory: " + path);
+                return false;
+            }
+            return true;
+        }
+
         int size() const
         {
             if (!connected())
