@@ -47,10 +47,7 @@ void loop()
     return;
   }
 
-  if (!net::connected())
-  {
-    net::tryConnect();
-  }
+  request::net(); // Try to keep the network connected
 
   // request::net(); // Try to connect to the network, if available
 
