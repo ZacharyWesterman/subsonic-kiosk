@@ -197,6 +197,36 @@ namespace fs
             return content;
         }
 
+        std::vector<String> readlines() const
+        {
+            if (!connected())
+            {
+                return {};
+            }
+
+            std::vector<String> lines;
+            String data = read();
+            if (data.isEmpty())
+            {
+                return lines; // Return empty vector if no data
+            }
+
+            int index = 0;
+            while (index < data.length())
+            {
+                int nextIndex = data.indexOf('\n', index);
+                if (nextIndex == -1)
+                {
+                    lines.push_back(data.substring(index));
+                    break; // No more newlines, add the rest
+                }
+                lines.push_back(data.substring(index, nextIndex));
+                index = nextIndex + 1; // Move past the newline
+            }
+
+            return lines;
+        }
+
         bool write(const String &data, bool append = false) const
         {
             if (!connected())

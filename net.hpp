@@ -1,25 +1,5 @@
 #pragma once
 
-#if !__has_include("secret/network.hpp")
-
-static_assert(false, "Network configuration file not found.\nPlease create 'secret/network.hpp' with the following definitions:\n#define NETWORK_SSID \"your_ssid\"\n#define NETWORK_PASS \"your_password\"");
-#define NETWORK_SSID "your_ssid"
-#define NETWORK_PASS "your_password"
-
-#else
-
-#include "secret/network.hpp"
-
-#ifndef NETWORK_SSID
-#error "NETWORK_SSID must be defined"
-#endif
-
-#ifndef NETWORK_PASS
-#error "NETWORK_PASS must be defined"
-#endif
-
-#endif
-
 #include <WiFi.h>
 
 #include "pins.hpp"
@@ -28,12 +8,75 @@ static_assert(false, "Network configuration file not found.\nPlease create 'secr
 
 namespace net
 {
-    void connect(int maxRetries = -1)
+    static String NETWORK_SSID;
+    static String NETWORK_PASS;
+    static unsigned long LAST_CONNECT_TIME = 0;
+    static bool CONNECTING = false;
+
+    bool available()
     {
-        if (WiFi.status() == WL_NO_MODULE)
+        return WiFi.status() != WL_NO_MODULE;
+    }
+
+    void init(const String &ssid, const String &password)
+    {
+        NETWORK_SSID = ssid;
+        NETWORK_PASS = password;
+
+        if (!available())
         {
             logger::fatal("WiFi module not installed!");
         }
+    }
+
+    bool connected()
+    {
+        return WiFi.status() == WL_CONNECTED;
+    }
+
+    void tryConnect()
+    {
+        if (!available())
+        {
+            logger::fatal("WiFi module not installed!");
+        }
+
+        if (connected())
+        {
+            logger::info("Connected to WiFi network: " + NETWORK_SSID);
+            pins::off();
+            CONNECTING = false;
+            return;
+        }
+
+        if (CONNECTING)
+        {
+            unsigned long now = millis();
+            if (abs(now - LAST_CONNECT_TIME) < 5000)
+            {
+                return; // Avoid spamming connection attempts
+            }
+        }
+
+        pins::blue();
+        logger::info("Connecting to WiFi network: " + NETWORK_SSID);
+        WiFi.begin(NETWORK_SSID.c_str(), NETWORK_PASS.c_str());
+
+        CONNECTING = true;
+        LAST_CONNECT_TIME = millis();
+
+        if (connected())
+        {
+            logger::info("Connected to WiFi network: " + NETWORK_SSID);
+            pins::off();
+            CONNECTING = false;
+            return;
+        }
+    }
+
+    /*
+    void connect(String ssid, String password, int maxRetries = -1)
+    {
 
         logger::info("Initializing network...");
         pins::blue();
@@ -46,9 +89,9 @@ namespace net
             status != WL_CONNECTED && (retries <= maxRetries ||
                                        maxRetries < 0))
         {
-            logger::info("Attempting to connect to WPA SSID: " + String(NETWORK_SSID));
+            logger::info("Attempting to connect to WPA SSID: " + ssid);
 
-            status = WiFi.begin(NETWORK_SSID, NETWORK_PASS);
+            status = WiFi.begin(ssid, password);
             retries++;
             pins::blue();
 
@@ -123,17 +166,13 @@ namespace net
         Serial.println();
         pins::off();
     }
+    */
 
     void disconnect()
     {
         logger::info("Disconnecting from WiFi... ", false);
         WiFi.disconnect();
         logger::raw("Done.\n");
-    }
-
-    bool connected()
-    {
-        return WiFi.status() == WL_CONNECTED;
     }
 
     int ping(const char *host, int timeout = 5000)

@@ -1,41 +1,35 @@
 
 #define SERIAL_DEBUG
 
-#include <WiFi.h>
-
 #include "pins.hpp"
 #include "net.hpp"
 #include "fs.hpp"
 #include "audio.hpp"
 
+#include "require.hpp"
+
 audio::Player *player;
 // int counter = 0;
+bool NET_AVAILABLE = false;
 
 void setup()
 {
   pins::init();
 
 #ifdef SERIAL_DEBUG
-  Serial.begin(115200);
-  // Wait for serial to be ready
-  while (!Serial)
-  {
-    pins::white();
-    delay(50);
-    pins::off();
-    delay(1000);
-  }
+  require::serial(); // Initialize serial communication
 #endif
 
-  fs::connect();
+  fs::connect();      // Ensure filesystem is connected
+  request::netInit(); // Try to connect to the network, if available
 
   // Initialize the audio player with a specific file, if supported.
-  fs::Path filename("/spark.wav");
-  if (filename.isFile() && audio::supported(filename.ext()))
-  {
-    player = new audio::Player(filename.str());
-    player->play();
-  }
+  // fs::Path filename("/spark.wav");
+  // if (filename.isFile() && audio::supported(filename.ext()))
+  // {
+  //   player = new audio::Player(filename.str());
+  //   player->play();
+  // }
 
   // player.init();
 
@@ -44,6 +38,24 @@ void setup()
 
 void loop()
 {
+  if (!fs::connected())
+  {
+    logger::warn("USB device disconnected! Attempting to reconnect...");
+    fs::connect();
+
+    request::netInit(); // Reinitialize network if USB is reconnected
+    return;
+  }
+
+  if (!net::connected())
+  {
+    net::tryConnect();
+  }
+
+  // request::net(); // Try to connect to the network, if available
+
+  // logger::info("Busy waiting... " + String(millis() / 1000) + "s");
+
   // if (!net::connected())
   // {
   //   logger::warn("Network disconnected! Attempting to reconnect...");
@@ -51,44 +63,38 @@ void loop()
   //   return;
   // }
 
-  if (!fs::connected())
-  {
-    logger::warn("USB device disconnected! Attempting to reconnect...");
-    fs::connect();
-  }
+  // if (player && player->good())
+  // {
+  //   /*
+  //   counter++;
+  //   if (counter > 20000)
+  //   {
+  //     pins::off();
+  //     counter = 0;
+  //   }
+  //   else if (counter > 10000)
+  //   {
+  //     pins::green();
+  //   }
+  //   */
 
-  if (player && player->good())
-  {
-    /*
-    counter++;
-    if (counter > 20000)
-    {
-      pins::off();
-      counter = 0;
-    }
-    else if (counter > 10000)
-    {
-      pins::green();
-    }
-    */
+  //   if (player->finished())
+  //   {
+  //     logger::info("Playback finished.");
+  //     delete player;
+  //   }
+  //   else
+  //   {
+  //     player->output();
+  //   }
 
-    if (player->finished())
-    {
-      logger::info("Playback finished.");
-      delete player;
-    }
-    else
-    {
-      player->output();
-    }
-
-    /*
-    if (counter % 10000 == 0)
-    {
-      logger::info("Elapsed: " + String(player->progress()) + "s / " + String(player->duration()) + "s.");
-    }
-    */
-  }
+  //   /*
+  //   if (counter % 10000 == 0)
+  //   {
+  //     logger::info("Elapsed: " + String(player->progress()) + "s / " + String(player->duration()) + "s.");
+  //   }
+  //   */
+  // }
 
   /*
   logger::info("Directory listing for /:");
