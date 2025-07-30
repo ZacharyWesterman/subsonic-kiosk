@@ -24,7 +24,7 @@ static_assert(false, "Network configuration file not found.\nPlease create 'secr
 
 #include "pins.hpp"
 #include "logger.hpp"
-#include "netClient.hpp"
+#include "net/netClient.hpp"
 
 namespace net
 {

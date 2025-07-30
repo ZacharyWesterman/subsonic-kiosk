@@ -148,5 +148,5 @@ namespace fs
     }
 }
 
-#include "fileStream.hpp"
-#include "path.hpp"
+#include "fs/fileStream.hpp"
+#include "fs/path.hpp"

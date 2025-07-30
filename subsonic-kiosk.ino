@@ -33,7 +33,7 @@ void setup()
   fs::Path filename("/spark.wav");
   if (filename.isFile() && audio::supported(filename.ext()))
   {
-    player = new audio::Player("/spark.wav");
+    player = new audio::Player(filename.str());
     player->play();
   }
 
