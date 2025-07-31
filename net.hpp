@@ -8,8 +8,8 @@
 
 namespace net
 {
-    static String NETWORK_SSID;
-    static String NETWORK_PASS;
+    String NETWORK_SSID;
+    String NETWORK_PASS;
     static unsigned long LAST_CONNECT_TIME = 0;
     static bool CONNECTING = false;
 
