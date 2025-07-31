@@ -34,6 +34,18 @@ namespace request
         }
     }
 
+    static void netConfigError()
+    {
+        logger::error(
+            "Failed to read network configuration file."
+            "\nPlease create a file named 'network.json' with the following structure:\n"
+            "Example content:\n"
+            "{\n"
+            "  \"ssid\": \"MyNetworkSSID\",\n"
+            "  \"password\": \"MyNetworkPassword\"\n"
+            "}");
+    }
+
     void netInit()
     {
         NET_AVAILABLE = false;
@@ -41,31 +53,39 @@ namespace request
         if (net::available())
         {
             // Read network credentials from the filesystem
-            fs::Path ssidPath("/network.txt");
-            auto info = ssidPath.readlines();
-            String ssid, password;
-            if (info.size() >= 2)
+            fs::Path ssidPath("/network.json");
+            if (!ssidPath.isFile())
             {
-                ssid = info[0];
-                ssid.trim();
-                password = info[1];
-                password.trim();
-            }
-
-            if (info.size() < 2)
-            {
-                logger::error(
-                    "Network credentials not found in " +
-                    ssidPath.str() +
-                    ".\n"
-                    "Please create a file named 'network.txt' with SSID and password on separate lines.\n"
-                    "Example content:\n"
-                    "  MyNetworkSSID\n"
-                    "  MyNetworkPassword");
+                netConfigError();
                 return;
             }
 
-            net::init(ssid, password);
+            // Sanity check in case the file is too large
+            if (ssidPath.size() > 5 * 1024)
+            {
+                netConfigError();
+                return;
+            }
+
+            // Deserialize the JSON file
+            JsonDocument config;
+            auto error = deserializeJson(config, ssidPath.read().c_str());
+            if (error)
+            {
+                netConfigError();
+                return;
+            }
+
+            // Make sure the JSON has the required fields
+            if (!config.is<JsonObject>() ||
+                !config["ssid"].is<JsonString>() ||
+                !config["password"].is<JsonString>())
+            {
+                netConfigError();
+                return;
+            }
+
+            net::init(config["ssid"].as<JsonString>().c_str(), config["password"].as<JsonString>().c_str());
             NET_AVAILABLE = true;
         }
     }
