@@ -12,7 +12,8 @@
         "initializer_list": "cpp",
         "sstream": "cpp",
         "mstd_iterator": "cpp",
-        "chrono": "cpp"
+        "chrono": "cpp",
+        "utility": "cpp"
     },
     "editor.formatOnSave": true
 }

@@ -66,11 +66,11 @@ namespace audio
 
             unsigned long sampleRate = -1;
 
-            if (header.wav.valid())
+            if (wav::valid(header.wav))
             {
-                header.wav.seekData(stream);
-                sampleRate = header.wav.getSampleRate();
                 format = WAV;
+                wav::seekData(stream);
+                sampleRate = wav::sampleRate(header.wav);
             }
             else
             {
@@ -113,16 +113,8 @@ namespace audio
             // Get the next chunk of audio data if the current chunk is empty or too small.
             if (chunk.size() < buf.size())
             {
-                if (WAV == format)
-                {
-                    auto ch = header.wav.getChunk(stream, buf.size());
-                    chunk.insert(chunk.end(), ch.begin(), ch.end());
-                }
-                else
-                {
-                    logger::error("Unsupported audio format for output.");
-                    return false;
-                }
+                auto ch = getChunk(stream, buf.size(), format);
+                chunk.insert(chunk.end(), ch.begin(), ch.end());
             }
 
             if (chunk.size() < buf.size())
