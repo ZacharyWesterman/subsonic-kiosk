@@ -21,6 +21,21 @@ namespace fs
             }
         }
 
+        bool good() const
+        {
+            return file != nullptr && !ferror(file);
+        }
+
+        bool bad() const
+        {
+            return file == nullptr || ferror(file);
+        }
+
+        inline operator bool() const
+        {
+            return good();
+        }
+
         template <typename T>
         std::vector<T> read(int chunkSize = 1024)
         {

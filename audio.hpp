@@ -3,6 +3,7 @@
 #include <Arduino_AdvancedAnalog.h>
 
 #include "fs.hpp"
+#include "audio/header.hpp"
 
 namespace audio
 {
@@ -23,12 +24,6 @@ namespace audio
         unsigned short bitsPerSample;
     };
 
-    struct chunk_t
-    {
-        char ID[4];         // Chunk ID
-        unsigned long size; // Chunk size
-    };
-
     const std::vector<const char *> supportedTypes = {
         "wav",
     };
@@ -40,64 +35,57 @@ namespace audio
 
     class Player
     {
-        fs::Path path;
         bool initialized;
-        wav_header_t header;
+        bool playing;
+        AudioFormat format;
         fs::FileStream stream;
         size_t totalSize;
+        header_t header;
+        std::vector<uint8_t> chunk;
 
     public:
-        bool playing = false;
-
-        Player(const String &filePath) : path(filePath), initialized(false), stream(path.stream()), playing(false)
+        Player(fs::FileStream &&fileStream) : initialized(false), playing(false), format(NO_AUDIO), stream(fileStream)
         {
-            auto ext = path.ext();
-
-            if (ext != "wav")
+            if (!stream)
             {
-                logger::error("Unsupported file type: " + ext);
+                logger::error("Failed to open audio file stream.");
                 return;
             }
 
-            if (ext == "wav")
+            stream.seek(0);
+
+            // Read file header to determine type
+            auto headerData = stream.read<uint8_t>(sizeof(header));
+            memcpy(&header, headerData.data(), headerData.size());
+
+            if (!validHeader(header))
             {
-                // Read WAV header
-                auto headerData = stream.read<uint8_t>(sizeof(header));
-                if (headerData.size() < sizeof(header))
-                {
-                    logger::error("Failed to read WAV header.");
-                    return;
-                }
-
-                memcpy(&header, headerData.data(), sizeof(header));
-
-                /* Find data chunk. */
-                chunk_t chunk;
-                while (true)
-                {
-                    auto chunkData = stream.read<uint8_t>(sizeof(chunk));
-                    memcpy(&chunk, chunkData.data(), sizeof(chunk));
-
-                    if (*(unsigned int *)&chunk.ID == 0x61746164)
-                        break;
-
-                    /* Skip chunk data bytes. */
-                    stream.seek(chunk.size, SEEK_CUR);
-                }
-
-                /* Determine number of samples. */
-                int sample_size = header.bitsPerSample / 8;
-                int samples_count = chunk.size * 8 / header.bitsPerSample;
-
-                /* Configure the advanced DAC. */
-                if (!dac0.begin(AN_RESOLUTION_12, header.sampleRate * 2, 256, 16))
-                {
-                    logger::error("Failed to start DAC0!");
-                    return;
-                }
-
-                logger::info("WAV Player initialized for file: " + ext);
+                logger::error("Invalid audio file header, cannot play.");
+                return;
             }
+
+            unsigned long sampleRate = -1;
+
+            if (header.wav.valid())
+            {
+                header.wav.seekData(stream);
+                sampleRate = header.wav.getSampleRate();
+                format = WAV;
+            }
+            else
+            {
+                logger::error("Unsupported audio format.");
+                return;
+            }
+
+            /* Configure the advanced DAC. */
+            if (!dac0.begin(AN_RESOLUTION_12, sampleRate * 2, 256, 16))
+            {
+                logger::error("Failed to start DAC0!");
+                return;
+            }
+
+            logger::info("Player initialized for file.");
 
             initialized = true;
             totalSize = stream.size();
@@ -115,23 +103,45 @@ namespace audio
                 return false;
             }
 
-            auto chunk = stream.read<uint16_t>(256);
-            if (chunk.empty())
+            if (!format)
+            {
+                return false;
+            }
+
+            SampleBuffer buf = dac0.dequeue();
+
+            // Get the next chunk of audio data if the current chunk is empty or too small.
+            if (chunk.size() < buf.size())
+            {
+                if (WAV == format)
+                {
+                    auto ch = header.wav.getChunk(stream, buf.size());
+                    chunk.insert(chunk.end(), ch.begin(), ch.end());
+                }
+                else
+                {
+                    logger::error("Unsupported audio format for output.");
+                    return false;
+                }
+            }
+
+            if (chunk.size() < buf.size())
             {
                 initialized = false; // Reset if no data is available
                 return false;
             }
 
-            /* Write data to buffer. */
-            SampleBuffer buf = dac0.dequeue();
+            // Write raw signal data to buffer.
             for (size_t i = 0; i < buf.size(); i++)
             {
-                /* Scale down to 12 bit. */
+                // Scale down to 12 bit.
                 uint16_t const dac_val = ((static_cast<unsigned int>(chunk[i]) + 32768) >> 4) & 0x0fff;
                 buf[i] = dac_val;
             }
+            // Remove the processed data from the chunk.
+            chunk.erase(chunk.begin(), chunk.begin() + buf.size());
 
-            /* Write the buffer to DAC. */
+            // Write the buffer to DAC.
             dac0.write(buf);
         }
 
@@ -150,6 +160,10 @@ namespace audio
             return !initialized;
         }
 
+        /**
+         * @brief Seek to a specific time in the audio file.
+         * @param seconds The time in seconds to seek to.
+         */
         void seek(float seconds)
         {
             if (!initialized)
@@ -158,11 +172,13 @@ namespace audio
                 return;
             }
 
-            // Calculate the byte offset based on the sample rate and bits per sample
-            unsigned long offset = static_cast<unsigned long>(seconds * header.sampleRate * (header.bitsPerSample / 8)) / 2.0f;
-            stream.seek(offset, SEEK_SET);
+            // TODO: Implement seeking functionality
         }
 
+        /**
+         * @brief Get the current playback progress as a percentage.
+         * @return The current playback progress as a percentage (0.0 to 100.0).
+         */
         float progress()
         {
             if (!initialized)
@@ -171,10 +187,14 @@ namespace audio
                 return 0.0f;
             }
 
-            // Calculate the current playback position as a percentage
-            return (static_cast<float>(stream.tell()) / totalSize) * duration();
+            // TODO: Calculate the current playback position as a percentage
+            return 0.0f;
         }
 
+        /**
+         * @brief Get the total duration of the audio file in seconds.
+         * @return The total duration of the audio file in seconds.
+         */
         float duration()
         {
             if (!initialized)
@@ -183,8 +203,8 @@ namespace audio
                 return 0.0f;
             }
 
-            // Calculate the total duration in seconds
-            return static_cast<float>(totalSize) / (header.sampleRate * (header.bitsPerSample / 8)) / 2.0f;
+            // TODO: Calculate the total duration in seconds
+            return 0.0f;
         }
 
         bool good() const
