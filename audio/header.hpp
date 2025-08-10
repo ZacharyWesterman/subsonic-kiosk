@@ -65,12 +65,12 @@ namespace audio
      * @param format The audio format of the file.
      * @return A vector containing raw signal data.
      */
-    std::vector<uint8_t> getChunk(fs::FileStream &stream, int chunkSize, AudioFormat format)
+    std::vector<uint16_t> getChunk(fs::FileStream &stream, int chunkSize, AudioFormat format)
     {
         if (format == WAV)
         {
             /* Read the data chunk. */
-            return stream.read<uint8_t>(chunkSize);
+            return stream.read<uint16_t>(chunkSize);
         }
         else
         {

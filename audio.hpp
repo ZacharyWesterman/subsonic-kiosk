@@ -41,10 +41,10 @@ namespace audio
         fs::FileStream stream;
         size_t totalSize;
         header_t header;
-        std::vector<uint8_t> chunk;
+        std::vector<uint16_t> chunk;
 
     public:
-        Player(fs::FileStream &&fileStream) : initialized(false), playing(false), format(NO_AUDIO), stream(fileStream)
+        Player(const fs::Path &file) : initialized(false), playing(false), format(NO_AUDIO), stream(file.stream())
         {
             if (!stream)
             {
