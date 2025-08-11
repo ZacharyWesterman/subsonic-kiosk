@@ -113,6 +113,8 @@ namespace audio
 
             // Write the buffer to DAC.
             dac0.write(buf);
+
+            currentSeconds = getCurrentSeconds(stream, header, format);
         }
 
         void play()

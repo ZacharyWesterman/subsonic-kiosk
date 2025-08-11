@@ -78,4 +78,27 @@ namespace audio
             return {};
         }
     }
+
+    /**
+     * @brief Get the current playback time in seconds.
+     * @param stream The file stream to read from.
+     * @param header The audio file header.
+     * @param format The audio format of the file.
+     * @return The current playback time in seconds.
+     */
+    float getCurrentSeconds(const fs::FileStream &stream, const header_t &header, AudioFormat format)
+    {
+        if (format == WAV)
+        {
+            unsigned long totalSize = stream.size() - 44;
+            unsigned long position = stream.tell() - 44;
+
+            return static_cast<float>(position) / totalSize * header.wav.sampleRate;
+        }
+        else
+        {
+            logger::error("Unsupported audio format for current seconds calculation.");
+            return 0.0f;
+        }
+    }
 }

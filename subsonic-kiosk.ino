@@ -8,9 +8,13 @@
 
 #include "require.hpp"
 
+#include "callback.hpp"
+
 audio::Player *player;
 // int counter = 0;
 bool NET_AVAILABLE = false;
+
+callback::repeat *progress = nullptr;
 
 void setup()
 {
@@ -29,6 +33,13 @@ void setup()
   {
     player = new audio::Player(filename);
     player->play();
+
+    progress = new callback::repeat(
+        1000,
+        []()
+        {
+          logger::info("Current playback progress: " + String(player->seconds()) + "/" + String(player->duration()) + " seconds");
+        });
   }
 
   // net::connect(3);
@@ -58,6 +69,8 @@ void loop()
 
   if (player && player->good())
   {
+    (*progress)();
+
     if (player->finished())
     {
       logger::info("Playback finished.");
