@@ -39,12 +39,15 @@ namespace audio
         bool playing;
         AudioFormat format;
         fs::FileStream stream;
-        size_t totalSize;
+
+        float currentSeconds;
+        float totalSeconds;
+
         header_t header;
         std::vector<uint16_t> chunk;
 
     public:
-        Player(const fs::Path &file) : initialized(false), playing(false), format(NO_AUDIO), stream(file.stream())
+        Player(const fs::Path &file) : initialized(false), playing(false), format(NO_AUDIO), stream(file.stream()), currentSeconds(0.0f)
         {
             if (!stream)
             {
@@ -71,6 +74,7 @@ namespace audio
                 format = WAV;
                 wav::seekData(stream);
                 sampleRate = wav::sampleRate(header.wav);
+                totalSeconds = static_cast<float>(stream.size() - 44) / (sampleRate * 2);
             }
             else
             {
@@ -88,7 +92,6 @@ namespace audio
             logger::info("Player initialized for file.");
 
             initialized = true;
-            totalSize = stream.size();
         }
 
         bool output()
@@ -180,7 +183,22 @@ namespace audio
             }
 
             // TODO: Calculate the current playback position as a percentage
-            return 0.0f;
+            return (currentSeconds / totalSeconds) * 100.0f;
+        }
+
+        /**
+         * @brief Get the current playback position in seconds.
+         * @return The current playback position in seconds.
+         */
+        float seconds()
+        {
+            if (!initialized)
+            {
+                logger::error("Player not initialized.");
+                return 0.0f;
+            }
+
+            return currentSeconds;
         }
 
         /**
@@ -195,8 +213,7 @@ namespace audio
                 return 0.0f;
             }
 
-            // TODO: Calculate the total duration in seconds
-            return 0.0f;
+            return totalSeconds;
         }
 
         bool good() const
