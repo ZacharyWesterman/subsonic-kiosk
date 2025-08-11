@@ -49,7 +49,6 @@ namespace audio
                 format = WAV;
                 wav::seekData(stream);
                 sampleRate = wav::sampleRate(header.wav);
-                totalSeconds = static_cast<float>(stream.size() - 44) / (sampleRate * 2);
             }
             else
             {
@@ -63,6 +62,8 @@ namespace audio
                 logger::error("Failed to start DAC0!");
                 return;
             }
+
+            totalSeconds = getTotalSeconds(stream, header, format);
 
             logger::info("Player initialized for file.");
 
