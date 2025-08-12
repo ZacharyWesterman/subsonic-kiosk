@@ -4,93 +4,79 @@
 
 #include "../logger.hpp"
 
-namespace fs
-{
-    class FileStream
-    {
-        FILE *file;
+namespace fs {
 
-    public:
-        FileStream(FILE *file = nullptr) : file(file) {}
+class FileStream {
+	FILE *file;
 
-        ~FileStream()
-        {
-            if (file)
-            {
-                fclose(file);
-            }
-        }
+public:
+	FileStream(FILE *file = nullptr) : file(file) {}
 
-        bool good() const
-        {
-            return file != nullptr && !ferror(file);
-        }
+	~FileStream() {
+		if (file) {
+			fclose(file);
+		}
+	}
 
-        bool bad() const
-        {
-            return file == nullptr || ferror(file);
-        }
+	bool good() const {
+		return file != nullptr && !ferror(file);
+	}
 
-        inline operator bool() const
-        {
-            return good();
-        }
+	bool bad() const {
+		return file == nullptr || ferror(file);
+	}
 
-        template <typename T>
-        std::vector<T> read(int chunkSize = 1024)
-        {
-            if (!file)
-            {
-                logger::error("FileStream is not initialized.");
-                return {};
-            }
+	inline operator bool() const {
+		return good();
+	}
 
-            std::vector<T> buffer(chunkSize);
-            size_t dataRead = fread(buffer.data(), sizeof(T), chunkSize, file);
-            if (dataRead == 0 && ferror(file))
-            {
-                logger::error("Error reading from file.");
-                return {};
-            }
+	template <typename T>
+	std::vector<T> read(int chunkSize = 1024) {
+		if (!file) {
+			logger::error("FileStream is not initialized.");
+			return {};
+		}
 
-            buffer.resize(dataRead);
-            return buffer;
-        }
+		std::vector<T> buffer(chunkSize);
+		size_t dataRead = fread(buffer.data(), sizeof(T), chunkSize, file);
+		if (dataRead == 0 && ferror(file)) {
+			logger::error("Error reading from file.");
+			return {};
+		}
 
-        bool seek(size_t position, int flag = SEEK_SET)
-        {
-            if (!file)
-            {
-                logger::error("FileStream is not initialized.");
-                return false;
-            }
+		buffer.resize(dataRead);
+		return buffer;
+	}
 
-            if (fseek(file, position, flag) != 0)
-            {
-                logger::error("Failed to seek in file.");
-                return false;
-            }
-            return true;
-        }
+	bool seek(size_t position, int flag = SEEK_SET) {
+		if (!file) {
+			logger::error("FileStream is not initialized.");
+			return false;
+		}
 
-        size_t tell() const
-        {
-            return ftell(file);
-        }
+		if (fseek(file, position, flag) != 0) {
+			logger::error("Failed to seek in file.");
+			return false;
+		}
+		return true;
+	}
 
-        size_t size() const
-        {
-            if (!file)
-            {
-                logger::error("FileStream is not initialized.");
-                return 0;
-            }
+	size_t tell() const {
+		return ftell(file);
+	}
 
-            auto currentPos = ftell(file);
-            fseek(file, 0, SEEK_END);
-            auto fileSize = ftell(file);
-            fseek(file, currentPos, SEEK_SET);
-            return fileSize;
-        }
-    };
-}
+	size_t size() const {
+		if (!file) {
+			logger::error("FileStream is not initialized.");
+			return 0;
+		}
+
+		auto currentPos = ftell(file);
+		fseek(file, 0, SEEK_END);
+		auto fileSize = ftell(file);
+		fseek(file, currentPos, SEEK_SET);
+		return fileSize;
+	}
+};
+
+} // namespace fs

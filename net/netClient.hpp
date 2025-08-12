@@ -1,232 +1,194 @@
 #pragma once
 
-#include <WiFi.h>
 #include <ArduinoJson.h>
+#include <WiFi.h>
 #include <vector>
 
 #include "../logger.hpp"
 
-namespace net
-{
-    class Request
-    {
-        WiFiClient &client;
-        bool finished = false;
-        String responseBody;
+namespace net {
 
-    public:
-        int status;
+class Request {
+	WiFiClient &client;
+	bool finished = false;
+	String responseBody;
 
-        Request(WiFiClient &client) : client(client)
-        {
-            status = 400; // Default to bad request
+public:
+	int status;
 
-            // Read the response status line
-            String statusLine = readln();
-            int i1 = statusLine.indexOf(' ');
-            if (i1 != -1)
-            {
-                int i2 = statusLine.indexOf(' ', i1 + 1);
-                if (i2 != -1)
-                {
-                    status = statusLine.substring(i1 + 1, i2).toInt();
-                }
-            }
-        }
+	Request(WiFiClient &client) : client(client) {
+		status = 400; // Default to bad request
 
-        inline operator bool() const
-        {
-            return ok();
-        }
+		// Read the response status line
+		String statusLine = readln();
+		int i1 = statusLine.indexOf(' ');
+		if (i1 != -1) {
+			int i2 = statusLine.indexOf(' ', i1 + 1);
+			if (i2 != -1) {
+				status = statusLine.substring(i1 + 1, i2).toInt();
+			}
+		}
+	}
 
-        bool done() const
-        {
-            return finished;
-        }
+	inline operator bool() const {
+		return ok();
+	}
 
-        bool ok() const
-        {
-            return status >= 200 && status < 300;
-        }
+	bool done() const {
+		return finished;
+	}
 
-        std::vector<uint8_t> read(int chunkSize = 1024)
-        {
-            std::vector<uint8_t> data;
-            if (finished)
-            {
-                return data; // Return empty vector if already finished
-            }
+	bool ok() const {
+		return status >= 200 && status < 300;
+	}
 
-            while (client.connected())
-            {
-                int bytes = client.available();
-                if (bytes == 0)
-                {
-                    delay(10); // Wait for data to be available
-                    continue;
-                }
+	std::vector<uint8_t> read(int chunkSize = 1024) {
+		std::vector<uint8_t> data;
+		if (finished) {
+			return data; // Return empty vector if already finished
+		}
 
-                data.reserve(data.size() + bytes);
-                for (int i = 0; i < bytes; ++i)
-                {
-                    data.push_back(client.read());
-                    if (data.size() >= chunkSize)
-                    {
-                        break; // Stop reading if chunk size is reached
-                    }
-                }
+		while (client.connected()) {
+			int bytes = client.available();
+			if (bytes == 0) {
+				delay(10); // Wait for data to be available
+				continue;
+			}
 
-                if (data.size() >= chunkSize)
-                {
-                    break; // Stop reading if chunk size is reached
-                }
-            }
+			data.reserve(data.size() + bytes);
+			for (int i = 0; i < bytes; ++i) {
+				data.push_back(client.read());
+				if (data.size() >= chunkSize) {
+					break; // Stop reading if chunk size is reached
+				}
+			}
 
-            if (!client.connected())
-            {
-                finished = true; // Mark as finished if connection is lost
-            }
+			if (data.size() >= chunkSize) {
+				break; // Stop reading if chunk size is reached
+			}
+		}
 
-            return data;
-        }
+		if (!client.connected()) {
+			finished = true; // Mark as finished if connection is lost
+		}
 
-        String readln()
-        {
-            String line;
-            if (finished)
-            {
-                return line; // Return empty line if already finished
-            }
+		return data;
+	}
 
-            while (client.connected())
-            {
-                int bytes = client.available();
-                bool lineComplete = false;
+	String readln() {
+		String line;
+		if (finished) {
+			return line; // Return empty line if already finished
+		}
 
-                if (bytes == 0)
-                {
-                    delay(10); // Wait for data to be available
-                    continue;
-                }
+		while (client.connected()) {
+			int bytes = client.available();
+			bool lineComplete = false;
 
-                line.reserve(line.length() + bytes);
-                for (int i = 0; i < bytes; ++i)
-                {
-                    char c = client.read();
-                    if (c == '\n')
-                    {
-                        lineComplete = true; // End of line
-                        break;
-                    }
-                    if (c != '\r') // Ignore carriage return
-                    {
-                        line += c;
-                    }
-                }
+			if (bytes == 0) {
+				delay(10); // Wait for data to be available
+				continue;
+			}
 
-                if (lineComplete)
-                {
-                    break;
-                }
-            }
+			line.reserve(line.length() + bytes);
+			for (int i = 0; i < bytes; ++i) {
+				char c = client.read();
+				if (c == '\n') {
+					lineComplete = true; // End of line
+					break;
+				}
+				if (c != '\r') // Ignore carriage return
+				{
+					line += c;
+				}
+			}
 
-            if (!client.connected())
-            {
-                finished = true; // Mark as finished if connection is lost
-            }
+			if (lineComplete) {
+				break;
+			}
+		}
 
-            return line;
-        }
+		if (!client.connected()) {
+			finished = true; // Mark as finished if connection is lost
+		}
 
-        String text()
-        {
-            if (finished)
-            {
-                return responseBody;
-            }
+		return line;
+	}
 
-            bool foundBody = false;
-            while (client.connected())
-            {
-                if (readln().length() == 0)
-                {
-                    foundBody = true; // Empty line indicates end of headers
-                    break;
-                }
-            }
+	String text() {
+		if (finished) {
+			return responseBody;
+		}
 
-            if (foundBody)
-            {
-                while (client.connected())
-                {
-                    String line = readln();
-                    responseBody += line + "\n"; // Append line to response body
-                }
-            }
+		bool foundBody = false;
+		while (client.connected()) {
+			if (readln().length() == 0) {
+				foundBody = true; // Empty line indicates end of headers
+				break;
+			}
+		}
 
-            finished = true; // Mark as finished after reading the body
-            return responseBody;
-        }
+		if (foundBody) {
+			while (client.connected()) {
+				String line = readln();
+				responseBody += line + "\n"; // Append line to response body
+			}
+		}
 
-        JsonDocument json()
-        {
-            if (!ok())
-            {
-                return JsonDocument(); // Return empty document if not OK
-            }
+		finished = true; // Mark as finished after reading the body
+		return responseBody;
+	}
 
-            String body = text();
-            JsonDocument doc;
-            DeserializationError error = deserializeJson(doc, body.c_str());
-            if (error)
-            {
-                logger::error("Failed to parse JSON: " + String(error.c_str()));
-                return JsonDocument(); // Return empty document on error
-            }
-            return doc;
-        }
-    };
+	JsonDocument json() {
+		if (!ok()) {
+			return JsonDocument(); // Return empty document if not OK
+		}
 
-    class NetClient
-    {
-        WiFiClient client;
-        String host;
-        int port;
-        bool connected = false;
+		String body = text();
+		JsonDocument doc;
+		DeserializationError error = deserializeJson(doc, body.c_str());
+		if (error) {
+			logger::error("Failed to parse JSON: " + String(error.c_str()));
+			return JsonDocument(); // Return empty document on error
+		}
+		return doc;
+	}
+};
 
-    public:
-        NetClient(const String &host, int port) : host(host), port(port)
-        {
-            connected = client.connect(host.c_str(), port);
-        }
+class NetClient {
+	WiFiClient client;
+	String host;
+	int port;
+	bool connected = false;
 
-        ~NetClient()
-        {
-            if (connected)
-            {
-                client.stop();
-            }
-        }
+public:
+	NetClient(const String &host, int port) : host(host), port(port) {
+		connected = client.connect(host.c_str(), port);
+	}
 
-        Request get(const String &path)
-        {
-            if (!connected)
-            {
-                connected = client.connect(host.c_str(), port);
-            }
+	~NetClient() {
+		if (connected) {
+			client.stop();
+		}
+	}
 
-            if (!connected)
-            {
-                return Request(client);
-            }
+	Request get(const String &path) {
+		if (!connected) {
+			connected = client.connect(host.c_str(), port);
+		}
 
-            client.println("GET " + path + " HTTP/1.1");
-            client.println("Host: " + host);
-            client.println("Connection: close");
-            client.println();
+		if (!connected) {
+			return Request(client);
+		}
 
-            Request response(client);
-            return response;
-        }
-    };
-}
+		client.println("GET " + path + " HTTP/1.1");
+		client.println("Host: " + host);
+		client.println("Connection: close");
+		client.println();
+
+		Request response(client);
+		return response;
+	}
+};
+
+} // namespace net
