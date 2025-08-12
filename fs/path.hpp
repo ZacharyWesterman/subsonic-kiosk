@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../fs.hpp"
+
 namespace fs {
 
 class Path; // Forward declaration
