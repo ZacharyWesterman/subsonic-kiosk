@@ -1,12 +1,13 @@
 
 #define SERIAL_DEBUG
 
-#include "audio.hpp"
-#include "callback.hpp"
-#include "fs.hpp"
-#include "net.hpp"
-#include "pins.hpp"
-#include "require.hpp"
+#include "src/audio.hpp"
+#include "src/callback.hpp"
+#include "src/fs.hpp"
+#include "src/net.hpp"
+#include "src/pins.hpp"
+#include "src/require.hpp"
+#include "src/uid.hpp"
 
 audio::Player *player;
 // int counter = 0;
@@ -22,7 +23,6 @@ void setup() {
 #endif
 
 	fs::connect(); // Ensure filesystem is connected
-	// request::netInit(); // Try to connect to the network, if available
 
 	// Initialize the audio player with a specific file, if supported.
 	fs::Path filename("/spark.wav");
@@ -32,8 +32,6 @@ void setup() {
 
 		progress = new callback::repeat(1000, []() { logger::info("Current playback progress: " + String(player->seconds()) + "/" + String(player->duration()) + " seconds"); });
 	}
-
-	// net::connect(3);
 }
 
 void loop() {
@@ -41,20 +39,8 @@ void loop() {
 		logger::warn("USB device disconnected! Attempting to reconnect...");
 		fs::connect();
 
-		// request::netInit(); // Reinitialize network if USB is reconnected
 		return;
 	}
-
-	// request::net(); // Try to keep the network connected
-
-	// logger::info("Busy waiting... " + String(millis() / 1000) + "s");
-
-	// if (!net::connected())
-	// {
-	//   logger::warn("Network disconnected! Attempting to reconnect...");
-	//   net::connect(0);
-	//   return;
-	// }
 
 	if (player && player->good()) {
 		(*progress)();
