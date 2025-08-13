@@ -37,4 +37,5 @@ It's very much a WIP (there's not even a UI yet!) but by the end, any audio shou
       - [ ] Speech to text? (for searching audio)
 - UI
     - [ ] LVGL
+    - [ ] Run on separate thread from backend?
     - **(Future plans will be decided when non-UI is in a more complete state)**
