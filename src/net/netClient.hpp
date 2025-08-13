@@ -82,6 +82,18 @@ public:
 	 * empty JsonDocument.
 	 */
 	JsonDocument json();
+
+	/**
+	 * @brief Check if data is ready to be read from the response.
+	 * @return True if data is ready, false otherwise.
+	 */
+	bool ready() const;
+
+	/**
+	 * @brief Get the data that's available to be read from the response.
+	 * @return A vector containing the bytes that are available to be read.
+	 */
+	std::vector<uint8_t> data();
 };
 
 /**

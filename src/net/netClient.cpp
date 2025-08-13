@@ -137,6 +137,31 @@ JsonDocument Request::json() {
 	return doc;
 }
 
+bool Request::ready() const {
+	return client.available();
+}
+
+std::vector<uint8_t> Request::data() {
+	std::vector<uint8_t> availableData;
+
+	if (finished) {
+		return availableData;
+	}
+
+	if (!client.connected()) {
+		finished = true;
+		return availableData;
+	}
+
+	const int bytes = client.available();
+	availableData.reserve(bytes);
+	for (int i = 0; i < bytes; ++i) {
+		availableData.push_back(client.read());
+	}
+
+	return availableData;
+}
+
 NetClient::NetClient(const String &host, int port) : host(host), port(port) {
 	connected = client.connect(host.c_str(), port);
 }

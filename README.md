@@ -11,13 +11,12 @@ It's very much a WIP (there's not even a UI yet!) but by the end, any audio shou
     - [x] Write files
     - [x] Create dirs
     - [ ] Delete files/dirs (recursively delete dirs)
-
   - [x] Stream file contents (don't load whole file at once)
 - Network
   - [x] Non-blocking poll for connection
   - [x] Simple HTTP(S) requests
   - [x] Stream downloads into file
-  - [ ] Async file downloads
+  - [x] Async file downloads
   - [ ] File download queue
   - [ ] Make Subsonic requests
     - [ ] Request transcoding of audio if possible
