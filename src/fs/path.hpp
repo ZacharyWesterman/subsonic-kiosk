@@ -12,34 +12,13 @@ class IterDir {
 	struct dirent *entry;
 
 public:
-	IterDir(const Path &parent, const String &path, bool end = false) : parent(parent) {
-		dir = nullptr;
-		entry = nullptr;
+	IterDir(const Path &parent, const String &path, bool end = false);
 
-		if (!end && connected()) {
-			dir = opendir(_path(path).c_str());
-			if (dir) {
-				entry = readdir(dir);
-			}
-		}
-	}
+	~IterDir();
 
-	~IterDir() {
-		if (dir && connected()) {
-			closedir(dir);
-		}
-	}
+	bool operator!=(const IterDir &other) const;
 
-	bool operator!=(const IterDir &other) const {
-		return entry != nullptr;
-	}
-
-	IterDir &operator++() {
-		if (dir) {
-			entry = readdir(dir);
-		}
-		return *this;
-	}
+	IterDir &operator++();
 
 	const Path operator*() const;
 };
@@ -48,253 +27,47 @@ class Path {
 	String path;
 
 public:
-	Path(const String &path) {
-		if (path.endsWith("/")) {
-			this->path = path.substring(0, path.length() - 1); // Remove trailing slash
-		} else {
-			this->path = path;
-		}
-	}
+	Path(const String &path);
 
-	bool exists() const {
-		if (!fs::connected()) {
-			return false;
-		}
-		struct stat st;
-		return stat(_path(path).c_str(), &st) == 0;
-	}
+	bool exists() const;
 
-	bool isDir() const {
-		if (!fs::connected()) {
-			return false;
-		}
-		struct stat st;
-		if (stat(_path(path).c_str(), &st) != 0) {
-			return false;
-		}
-		return S_ISDIR(st.st_mode);
-	}
+	bool isDir() const;
 
-	bool isFile() const {
-		if (!fs::connected()) {
-			return false;
-		}
-		struct stat st;
-		if (stat(_path(path).c_str(), &st) != 0) {
-			return false;
-		}
-		return S_ISREG(st.st_mode);
-	}
+	bool isFile() const;
 
-	Path operator/(const String &subPath) const {
-		return Path(path + "/" + subPath);
-	}
+	Path operator/(const String &subPath) const;
 
-	Path &operator/=(const String &subPath) {
-		path += "/" + subPath;
-		return *this;
-	}
+	Path &operator/=(const String &subPath);
 
-	const String &str() const {
-		return path;
-	}
+	const String &str() const;
 
-	const char *c_str() const {
-		return path.c_str();
-	}
+	const char *c_str() const;
 
-	String name() const {
-		int lastSlash = path.lastIndexOf('/');
-		if (lastSlash == -1) {
-			return path;
-		}
-		return path.substring(lastSlash + 1);
-	}
+	String name() const;
 
-	String stem() const {
-		String n = name();
-		int dotIndex = n.lastIndexOf('.');
-		if (dotIndex == -1) {
-			return n;
-		}
-		return n.substring(0, dotIndex);
-	}
+	String stem() const;
 
-	String ext() const {
-		String n = name();
-		int dotIndex = n.lastIndexOf('.');
-		if (dotIndex == -1) {
-			return ""; // No extension
-		}
-		n = n.substring(dotIndex + 1);
-		n.toLowerCase();
-		return n;
-	}
+	String ext() const;
 
-	String parent() const {
-		int lastSlash = path.lastIndexOf('/');
-		if (lastSlash == -1) {
-			return ""; // No parent directory
-		}
-		return path.substring(0, lastSlash);
-	}
+	String parent() const;
 
-	String read() const {
-		if (!connected()) {
-			return "";
-		}
+	String read() const;
 
-		auto file = fopen(_path(path).c_str(), "r");
-		if (!file) {
-			logger::error("Failed to open file for reading: " + path);
-			return "";
-		}
+	std::vector<String> readlines() const;
 
-		String content;
-		char buffer[256];
-		while (fgets(buffer, sizeof(buffer), file)) {
-			content += buffer;
-		}
+	bool write(const String &data, bool append = false) const;
 
-		fclose(file);
-		return content;
-	}
+	bool write(const std::vector<uint8_t> &data, bool append = false) const;
 
-	std::vector<String> readlines() const {
-		if (!connected()) {
-			return {};
-		}
+	bool mkdir(bool exist_ok = false) const;
 
-		std::vector<String> lines;
-		String data = read();
-		if (data.isEmpty()) {
-			return lines; // Return empty vector if no data
-		}
+	int size() const;
 
-		int index = 0;
-		while (index < data.length()) {
-			int nextIndex = data.indexOf('\n', index);
-			if (nextIndex == -1) {
-				lines.push_back(data.substring(index));
-				break; // No more newlines, add the rest
-			}
-			lines.push_back(data.substring(index, nextIndex));
-			index = nextIndex + 1; // Move past the newline
-		}
+	FileStream stream() const;
 
-		return lines;
-	}
+	IterDir begin() const;
 
-	bool write(const String &data, bool append = false) const {
-		if (!connected()) {
-			return false;
-		}
-
-		auto file = fopen(_path(path).c_str(), append ? "a" : "w");
-		if (!file) {
-			logger::error("Failed to open file for writing: " + path);
-			return false;
-		}
-
-		size_t written = fwrite(data.c_str(), 1, data.length(), file);
-		fclose(file);
-
-		if (written != data.length()) {
-			logger::error("Failed to write all data to file: " + path);
-			return false;
-		}
-
-		return true;
-	}
-
-	bool write(const std::vector<uint8_t> &data, bool append = false) const {
-		if (!connected()) {
-			return false;
-		}
-
-		auto file = fopen(_path(path).c_str(), append ? "ab" : "wb");
-		if (!file) {
-			logger::error("Failed to open file for writing: " + path);
-			return false;
-		}
-
-		size_t written = fwrite(data.data(), 1, data.size(), file);
-		fclose(file);
-
-		if (written != data.size()) {
-			logger::error("Failed to write all data to file: " + path);
-			return false;
-		}
-
-		return true;
-	}
-
-	bool mkdir(bool exist_ok = false) const {
-		if (!connected()) {
-			return false;
-		}
-
-		if (exists()) {
-			if (exist_ok) {
-				if (!isDir()) {
-					logger::error("Path exists but is not a directory: " + path);
-					return false;
-				}
-				return true;
-			}
-			logger::error("Directory already exists: " + path);
-			return false;
-		}
-
-		if (::mkdir(_path(path).c_str(), 0755) != 0) {
-			logger::error("Failed to create directory: " + path);
-			return false;
-		}
-		return true;
-	}
-
-	int size() const {
-		if (!connected()) {
-			return -1;
-		}
-
-		struct stat st;
-		if (stat(_path(path).c_str(), &st) != 0) {
-			logger::error("Failed to get file size: " + path);
-			return -1;
-		}
-		return st.st_size;
-	}
-
-	FileStream stream() const {
-		if (!connected()) {
-			logger::error("FileStream is not connected to a USB device.");
-			return FileStream();
-		}
-
-		auto file = fopen(_path(path).c_str(), "r");
-		if (!file) {
-			logger::error("Failed to open file for streaming: " + path);
-			return FileStream();
-		}
-
-		return FileStream(file);
-	}
-
-	IterDir begin() const {
-		return IterDir(*this, path);
-	}
-
-	IterDir end() const {
-		return IterDir(*this, path, true);
-	}
+	IterDir end() const;
 };
-
-const Path IterDir::operator*() const {
-	if (entry) {
-		return parent / String(entry->d_name);
-	}
-	return Path(""); // Return an empty path if no entry
-}
 
 } // namespace fs

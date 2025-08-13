@@ -10,15 +10,9 @@ class repeat {
 	std::function<void()> func;
 
 public:
-	repeat(unsigned long interval, std::function<void()> func) : lastTime(0), interval(interval), func(func) {}
+	repeat(unsigned long interval, std::function<void()> func);
 
-	void operator()() {
-		unsigned long currentTime = millis();
-		if (currentTime - lastTime >= interval || lastTime == 0) {
-			func();
-			lastTime = currentTime;
-		}
-	}
+	void operator()();
 };
 
 } // namespace callback

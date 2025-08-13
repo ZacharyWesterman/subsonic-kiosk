@@ -10,8 +10,6 @@
 #include "src/uid.hpp"
 
 audio::Player *player;
-// int counter = 0;
-bool NET_AVAILABLE = false;
 
 callback::repeat *progress = nullptr;
 

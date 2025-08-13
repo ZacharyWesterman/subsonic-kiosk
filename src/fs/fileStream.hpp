@@ -1,8 +1,8 @@
 #pragma once
 
-#include <vector>
-
 #include "../logger.hpp"
+#include <Arduino_USBHostMbed5.h>
+#include <vector>
 
 namespace fs {
 
@@ -10,21 +10,13 @@ class FileStream {
 	FILE *file;
 
 public:
-	FileStream(FILE *file = nullptr) : file(file) {}
+	FileStream(FILE *file = nullptr);
 
-	~FileStream() {
-		if (file) {
-			fclose(file);
-		}
-	}
+	~FileStream();
 
-	bool good() const {
-		return file != nullptr && !ferror(file);
-	}
+	bool good() const;
 
-	bool bad() const {
-		return file == nullptr || ferror(file);
-	}
+	bool bad() const;
 
 	inline operator bool() const {
 		return good();
@@ -48,35 +40,11 @@ public:
 		return buffer;
 	}
 
-	bool seek(size_t position, int flag = SEEK_SET) {
-		if (!file) {
-			logger::error("FileStream is not initialized.");
-			return false;
-		}
+	bool seek(size_t position, int flag = SEEK_SET);
 
-		if (fseek(file, position, flag) != 0) {
-			logger::error("Failed to seek in file.");
-			return false;
-		}
-		return true;
-	}
+	size_t tell() const;
 
-	size_t tell() const {
-		return ftell(file);
-	}
-
-	size_t size() const {
-		if (!file) {
-			logger::error("FileStream is not initialized.");
-			return 0;
-		}
-
-		auto currentPos = ftell(file);
-		fseek(file, 0, SEEK_END);
-		auto fileSize = ftell(file);
-		fseek(file, currentPos, SEEK_SET);
-		return fileSize;
-	}
+	size_t size() const;
 };
 
 } // namespace fs

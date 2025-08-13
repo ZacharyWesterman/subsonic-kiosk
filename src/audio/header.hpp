@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../fs/fileStream.hpp"
 #include <vector>
 
 namespace audio {
@@ -26,17 +27,11 @@ struct header_t {
 	unsigned short bitsPerSample;
 };
 
-bool valid(const header_t &header) {
-	return (*(unsigned int *)header.chunkID == 0x46464952) && (*(unsigned int *)header.format == 0x45564157);
-}
+bool valid(const header_t &header);
 
-void seekData(fs::FileStream &stream) {
-	stream.seek(44); // Skip the header to the data chunk
-}
+void seekData(fs::FileStream &stream);
 
-unsigned long sampleRate(const header_t &header) {
-	return header.sampleRate;
-}
+unsigned long sampleRate(const header_t &header);
 
 } // namespace wav
 
@@ -44,12 +39,10 @@ union header_t {
 	wav::header_t wav;
 	// Add other formats here if needed
 
-	header_t() {}
+	header_t();
 };
 
-bool validHeader(const header_t &header) {
-	return wav::valid(header.wav);
-}
+bool validHeader(const header_t &header);
 
 /**
  * @brief Read a chunk of data from the audio file, decoding it into raw signal data.
@@ -58,15 +51,7 @@ bool validHeader(const header_t &header) {
  * @param format The audio format of the file.
  * @return A vector containing raw signal data.
  */
-std::vector<uint16_t> getChunk(fs::FileStream &stream, int chunkSize, AudioFormat format) {
-	if (format == WAV) {
-		/* Read the data chunk. */
-		return stream.read<uint16_t>(chunkSize);
-	} else {
-		logger::error("Unsupported audio format for chunk reading.");
-		return {};
-	}
-}
+std::vector<uint16_t> getChunk(fs::FileStream &stream, int chunkSize, AudioFormat format);
 
 /**
  * @brief Get the current playback time in seconds.
@@ -75,24 +60,8 @@ std::vector<uint16_t> getChunk(fs::FileStream &stream, int chunkSize, AudioForma
  * @param format The audio format of the file.
  * @return The current playback time in seconds.
  */
-float getCurrentSeconds(const fs::FileStream &stream, const header_t &header, AudioFormat format) {
-	if (format == WAV) {
-		unsigned long position = stream.tell() - 44;
-		return static_cast<float>(position) / header.wav.byteRate;
-	} else {
-		logger::error("Unsupported audio format for current seconds calculation.");
-		return 0.0f;
-	}
-}
+float getCurrentSeconds(const fs::FileStream &stream, const header_t &header, AudioFormat format);
 
-float getTotalSeconds(const fs::FileStream &stream, const header_t &header, AudioFormat format) {
-	if (format == WAV) {
-		unsigned long totalSize = stream.size() - 44;
-		return static_cast<float>(totalSize) / header.wav.byteRate;
-	} else {
-		logger::error("Unsupported audio format for total seconds calculation.");
-		return 0.0f;
-	}
-}
+float getTotalSeconds(const fs::FileStream &stream, const header_t &header, AudioFormat format);
 
 } // namespace audio
