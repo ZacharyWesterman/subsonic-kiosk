@@ -23,11 +23,13 @@ It's very much a WIP (there's not even a UI yet!) but by the end, any audio shou
     - [ ] Request transcoding of audio if possible
     - [ ] Browse audio based on folder
 - Audio
+  - [ ] Play audio
     - [x] Play WAV files
     - [ ] Play FLAC files
     - [ ] Play OGG files
     - [ ] Play MP3 files
     - (other audio formats may be added as needed)
+  - [ ] Seek position in audio (seconds)
 - Misc
     - [x] JSON parsing
     - [ ] Mic input? (OPTIONAL)
