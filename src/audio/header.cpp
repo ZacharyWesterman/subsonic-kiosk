@@ -24,13 +24,6 @@ bool validHeader(const header_t &header) {
 	return wav::valid(header.wav);
 }
 
-/**
- * @brief Read a chunk of data from the audio file, decoding it into raw signal data.
- * @param stream The file stream to read from.
- * @param chunkSize The minimum size of the chunk to read.
- * @param format The audio format of the file.
- * @return A vector containing raw signal data.
- */
 std::vector<uint16_t> getChunk(fs::FileStream &stream, int chunkSize, AudioFormat format) {
 	if (format == WAV) {
 		/* Read the data chunk. */
@@ -41,13 +34,6 @@ std::vector<uint16_t> getChunk(fs::FileStream &stream, int chunkSize, AudioForma
 	}
 }
 
-/**
- * @brief Get the current playback time in seconds.
- * @param stream The file stream to read from.
- * @param header The audio file header.
- * @param format The audio format of the file.
- * @return The current playback time in seconds.
- */
 float getCurrentSeconds(const fs::FileStream &stream, const header_t &header, AudioFormat format) {
 	if (format == WAV) {
 		unsigned long position = stream.tell() - 44;
