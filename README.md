@@ -25,7 +25,8 @@ It's very much a WIP (there's not even a UI yet!) but by the end, any audio shou
     - (other audio formats may be added as needed)
 - Misc
     - [x] JSON parsing
-    - [ ] Mic input?
+    - [ ] Mic input? (OPTIONAL)
+      - [ ] Keyword recognition? (for quick controls)
       - [ ] Speech to text? (for searching audio)
 - UI
     - [ ] LVGL
