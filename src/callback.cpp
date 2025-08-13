@@ -1,5 +1,3 @@
-#pragma once
-
 #include "callback.hpp"
 #include <Arduino.h>
 
