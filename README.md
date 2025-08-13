@@ -5,7 +5,7 @@ It's very much a WIP (there's not even a UI yet!) by the end, any audio should b
 
 # Road Map
 - File System
-  - [x] Allow disconnectng/reconnecting at run-time
+  - [x] Allow disconnecting/reconnecting at run-time
   - [x] Simple file system traversal/modification
   - [x] Stream file contents (don't load whole file at once)
 - Network
