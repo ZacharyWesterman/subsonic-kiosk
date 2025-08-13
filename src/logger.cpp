@@ -59,10 +59,9 @@ void raw(const String &message) {
 #endif
 }
 
-void test() {
 #ifdef DEBUG
+void test() {
 	Serial.println("Logger test function called.");
-#endif
 
 	// Cycle through colors to indicate logger is working
 	pins::red();
@@ -82,5 +81,6 @@ void test() {
 	pins::off();
 	delay(1500);
 }
+#endif
 
 } // namespace logger
