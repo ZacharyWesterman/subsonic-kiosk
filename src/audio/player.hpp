@@ -8,6 +8,10 @@
 
 namespace audio {
 
+/**
+ * @brief A class to represent an audio player.
+ * This class provides methods to play, pause, and control audio playback.
+ */
 class Player {
 	bool initialized;
 	bool playing;
@@ -21,14 +25,32 @@ class Player {
 	std::vector<uint16_t> chunk;
 
 public:
+	/**
+	 * @brief Constructor for the Player class.
+	 * @param file The file path to the audio file to play.
+	 */
 	Player(const fs::Path &file);
 
+	/**
+	 * @brief Output the audio data to the audio device.
+	 * @return True if the output was successful, false otherwise (invalid audio or playback is finished).
+	 */
 	bool output();
 
+	/**
+	 * @brief Play or continue the audio file.
+	 */
 	void play();
 
+	/**
+	 * @brief Pause the audio playback until resumed.
+	 */
 	void pause();
 
+	/**
+	 * @brief Check if the audio has finished playing.
+	 * @return True if the audio has finished playing, false otherwise.
+	 */
 	bool finished() const;
 
 	/**
@@ -55,6 +77,10 @@ public:
 	 */
 	float duration();
 
+	/**
+	 * @brief Check if the audio player is in a good state.
+	 * @return True if the audio player is good, false otherwise.
+	 */
 	bool good() const;
 };
 
