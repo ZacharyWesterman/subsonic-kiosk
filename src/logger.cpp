@@ -5,7 +5,7 @@
 namespace logger {
 
 void fatal(const String &message) {
-#ifdef SERIAL_DEBUG
+#ifdef DEBUG
 	Serial.println("FATAL ERROR: " + message);
 #endif
 
@@ -19,7 +19,7 @@ void fatal(const String &message) {
 }
 
 void error(const String &message) {
-#ifdef SERIAL_DEBUG
+#ifdef DEBUG
 	Serial.println("ERROR: " + message);
 #endif
 
@@ -30,7 +30,7 @@ void error(const String &message) {
 }
 
 void warn(const String &message) {
-#ifdef SERIAL_DEBUG
+#ifdef DEBUG
 	Serial.println("WARNING: " + message);
 #endif
 
@@ -45,7 +45,7 @@ void warn(const String &message) {
 }
 
 void info(const String &message, bool lineBreak) {
-#ifdef SERIAL_DEBUG
+#ifdef DEBUG
 	Serial.print("INFO: " + message);
 	if (lineBreak) {
 		Serial.println();
@@ -54,13 +54,13 @@ void info(const String &message, bool lineBreak) {
 }
 
 void raw(const String &message) {
-#ifdef SERIAL_DEBUG
+#ifdef DEBUG
 	Serial.print(message);
 #endif
 }
 
 void test() {
-#ifdef SERIAL_DEBUG
+#ifdef DEBUG
 	Serial.println("Logger test function called.");
 #endif
 

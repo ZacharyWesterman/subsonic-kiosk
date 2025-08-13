@@ -1,6 +1,3 @@
-
-#define SERIAL_DEBUG
-
 #include "src/audio.hpp"
 #include "src/callback.hpp"
 #include "src/fs.hpp"
@@ -16,7 +13,7 @@ callback::repeat *progress = nullptr;
 void setup() {
 	pins::init();
 
-#ifdef SERIAL_DEBUG
+#ifdef DEBUG
 	require::serial(); // Initialize serial communication
 #endif
 
