@@ -10,7 +10,7 @@ It's very much a WIP (there's not even a UI yet!) but by the end, any audio shou
     - [x] Read files/dirs
     - [x] Write files
     - [x] Create dirs
-    - [ ] Delete files/dirs (recursively delete dirs)
+    - [x] Delete files/dirs (recursively delete dirs)
   - [x] Stream file contents (don't load whole file at once)
 - Network
   - [x] Non-blocking poll for connection

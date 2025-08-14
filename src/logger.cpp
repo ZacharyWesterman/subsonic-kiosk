@@ -2,6 +2,8 @@
 #include "pins.hpp"
 #include <Arduino.h>
 
+#define DEBUG
+
 namespace logger {
 
 void fatal(const String &message) {

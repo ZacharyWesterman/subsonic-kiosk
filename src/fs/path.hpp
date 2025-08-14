@@ -180,6 +180,14 @@ public:
 	int size() const;
 
 	/**
+	 * @brief Remove the file or directory at this path.
+	 * @param recurse If true, remove directories and their contents recursively.
+	 * @return True if the removal was successful, false otherwise.
+	 * @note If the path is a non-empty directory and recurse is false, the removal will fail.
+	 */
+	bool unlink(bool recurse = false) const;
+
+	/**
 	 * @brief Get a file stream for the file at this path.
 	 * @return A FileStream object for the file.
 	 * @note If the path is not a file or does not exist, the FileStream will be empty.

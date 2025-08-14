@@ -249,6 +249,27 @@ int Path::size() const {
 	return st.st_size;
 }
 
+bool Path::unlink(bool recurse) const {
+	if (!connected()) {
+		return false;
+	}
+
+	if (recurse && isDir()) {
+		// Recursively remove directory contents
+		IterDir it = begin();
+		while (it != end()) {
+			(*it).unlink(true);
+			++it;
+		}
+	}
+
+	if (remove(_path(path).c_str()) != 0) {
+		logger::error("Failed to remove path: " + path);
+		return false;
+	}
+	return true;
+}
+
 FileStream Path::stream() const {
 	if (!connected()) {
 		logger::error("FileStream is not connected to a USB device.");
