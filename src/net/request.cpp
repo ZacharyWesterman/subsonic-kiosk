@@ -5,14 +5,35 @@ namespace net {
 
 Request::Request(WiFiClient &client) : client(client) {
 	status_code = BAD_REQUEST; // Default to bad request
+	content_length = 0;
+	downloaded_bytes = 0;
 
 	// Read the response status line
-	String statusLine = readln();
-	int i1 = statusLine.indexOf(' ');
+	String line = readln();
+	int i1 = line.indexOf(' ');
 	if (i1 != -1) {
-		int i2 = statusLine.indexOf(' ', i1 + 1);
+		int i2 = line.indexOf(' ', i1 + 1);
 		if (i2 != -1) {
-			status_code = static_cast<StatusCode>(statusLine.substring(i1 + 1, i2).toInt());
+			status_code = static_cast<StatusCode>(line.substring(i1 + 1, i2).toInt());
+		}
+	}
+
+	// Read headers
+	while (client.connected()) {
+		line = readln();
+		if (line.length() == 0) {
+			// Empty line indicates end of headers
+			break;
+		}
+		String id, value;
+		const int i1 = line.indexOf(": ");
+		if (i1 != -1) {
+			id = line.substring(0, i1);
+			value = line.substring(i1 + 1);
+		}
+
+		if (id == "Content-Length") {
+			content_length = value.toInt();
 		}
 	}
 
@@ -46,6 +67,8 @@ std::vector<uint8_t> Request::read(int chunkSize) {
 			continue;
 		}
 
+		downloaded_bytes += bytes;
+
 		data.reserve(data.size() + bytes);
 		for (int i = 0; i < bytes; ++i) {
 			data.push_back(client.read());
@@ -61,6 +84,10 @@ std::vector<uint8_t> Request::read(int chunkSize) {
 
 	if (!client.connected()) {
 		finished = true; // Mark as finished if connection is lost
+	}
+
+	if (downloaded_bytes > content_length) {
+		content_length = downloaded_bytes;
 	}
 
 	return data;
@@ -80,6 +107,8 @@ String Request::readln() {
 			delay(10); // Wait for data to be available
 			continue;
 		}
+
+		downloaded_bytes += bytes;
 
 		line.reserve(line.length() + bytes);
 		for (int i = 0; i < bytes; ++i) {
@@ -103,6 +132,10 @@ String Request::readln() {
 		finished = true; // Mark as finished if connection is lost
 	}
 
+	if (downloaded_bytes > content_length) {
+		content_length = downloaded_bytes;
+	}
+
 	return line;
 }
 
@@ -111,19 +144,9 @@ String Request::text() {
 		return responseBody;
 	}
 
-	bool foundBody = false;
 	while (client.connected()) {
-		if (readln().length() == 0) {
-			foundBody = true; // Empty line indicates end of headers
-			break;
-		}
-	}
-
-	if (foundBody) {
-		while (client.connected()) {
-			String line = readln();
-			responseBody += line + "\n"; // Append line to response body
-		}
+		String line = readln();
+		responseBody += line + "\n"; // Append line to response body
 	}
 
 	finished = true; // Mark as finished after reading the body
@@ -167,7 +190,20 @@ std::vector<uint8_t> Request::data() {
 		availableData.push_back(client.read());
 	}
 
+	downloaded_bytes += bytes;
+	if (downloaded_bytes > content_length) {
+		content_length = downloaded_bytes;
+	}
+
 	return availableData;
+}
+
+uint64_t Request::length() const {
+	return content_length;
+}
+
+uint64_t Request::downloaded() const {
+	return downloaded_bytes;
 }
 
 } // namespace net

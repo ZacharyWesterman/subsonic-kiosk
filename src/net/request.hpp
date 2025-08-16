@@ -16,6 +16,8 @@ class Request {
 	bool finished = false;
 	String responseBody;
 	StatusCode status_code;
+	uint64_t content_length;
+	uint64_t downloaded_bytes;
 
 public:
 	/**
@@ -98,6 +100,18 @@ public:
 	 * @return A vector containing the bytes that are available to be read.
 	 */
 	std::vector<uint8_t> data();
+
+	/**
+	 * @brief Get the content length of the response.
+	 * @return The content length of the response in bytes.
+	 */
+	inline uint64_t length() const;
+
+	/**
+	 * @brief Get the number of bytes downloaded so far.
+	 * @return The number of bytes downloaded so far.
+	 */
+	inline uint64_t downloaded() const;
 };
 
 } // namespace net
