@@ -77,6 +77,11 @@ var NAVTREEINDEX0 =
 "classnet_1_1Request.html#ae591117f0d9610b55a9d8078e15f5da8":[2,0,3,1,5],
 "classnet_1_1Request.html#ae7b6885caeda9574be03b5c6e6ec079a":[2,0,3,1,10],
 "classutil_1_1DownloadQueue.html":[2,0,4,1],
+"classutil_1_1DownloadQueue.html#a2aa089b8dab92c75f62acf2724baf55d":[2,0,4,1,4],
+"classutil_1_1DownloadQueue.html#a9844305b5136b0435a4ebe5c8e868fea":[2,0,4,1,2],
+"classutil_1_1DownloadQueue.html#ad995f5056ab8682b02c49d2004a4a6fa":[2,0,4,1,0],
+"classutil_1_1DownloadQueue.html#adb3735dca1e6a5d6f1e3a5e171edc75b":[2,0,4,1,3],
+"classutil_1_1DownloadQueue.html#ae4175efe328f8a63cac5ec35f2c5c6a1":[2,0,4,1,1],
 "dir_68267d1309a1af8e8297ef4c3efbcdba.html":[3,0,0],
 "dir_7d71b6c457a61cbf03a04bfdc57b6110.html":[3,0,0,1],
 "dir_a63dedf81f1e5ea1d42bb45ef831eb8c.html":[3,0,0,0],
@@ -238,11 +243,11 @@ var NAVTREEINDEX0 =
 "structaudio_1_1wav_1_1header__t.html#ae9c0026c553a147c2c8fe648e9babb81":[2,0,0,0,0,3],
 "structaudio_1_1wav_1_1header__t.html#aed9de56b691bf024d02553e476d9b558":[2,0,0,0,0,9],
 "structutil_1_1Download.html":[2,0,4,0],
+"structutil_1_1Download.html#a2fc695a282bb5070ca66bb1bc2ef5f39":[2,0,4,0,2],
+"structutil_1_1Download.html#a5dccea914c132c307e9af3e8c4b062b4":[2,0,4,0,1],
+"structutil_1_1Download.html#ad7ba60db44310af35ea0cf60c8407ff0":[2,0,4,0,0],
 "todo.html":[1],
 "uid_8hpp.html":[3,0,0,3,1],
 "uid_8hpp.html#aa7c8c1a990a29a19a9209f23443c5815":[3,0,0,3,1,0],
-"uid_8hpp_source.html":[3,0,0,3,1],
-"unionaudio_1_1header__t.html":[2,0,0,1],
-"unionaudio_1_1header__t.html#a592bdc5848dc4059b8b76c16a866c049":[2,0,0,1,1],
-"unionaudio_1_1header__t.html#a7f2563640323f399a8f30955b1245d16":[2,0,0,1,0]
+"uid_8hpp_source.html":[3,0,0,3,1]
 };

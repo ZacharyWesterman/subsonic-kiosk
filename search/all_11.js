@@ -7,7 +7,7 @@ var searchData=
   ['ready_4',['ready',['../classnet_1_1Request.html#ac80a38ce646201b4d612d5e0ec8595c1',1,'net::Request']]],
   ['red_5',['red',['../pins_8hpp.html#a3d83cd1e33786ad4505f103beb4be5bf',1,'pins']]],
   ['repeat_6',['repeat',['../classcallback_1_1repeat.html',1,'callback::repeat'],['../classcallback_1_1repeat.html#adc0c65ba6a747e221afcc73b303ced54',1,'callback::repeat::repeat()']]],
-  ['request_7',['request',['../classnet_1_1Request.html',1,'net::Request'],['../classnet_1_1Request.html#a244a9313cbed6692a13ed23eed5ae071',1,'net::Request::Request()']]],
+  ['request_7',['request',['../classnet_1_1Request.html',1,'net::Request'],['../classnet_1_1Request.html#a244a9313cbed6692a13ed23eed5ae071',1,'net::Request::Request()'],['../structutil_1_1Download.html#a2fc695a282bb5070ca66bb1bc2ef5f39',1,'util::Download::request']]],
   ['request_2ehpp_8',['request.hpp',['../request_8hpp.html',1,'']]],
   ['require_2ehpp_9',['require.hpp',['../require_8hpp.html',1,'']]],
   ['road_20map_10',['Road Map',['../index.html#autotoc_md1',1,'']]]

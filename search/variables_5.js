@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['samplerate_0',['sampleRate',['../structaudio_1_1wav_1_1header__t.html#a817d94b71527b5b3288acea9e93da2c8',1,'audio::wav::header_t']]],
-  ['subchunk1id_1',['subchunk1ID',['../structaudio_1_1wav_1_1header__t.html#aed9de56b691bf024d02553e476d9b558',1,'audio::wav::header_t']]],
-  ['subchunk1size_2',['subchunk1Size',['../structaudio_1_1wav_1_1header__t.html#a209c06d739be5b31d868a8fbe8a76998',1,'audio::wav::header_t']]]
+  ['network_5fpass_0',['NETWORK_PASS',['../net_8hpp.html#a606e356e6d06218a52b6033d2b63dedd',1,'net']]],
+  ['network_5fssid_1',['NETWORK_SSID',['../net_8hpp.html#a27e62f901e39ea59ec5c36880ff2c420',1,'net']]],
+  ['numchannels_2',['numChannels',['../structaudio_1_1wav_1_1header__t.html#a934b5c019d2e9e637d4d1db5b44d500d',1,'audio::wav::header_t']]]
 ];

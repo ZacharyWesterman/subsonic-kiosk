@@ -9,5 +9,6 @@ var searchData=
   ['play_6',['play',['../classaudio_1_1Player.html#a5c8effb943523dcb1d8400fa2dc2d25c',1,'audio::Player']]],
   ['player_7',['player',['../classaudio_1_1Player.html',1,'audio::Player'],['../classaudio_1_1Player.html#a36e93244dd32ee01e95174407636c01e',1,'audio::Player::Player()']]],
   ['player_2ehpp_8',['player.hpp',['../player_8hpp.html',1,'']]],
-  ['progress_9',['progress',['../classaudio_1_1Player.html#ab6226279e7ed410397f097d4b8ee22eb',1,'audio::Player']]]
+  ['process_9',['process',['../classutil_1_1DownloadQueue.html#a2aa089b8dab92c75f62acf2724baf55d',1,'util::DownloadQueue']]],
+  ['progress_10',['progress',['../classaudio_1_1Player.html#ab6226279e7ed410397f097d4b8ee22eb',1,'audio::Player']]]
 ];

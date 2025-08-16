@@ -20,7 +20,7 @@ var annotated_dup =
       [ "Request", "classnet_1_1Request.html", "classnet_1_1Request" ]
     ] ],
     [ "util", null, [
-      [ "Download", "structutil_1_1Download.html", null ],
-      [ "DownloadQueue", "classutil_1_1DownloadQueue.html", null ]
+      [ "Download", "structutil_1_1Download.html", "structutil_1_1Download" ],
+      [ "DownloadQueue", "classutil_1_1DownloadQueue.html", "classutil_1_1DownloadQueue" ]
     ] ]
 ];

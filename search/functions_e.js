@@ -6,5 +6,6 @@ var searchData=
   ['ping_3',['ping',['../net_8hpp.html#a29b5ce5759a4bb0baad3ce5096092e00',1,'net']]],
   ['play_4',['play',['../classaudio_1_1Player.html#a5c8effb943523dcb1d8400fa2dc2d25c',1,'audio::Player']]],
   ['player_5',['Player',['../classaudio_1_1Player.html#a36e93244dd32ee01e95174407636c01e',1,'audio::Player']]],
-  ['progress_6',['progress',['../classaudio_1_1Player.html#ab6226279e7ed410397f097d4b8ee22eb',1,'audio::Player']]]
+  ['process_6',['process',['../classutil_1_1DownloadQueue.html#a2aa089b8dab92c75f62acf2724baf55d',1,'util::DownloadQueue']]],
+  ['progress_7',['progress',['../classaudio_1_1Player.html#ab6226279e7ed410397f097d4b8ee22eb',1,'audio::Player']]]
 ];
