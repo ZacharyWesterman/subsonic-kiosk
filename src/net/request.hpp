@@ -1,5 +1,6 @@
 #pragma once
 
+#include "statusCodes.hpp"
 #include <ArduinoJson.h>
 #include <WiFi.h>
 #include <vector>
@@ -13,11 +14,9 @@ class Request {
 	WiFiClient client;
 	bool finished = false;
 	String responseBody;
+	StatusCode status_code;
 
 public:
-	/// The HTTP status code of the response.
-	int status;
-
 	/**
 	 * @brief Constructor for the Request class.
 	 * @param client The WiFiClient object to use for the request.
@@ -43,6 +42,12 @@ public:
 	 * @return True if the request was successful, false otherwise.
 	 */
 	bool ok() const;
+
+	/**
+	 * @brief Get the HTTP status code of the response.
+	 * @return The HTTP status code of the response.
+	 */
+	StatusCode status() const;
 
 	/**
 	 * @brief Read the response body in chunks.

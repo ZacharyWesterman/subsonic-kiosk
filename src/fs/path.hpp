@@ -52,7 +52,7 @@ public:
 
 /**
  * @brief A class to represent a file path.
- * This class provides methods to manipulate and query file paths.
+ * This class provides methods to manipulate and traverse files and directories.
  */
 class Path {
 	String path;

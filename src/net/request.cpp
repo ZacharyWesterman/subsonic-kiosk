@@ -4,7 +4,7 @@
 namespace net {
 
 Request::Request(WiFiClient &client) : client(client) {
-	status = 400; // Default to bad request
+	status_code = BAD_REQUEST; // Default to bad request
 
 	// Read the response status line
 	String statusLine = readln();
@@ -12,7 +12,7 @@ Request::Request(WiFiClient &client) : client(client) {
 	if (i1 != -1) {
 		int i2 = statusLine.indexOf(' ', i1 + 1);
 		if (i2 != -1) {
-			status = statusLine.substring(i1 + 1, i2).toInt();
+			status_code = static_cast<StatusCode>(statusLine.substring(i1 + 1, i2).toInt());
 		}
 	}
 
@@ -26,7 +26,11 @@ bool Request::done() const {
 }
 
 bool Request::ok() const {
-	return status >= 200 && status < 300;
+	return status_code >= 200 && status_code < 300;
+}
+
+StatusCode Request::status() const {
+	return status_code;
 }
 
 std::vector<uint8_t> Request::read(int chunkSize) {
