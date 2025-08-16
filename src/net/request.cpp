@@ -206,4 +206,11 @@ uint64_t Request::downloaded() const {
 	return downloaded_bytes;
 }
 
+float Request::progress() const {
+	if (content_length == 0) {
+		return 0.0f;
+	}
+	return static_cast<float>(downloaded_bytes) / static_cast<float>(content_length);
+}
+
 } // namespace net

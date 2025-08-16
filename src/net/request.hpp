@@ -112,6 +112,12 @@ public:
 	 * @return The number of bytes downloaded so far.
 	 */
 	inline uint64_t downloaded() const;
+
+	/**
+	 * @brief Get the ratio of bytes downloaded to content length.
+	 * @return The ratio of bytes downloaded to content length.
+	 */
+	inline float progress() const;
 };
 
 } // namespace net
