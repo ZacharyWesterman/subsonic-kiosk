@@ -20,7 +20,7 @@ It's very much a WIP (there's not even a UI yet!) but by the end, any audio shou
   - [x] Stream downloads into file
   - [x] Async file downloads
   - [x] File download queue
-    - [ ] Get Request by ID
+    - [x] Iterate over downloads
   - [ ] Make Subsonic requests
     - [ ] Request transcoding of audio if possible
     - [ ] Browse audio based on folder

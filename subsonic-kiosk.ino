@@ -42,10 +42,12 @@ void setup() {
 
 void loop() {
 	queue.process();
-	if (queue.finished(id)) {
-		logger::info("Download finished for ID: " + String(id));
-		queue.cleanup();
+	for (auto download : queue) {
+		if (download.request.done()) {
+			logger::info("Download finished for ID: " + String(download.id));
+		}
 	}
+	queue.cleanup();
 
 	/*
 	if (!fs::connected()) {

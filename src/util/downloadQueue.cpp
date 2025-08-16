@@ -15,7 +15,9 @@ int DownloadQueue::download(const fs::Path &file, const String &hostname, const 
 	int id = uid();
 	// Make sure that the file is deleted before starting the download
 	// otherwise we would just append garbage data onto some file
-	file.unlink();
+	if (file.exists()) {
+		file.unlink();
+	}
 	downloads.push_back(new Download{file, net::client(hostname).get(url), id});
 	return id;
 }
