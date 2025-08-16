@@ -17,7 +17,7 @@ It's very much a WIP (there's not even a UI yet!) but by the end, any audio shou
   - [x] Simple HTTP(S) requests
   - [x] Stream downloads into file
   - [x] Async file downloads
-  - [ ] File download queue
+  - [x] File download queue
   - [ ] Make Subsonic requests
     - [ ] Request transcoding of audio if possible
     - [ ] Browse audio based on folder
