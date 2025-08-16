@@ -1,3 +1,4 @@
+/// @file netClient.hpp
 #pragma once
 
 #include "request.hpp"

@@ -30,6 +30,9 @@ void net() {
 	}
 }
 
+/**
+ * @brief Log an error message if the network configuration file cannot be read.
+ */
 static void netConfigError() {
 	logger::error(
 		"Failed to read network configuration file."

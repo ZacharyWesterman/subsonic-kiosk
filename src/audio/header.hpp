@@ -1,3 +1,4 @@
+/// @file header.hpp
 #pragma once
 
 #include "../fs/fileStream.hpp"

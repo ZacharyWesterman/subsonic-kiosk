@@ -1,3 +1,4 @@
+/// @file uid.hpp
 #pragma once
 
 /**

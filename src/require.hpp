@@ -1,3 +1,4 @@
+/// @file require.hpp
 #pragma once
 
 namespace require {
@@ -20,11 +21,6 @@ namespace request {
  *         been initialized with `netInit()`.
  */
 void net();
-
-/**
- * @brief Log an error message if the network configuration file cannot be read.
- */
-static void netConfigError();
 
 /**
  * @brief Initialize the network connection using the configuration file.

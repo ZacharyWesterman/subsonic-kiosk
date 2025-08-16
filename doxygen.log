@@ -1,9 +1,9 @@
-/home/zachary/repos/subsonic-kiosk/src/util/downloadQueue.hpp:8: warning: Compound util::Download is not documented.
-/home/zachary/repos/subsonic-kiosk/src/util/downloadQueue.hpp:14: warning: Compound util::DownloadQueue is not documented.
-/home/zachary/repos/subsonic-kiosk/src/util/downloadQueue.hpp:9: warning: Member file (variable) of struct util::Download is not documented.
-/home/zachary/repos/subsonic-kiosk/src/util/downloadQueue.hpp:10: warning: Member request (variable) of struct util::Download is not documented.
-/home/zachary/repos/subsonic-kiosk/src/util/downloadQueue.hpp:11: warning: Member id (variable) of struct util::Download is not documented.
-/home/zachary/repos/subsonic-kiosk/src/util/downloadQueue.hpp:20: warning: Member download(const fs::Path &file, const String &hostname, const String &url) (function) of class util::DownloadQueue is not documented.
-/home/zachary/repos/subsonic-kiosk/src/util/downloadQueue.hpp:22: warning: Member finished(int id) const (function) of class util::DownloadQueue is not documented.
-/home/zachary/repos/subsonic-kiosk/src/util/downloadQueue.hpp:24: warning: Member process() (function) of class util::DownloadQueue is not documented.
-/home/zachary/repos/subsonic-kiosk/src/util/downloadQueue.hpp:26: warning: Member cleanup() (function) of class util::DownloadQueue is not documented.
+/home/zachary/repos/subsonic-kiosk/src/util/downloadQueue.hpp:9: warning: Compound util::Download is not documented.
+/home/zachary/repos/subsonic-kiosk/src/util/downloadQueue.hpp:15: warning: Compound util::DownloadQueue is not documented.
+/home/zachary/repos/subsonic-kiosk/src/util/downloadQueue.hpp:10: warning: Member file (variable) of struct util::Download is not documented.
+/home/zachary/repos/subsonic-kiosk/src/util/downloadQueue.hpp:11: warning: Member request (variable) of struct util::Download is not documented.
+/home/zachary/repos/subsonic-kiosk/src/util/downloadQueue.hpp:12: warning: Member id (variable) of struct util::Download is not documented.
+/home/zachary/repos/subsonic-kiosk/src/util/downloadQueue.hpp:21: warning: Member download(const fs::Path &file, const String &hostname, const String &url) (function) of class util::DownloadQueue is not documented.
+/home/zachary/repos/subsonic-kiosk/src/util/downloadQueue.hpp:23: warning: Member finished(int id) const (function) of class util::DownloadQueue is not documented.
+/home/zachary/repos/subsonic-kiosk/src/util/downloadQueue.hpp:25: warning: Member process() (function) of class util::DownloadQueue is not documented.
+/home/zachary/repos/subsonic-kiosk/src/util/downloadQueue.hpp:27: warning: Member cleanup() (function) of class util::DownloadQueue is not documented.

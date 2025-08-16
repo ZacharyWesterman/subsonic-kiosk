@@ -1,3 +1,4 @@
+/// @file player.hpp
 #pragma once
 
 #include "../fs/fileStream.hpp"
@@ -9,8 +10,14 @@
 namespace audio {
 
 /**
- * @brief A class to represent an audio player.
- * This class provides methods to play, pause, and control audio playback.
+ * @brief A class to stream audio from a file.
+ * This class abstracts away the exact handling of each audio format
+ * and provides a unified interface for playback.
+ *
+ * @note Currently supported formats are:
+ * - WAV
+ *
+ * @todo Implement support for other audio formats (e.g., MP3, AAC).
  */
 class Player {
 	bool initialized;
@@ -56,6 +63,7 @@ public:
 	/**
 	 * @brief Seek to a specific time in the audio file.
 	 * @param seconds The time in seconds to seek to.
+	 * @todo Implement this!!
 	 */
 	void seek(float seconds);
 

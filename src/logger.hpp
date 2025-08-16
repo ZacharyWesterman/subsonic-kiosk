@@ -1,3 +1,4 @@
+/// @file logger.hpp
 #pragma once
 
 #include <Arduino.h>

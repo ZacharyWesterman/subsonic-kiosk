@@ -1,3 +1,4 @@
+/// @file downloadQueue.hpp
 #pragma once
 
 #include "../fs/path.hpp"

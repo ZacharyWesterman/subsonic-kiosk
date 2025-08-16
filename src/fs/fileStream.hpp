@@ -1,3 +1,4 @@
+/// @file fileStream.hpp
 #pragma once
 
 #include "../logger.hpp"

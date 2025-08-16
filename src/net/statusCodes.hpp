@@ -1,5 +1,5 @@
-#pragma once
 /// @file statusCodes.hpp
+#pragma once
 
 namespace net {
 

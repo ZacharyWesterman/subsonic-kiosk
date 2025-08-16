@@ -1,3 +1,4 @@
+/// @file pins.hpp
 #pragma once
 
 namespace pins {

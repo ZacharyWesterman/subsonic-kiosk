@@ -28,6 +28,7 @@ It's very much a WIP (there's not even a UI yet!) but by the end, any audio shou
     - [ ] Play FLAC files
     - [ ] Play OGG files
     - [ ] Play MP3 files
+    - [ ] Play AAC files...? see if needed.
     - (other audio formats may be added as needed)
   - [ ] Seek position in audio (seconds)
 - Misc
