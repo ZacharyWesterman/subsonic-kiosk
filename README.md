@@ -15,6 +15,7 @@ It's very much a WIP (there's not even a UI yet!) but by the end, any audio shou
 - Network
   - [x] Non-blocking poll for connection
   - [x] Simple HTTP(S) requests
+    - [ ] Handle redirections (http -> https, etc) or at least indicate them, so they can be handled later.
   - [x] Stream downloads into file
   - [x] Async file downloads
   - [x] File download queue
