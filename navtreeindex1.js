@@ -1,5 +1,7 @@
 var NAVTREEINDEX1 =
 {
+"structaudio_1_1wav_1_1header__t.html#aed9de56b691bf024d02553e476d9b558":[2,0,0,0,0,9],
+"structutil_1_1Download.html":[2,0,4,0],
 "structutil_1_1Download.html#a2fc695a282bb5070ca66bb1bc2ef5f39":[2,0,4,0,2],
 "structutil_1_1Download.html#a5dccea914c132c307e9af3e8c4b062b4":[2,0,4,0,1],
 "structutil_1_1Download.html#ad7ba60db44310af35ea0cf60c8407ff0":[2,0,4,0,0],

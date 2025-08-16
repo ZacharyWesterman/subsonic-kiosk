@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['uid_0',['uid',['../uid_8hpp.html#aa7c8c1a990a29a19a9209f23443c5815',1,'uid.hpp']]],
-  ['unlink_1',['unlink',['../classfs_1_1Path.html#a1d017c3a58faee9e8787dbea07387244',1,'fs::Path']]],
-  ['used_2',['used',['../fs_8hpp.html#ae4709c818c30499dcb3a47cfa5a4d3c5',1,'fs']]]
+  ['tell_0',['tell',['../classfs_1_1FileStream.html#a9a7609606f2cca500571b19880f21198',1,'fs::FileStream']]],
+  ['test_1',['test',['../logger_8hpp.html#abf5cc62c982d71c0b3c3505415ae3a0f',1,'logger']]],
+  ['text_2',['text',['../classnet_1_1Request.html#ae7b6885caeda9574be03b5c6e6ec079a',1,'net::Request']]],
+  ['tryconnect_3',['tryConnect',['../net_8hpp.html#afef7a16f3b3a3b9148635396c1a8960c',1,'net']]]
 ];

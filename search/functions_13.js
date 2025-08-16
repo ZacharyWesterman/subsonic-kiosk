@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['valid_0',['valid',['../header_8hpp.html#ad226aa9da9d93424271a431ed883ac48',1,'audio::wav']]],
-  ['validheader_1',['validHeader',['../header_8hpp.html#a13208c1251a15edbc9d9b7341dd32411',1,'audio']]]
+  ['uid_0',['uid',['../uid_8hpp.html#aa7c8c1a990a29a19a9209f23443c5815',1,'uid.hpp']]],
+  ['unlink_1',['unlink',['../classfs_1_1Path.html#a1d017c3a58faee9e8787dbea07387244',1,'fs::Path']]],
+  ['used_2',['used',['../fs_8hpp.html#ae4709c818c30499dcb3a47cfa5a4d3c5',1,'fs']]]
 ];
