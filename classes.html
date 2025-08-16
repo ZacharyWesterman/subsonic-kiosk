@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>subsonic-kiosk: subsonic-kiosk</title>
+<title>subsonic-kiosk: Class Index</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,7 +71,7 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('index.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('classes.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -96,73 +96,34 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 </div>
 </div>
 
-<div><div class="header">
-  <div class="headertitle"><div class="title">subsonic-kiosk </div></div>
+<div class="header">
+  <div class="headertitle"><div class="title">Class Index</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="md_README"></a>This project uses an Arduino Giga and Giga Display Shield to create a kiosk for browsing and playing audio from any Subsonic-compatible server.</p>
-<p>It's very much a WIP (there's not even a UI yet!) but by the end, any audio should be able to be browsed and played.</p>
-<h1><a class="anchor" id="autotoc_md1"></a>
-Road Map</h1>
-<ul>
-<li>File System<ul>
-<li>[x] Allow disconnecting/reconnecting at run-time</li>
-<li>[x] Simple file system traversal/modification<ul>
-<li>[x] Read files/dirs</li>
-<li>[x] Write files</li>
-<li>[x] Create dirs</li>
-<li>[x] Delete files/dirs (recursively delete dirs)</li>
-</ul>
-</li>
-<li>[x] Stream file contents (don't load whole file at once)</li>
-</ul>
-</li>
-<li>Network<ul>
-<li>[x] Non-blocking poll for connection</li>
-<li>[x] Simple HTTP(S) requests<ul>
-<li>[ ] Handle redirections (http -&gt; https, etc) or at least indicate them, so they can be handled later.</li>
-</ul>
-</li>
-<li>[x] Stream downloads into file</li>
-<li>[x] Async file downloads</li>
-<li>[x] File download queue</li>
-<li>[ ] Make Subsonic requests<ul>
-<li>[ ] Request transcoding of audio if possible</li>
-<li>[ ] Browse audio based on folder</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Audio<ul>
-<li>[ ] Play audio<ul>
-<li>[x] Play WAV files</li>
-<li>[ ] Play FLAC files</li>
-<li>[ ] Play OGG files</li>
-<li>[ ] Play MP3 files</li>
-<li>[ ] Play AAC files...? see if needed.</li>
-<li>(other audio formats may be added as needed)</li>
-</ul>
-</li>
-<li>[ ] Seek position in audio (seconds)</li>
-</ul>
-</li>
-<li>Misc<ul>
-<li>[x] JSON parsing</li>
-<li>[ ] Mic input? (OPTIONAL)<ul>
-<li>[ ] Keyword recognition? (for quick controls)</li>
-<li>[ ] Speech to text? (for searching audio)</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>UI<ul>
-<li>[ ] LVGL</li>
-<li>[ ] Run on separate thread from backend?</li>
-<li>**(Future plans will be decided when non-UI is in a more complete state)** </li>
-</ul>
-</li>
-</ul>
-</div></div><!-- PageDoc -->
+<div class="qindex"><a class="qindex" href="#letter_D">D</a>&#160;|&#160;<a class="qindex" href="#letter_F">F</a>&#160;|&#160;<a class="qindex" href="#letter_H">H</a>&#160;|&#160;<a class="qindex" href="#letter_I">I</a>&#160;|&#160;<a class="qindex" href="#letter_N">N</a>&#160;|&#160;<a class="qindex" href="#letter_P">P</a>&#160;|&#160;<a class="qindex" href="#letter_R">R</a></div>
+<div class="classindex">
+<dl class="classindex even">
+<dt class="alphachar"><a id="letter_D" name="letter_D">D</a></dt>
+<dd><a class="el" href="structutil_1_1Download.html">Download</a> (util)</dd><dd><a class="el" href="classutil_1_1DownloadQueue.html">DownloadQueue</a> (util)</dd></dl>
+<dl class="classindex odd">
+<dt class="alphachar"><a id="letter_F" name="letter_F">F</a></dt>
+<dd><a class="el" href="classfs_1_1FileStream.html">FileStream</a> (fs)</dd></dl>
+<dl class="classindex even">
+<dt class="alphachar"><a id="letter_H" name="letter_H">H</a></dt>
+<dd><a class="el" href="unionaudio_1_1header__t.html">header_t</a> (audio)</dd><dd><a class="el" href="structaudio_1_1wav_1_1header__t.html">header_t</a> (audio::wav)</dd></dl>
+<dl class="classindex odd">
+<dt class="alphachar"><a id="letter_I" name="letter_I">I</a></dt>
+<dd><a class="el" href="classfs_1_1IterDir.html">IterDir</a> (fs)</dd></dl>
+<dl class="classindex even">
+<dt class="alphachar"><a id="letter_N" name="letter_N">N</a></dt>
+<dd><a class="el" href="classnet_1_1NetClient.html">NetClient</a> (net)</dd></dl>
+<dl class="classindex odd">
+<dt class="alphachar"><a id="letter_P" name="letter_P">P</a></dt>
+<dd><a class="el" href="classfs_1_1Path.html">Path</a> (fs)</dd><dd><a class="el" href="classaudio_1_1Player.html">Player</a> (audio)</dd></dl>
+<dl class="classindex even">
+<dt class="alphachar"><a id="letter_R" name="letter_R">R</a></dt>
+<dd><a class="el" href="classcallback_1_1repeat.html">repeat</a> (callback)</dd><dd><a class="el" href="classnet_1_1Request.html">Request</a> (net)</dd></dl>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

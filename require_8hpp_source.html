@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>subsonic-kiosk: subsonic-kiosk</title>
+<title>subsonic-kiosk: src/require.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,7 +71,7 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('index.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('require_8hpp_source.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -96,78 +96,34 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 </div>
 </div>
 
-<div><div class="header">
-  <div class="headertitle"><div class="title">subsonic-kiosk </div></div>
+<div class="header">
+  <div class="headertitle"><div class="title">require.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="md_README"></a>This project uses an Arduino Giga and Giga Display Shield to create a kiosk for browsing and playing audio from any Subsonic-compatible server.</p>
-<p>It's very much a WIP (there's not even a UI yet!) but by the end, any audio should be able to be browsed and played.</p>
-<h1><a class="anchor" id="autotoc_md1"></a>
-Road Map</h1>
-<ul>
-<li>File System<ul>
-<li>[x] Allow disconnecting/reconnecting at run-time</li>
-<li>[x] Simple file system traversal/modification<ul>
-<li>[x] Read files/dirs</li>
-<li>[x] Write files</li>
-<li>[x] Create dirs</li>
-<li>[x] Delete files/dirs (recursively delete dirs)</li>
-</ul>
-</li>
-<li>[x] Stream file contents (don't load whole file at once)</li>
-</ul>
-</li>
-<li>Network<ul>
-<li>[x] Non-blocking poll for connection</li>
-<li>[x] Simple HTTP(S) requests<ul>
-<li>[ ] Handle redirections (http -&gt; https, etc) or at least indicate them, so they can be handled later.</li>
-</ul>
-</li>
-<li>[x] Stream downloads into file</li>
-<li>[x] Async file downloads</li>
-<li>[x] File download queue</li>
-<li>[ ] Make Subsonic requests<ul>
-<li>[ ] Request transcoding of audio if possible</li>
-<li>[ ] Browse audio based on folder</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Audio<ul>
-<li>[ ] Play audio<ul>
-<li>[x] Play WAV files</li>
-<li>[ ] Play FLAC files</li>
-<li>[ ] Play OGG files</li>
-<li>[ ] Play MP3 files</li>
-<li>[ ] Play AAC files...? see if needed.</li>
-<li>(other audio formats may be added as needed)</li>
-</ul>
-</li>
-<li>[ ] Seek position in audio (seconds)</li>
-</ul>
-</li>
-<li>Misc<ul>
-<li>[x] JSON parsing</li>
-<li>[ ] Mic input? (OPTIONAL)<ul>
-<li>[ ] Keyword recognition? (for quick controls)</li>
-<li>[ ] Speech to text? (for searching audio)</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>UI<ul>
-<li>[ ] LVGL</li>
-<li>[ ] Run on separate thread from backend?</li>
-<li>**(Future plans will be decided when non-UI is in a more complete state)** </li>
-</ul>
-</li>
-</ul>
-</div></div><!-- PageDoc -->
-</div><!-- contents -->
+<a href="require_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="keyword">namespace </span>require {</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="require_8hpp.html#a4c0dec1dc606cafe3d66201141b91376">   11</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="require_8hpp.html#a4c0dec1dc606cafe3d66201141b91376">serial</a>();</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>} <span class="comment">// namespace require</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">namespace </span>request {</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="require_8hpp.html#a6e4000d4136f4416e6cdee7e8a405139">   23</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="require_8hpp.html#a6e4000d4136f4416e6cdee7e8a405139">net</a>();</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="require_8hpp.html#a251ae28941bc9bfc2cdc495d000824aa">   41</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="require_8hpp.html#a251ae28941bc9bfc2cdc495d000824aa">netInit</a>();</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>} <span class="comment">// namespace request</span></div>
+<div class="ttc" id="arequire_8hpp_html_a251ae28941bc9bfc2cdc495d000824aa"><div class="ttname"><a href="require_8hpp.html#a251ae28941bc9bfc2cdc495d000824aa">request::netInit</a></div><div class="ttdeci">void netInit()</div><div class="ttdoc">Initialize the network connection using the configuration file.</div></div>
+<div class="ttc" id="arequire_8hpp_html_a4c0dec1dc606cafe3d66201141b91376"><div class="ttname"><a href="require_8hpp.html#a4c0dec1dc606cafe3d66201141b91376">require::serial</a></div><div class="ttdeci">void serial()</div><div class="ttdoc">Wait for the serial port to be ready.</div></div>
+<div class="ttc" id="arequire_8hpp_html_a6e4000d4136f4416e6cdee7e8a405139"><div class="ttname"><a href="require_8hpp.html#a6e4000d4136f4416e6cdee7e8a405139">request::net</a></div><div class="ttdeci">void net()</div><div class="ttdoc">Check if the network is connected and attempt to reconnect if not.</div></div>
+</div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="require_8hpp.html">require.hpp</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>

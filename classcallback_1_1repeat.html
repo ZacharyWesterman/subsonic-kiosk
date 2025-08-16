@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>subsonic-kiosk: subsonic-kiosk</title>
+<title>subsonic-kiosk: callback::repeat Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,7 +71,7 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('index.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('classcallback_1_1repeat.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -96,78 +96,78 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 </div>
 </div>
 
-<div><div class="header">
-  <div class="headertitle"><div class="title">subsonic-kiosk </div></div>
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="classcallback_1_1repeat-members.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">callback::repeat Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="md_README"></a>This project uses an Arduino Giga and Giga Display Shield to create a kiosk for browsing and playing audio from any Subsonic-compatible server.</p>
-<p>It's very much a WIP (there's not even a UI yet!) but by the end, any audio should be able to be browsed and played.</p>
-<h1><a class="anchor" id="autotoc_md1"></a>
-Road Map</h1>
-<ul>
-<li>File System<ul>
-<li>[x] Allow disconnecting/reconnecting at run-time</li>
-<li>[x] Simple file system traversal/modification<ul>
-<li>[x] Read files/dirs</li>
-<li>[x] Write files</li>
-<li>[x] Create dirs</li>
-<li>[x] Delete files/dirs (recursively delete dirs)</li>
+
+<p>A class to handle repeating callbacks at a specified interval.  
+ <a href="classcallback_1_1repeat.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="callback_8hpp_source.html">callback.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:adc0c65ba6a747e221afcc73b303ced54" id="r_adc0c65ba6a747e221afcc73b303ced54"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcallback_1_1repeat.html#adc0c65ba6a747e221afcc73b303ced54">repeat</a> (unsigned long interval, std::function&lt; void()&gt; func)</td></tr>
+<tr class="memdesc:adc0c65ba6a747e221afcc73b303ced54"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor to initialize the repeat callback.  <br /></td></tr>
+<tr class="separator:adc0c65ba6a747e221afcc73b303ced54"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7081b5aae5df97290fc93d71c186c268" id="r_a7081b5aae5df97290fc93d71c186c268"><td class="memItemLeft" align="right" valign="top"><a id="a7081b5aae5df97290fc93d71c186c268" name="a7081b5aae5df97290fc93d71c186c268"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>operator()</b> ()</td></tr>
+<tr class="memdesc:a7081b5aae5df97290fc93d71c186c268"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if the interval has passed and call the function if it has. <br /></td></tr>
+<tr class="separator:a7081b5aae5df97290fc93d71c186c268"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>A class to handle repeating callbacks at a specified interval. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="adc0c65ba6a747e221afcc73b303ced54" name="adc0c65ba6a747e221afcc73b303ced54"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc0c65ba6a747e221afcc73b303ced54">&#9670;&#160;</a></span>repeat()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">callback::repeat::repeat </td>
+          <td>(</td>
+          <td class="paramtype">unsigned long&#160;</td>
+          <td class="paramname"><em>interval</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::function&lt; void()&gt;&#160;</td>
+          <td class="paramname"><em>func</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Constructor to initialize the repeat callback. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">interval</td><td>The interval in milliseconds at which to call the function. </td></tr>
+    <tr><td class="paramname">func</td><td>The function to call repeatedly. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>src/<a class="el" href="callback_8hpp_source.html">callback.hpp</a></li>
 </ul>
-</li>
-<li>[x] Stream file contents (don't load whole file at once)</li>
-</ul>
-</li>
-<li>Network<ul>
-<li>[x] Non-blocking poll for connection</li>
-<li>[x] Simple HTTP(S) requests<ul>
-<li>[ ] Handle redirections (http -&gt; https, etc) or at least indicate them, so they can be handled later.</li>
-</ul>
-</li>
-<li>[x] Stream downloads into file</li>
-<li>[x] Async file downloads</li>
-<li>[x] File download queue</li>
-<li>[ ] Make Subsonic requests<ul>
-<li>[ ] Request transcoding of audio if possible</li>
-<li>[ ] Browse audio based on folder</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Audio<ul>
-<li>[ ] Play audio<ul>
-<li>[x] Play WAV files</li>
-<li>[ ] Play FLAC files</li>
-<li>[ ] Play OGG files</li>
-<li>[ ] Play MP3 files</li>
-<li>[ ] Play AAC files...? see if needed.</li>
-<li>(other audio formats may be added as needed)</li>
-</ul>
-</li>
-<li>[ ] Seek position in audio (seconds)</li>
-</ul>
-</li>
-<li>Misc<ul>
-<li>[x] JSON parsing</li>
-<li>[ ] Mic input? (OPTIONAL)<ul>
-<li>[ ] Keyword recognition? (for quick controls)</li>
-<li>[ ] Speech to text? (for searching audio)</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>UI<ul>
-<li>[ ] LVGL</li>
-<li>[ ] Run on separate thread from backend?</li>
-<li>**(Future plans will be decided when non-UI is in a more complete state)** </li>
-</ul>
-</li>
-</ul>
-</div></div><!-- PageDoc -->
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
+    <li class="navelem"><b>callback</b></li><li class="navelem"><a class="el" href="classcallback_1_1repeat.html">repeat</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>
