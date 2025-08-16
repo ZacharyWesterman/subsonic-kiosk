@@ -8,6 +8,7 @@ var classnet_1_1Request =
     [ "length", "classnet_1_1Request.html#af403ca1f36d000a23b119a53bd56ccb4", null ],
     [ "ok", "classnet_1_1Request.html#a0cb2a1245739a7849fba0383efdaed91", null ],
     [ "operator bool", "classnet_1_1Request.html#ae591117f0d9610b55a9d8078e15f5da8", null ],
+    [ "progress", "classnet_1_1Request.html#a341ee5dfb7b5bf8c3798f77aaa614c7e", null ],
     [ "read", "classnet_1_1Request.html#aba9e396a129680642cf585e9728d4a85", null ],
     [ "readln", "classnet_1_1Request.html#a20576d1e849419ac04bfb27f78297cf8", null ],
     [ "ready", "classnet_1_1Request.html#ac80a38ce646201b4d612d5e0ec8595c1", null ],
