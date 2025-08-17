@@ -3,6 +3,8 @@ This project uses an Arduino Giga and Giga Display Shield to create a kiosk for 
 
 It's very much a WIP (there's not even a UI yet!) but by the end, any audio should be able to be browsed and played.
 
+[The documentation](https://zacharywesterman.github.io/subsonic-kiosk) is automatically generated with Doxygen. Check it out for a breakdown of the internals.
+
 # Road Map
 - File System
   - [x] Allow disconnecting/reconnecting at run-time
