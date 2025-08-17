@@ -16,16 +16,16 @@ int id = 0;
 void setup() {
 	pins::init();
 
-#ifdef DEBUG
-	require::serial(); // Initialize serial communication
-#endif
-
 	fs::connect();			// Ensure filesystem is connected
 	request::netInit(); // Initialize network connection
 
 	while (!net::connected()) {
 		request::net();
 	}
+
+#ifdef DEBUG
+	require::serial(); // Initialize serial communication
+#endif
 
 	// Initialize the audio player with a specific file, if supported.
 	/*
@@ -37,7 +37,7 @@ void setup() {
 		progress = new callback::repeat(1000, []() { logger::info("Current playback progress: " + String(player->seconds()) + "/" + String(player->duration()) + " seconds"); });
 	}
 	*/
-	id = queue.download(fs::Path("/test.html"), "google.com", "/");
+	queue.download(fs::Path("/test.html"), "https://www.google.com/");
 }
 
 void loop() {

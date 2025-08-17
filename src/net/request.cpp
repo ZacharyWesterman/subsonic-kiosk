@@ -29,11 +29,15 @@ Request::Request(WiFiClient &client) : client(client) {
 		const int i1 = line.indexOf(": ");
 		if (i1 != -1) {
 			id = line.substring(0, i1);
-			value = line.substring(i1 + 1);
+			value = line.substring(i1 + 2);
 		}
 
 		if (id == "Content-Length") {
 			content_length = value.toInt();
+		}
+
+		if ((status_code == MOVED_PERMANENTLY || status_code == TEMPORARY_REDIRECT || status_code == PERMANENT_REDIRECT) && id == "Location") {
+			redirect_to = value;
 		}
 	}
 
@@ -86,8 +90,8 @@ std::vector<uint8_t> Request::read(int chunkSize) {
 		finished = true; // Mark as finished if connection is lost
 	}
 
-	if (downloaded_bytes > content_length) {
-		content_length = downloaded_bytes;
+	if (downloaded_bytes >= content_length) {
+		finished = true;
 	}
 
 	return data;
@@ -132,8 +136,8 @@ String Request::readln() {
 		finished = true; // Mark as finished if connection is lost
 	}
 
-	if (downloaded_bytes > content_length) {
-		content_length = downloaded_bytes;
+	if (downloaded_bytes >= content_length) {
+		finished = true;
 	}
 
 	return line;
@@ -179,6 +183,8 @@ std::vector<uint8_t> Request::data() {
 		return availableData;
 	}
 
+	logger::info(String(client.connected()));
+
 	if (!client.connected()) {
 		finished = true;
 		return availableData;
@@ -191,8 +197,8 @@ std::vector<uint8_t> Request::data() {
 	}
 
 	downloaded_bytes += bytes;
-	if (downloaded_bytes > content_length) {
-		content_length = downloaded_bytes;
+	if (downloaded_bytes >= content_length) {
+		finished = true;
 	}
 
 	return availableData;
@@ -211,6 +217,14 @@ float Request::progress() const {
 		return 0.0f;
 	}
 	return static_cast<float>(downloaded_bytes) / static_cast<float>(content_length);
+}
+
+bool Request::redirected() const {
+	return status_code == MOVED_PERMANENTLY || status_code == TEMPORARY_REDIRECT || status_code == PERMANENT_REDIRECT;
+}
+
+const String &Request::location() const {
+	return redirect_to;
 }
 
 } // namespace net

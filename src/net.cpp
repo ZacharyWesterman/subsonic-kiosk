@@ -81,4 +81,21 @@ NetClient client(const String &host, int port) {
 	return NetClient(host, port);
 }
 
+Request get(const String &url) {
+	// Split URL into host and path
+	int protocolIndex = url.indexOf("://");
+	int protocolEnd = (protocolIndex < 0) ? 0 : protocolIndex + 3; // Skip "://"
+	int pathStart = url.indexOf("/", protocolEnd);
+
+	String protocol = (protocolIndex < 0) ? "" : url.substring(0, protocolIndex);
+	String host = url.substring(protocolEnd, pathStart);
+	String path = (pathStart < 0) ? "/" : url.substring(pathStart);
+
+	logger::info("Creating GET request to [" + protocol + "] (" + host + ") <" + path + ">");
+
+	int port = (protocol == "https") ? 443 : 80;
+
+	return Request(net::client(host, port).get(path));
+}
+
 } // namespace net

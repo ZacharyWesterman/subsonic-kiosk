@@ -18,6 +18,7 @@ class Request {
 	StatusCode status_code;
 	uint64_t content_length;
 	uint64_t downloaded_bytes;
+	String redirect_to;
 
 public:
 	/**
@@ -105,19 +106,23 @@ public:
 	 * @brief Get the content length of the response.
 	 * @return The content length of the response in bytes.
 	 */
-	inline uint64_t length() const;
+	uint64_t length() const;
 
 	/**
 	 * @brief Get the number of bytes downloaded so far.
 	 * @return The number of bytes downloaded so far.
 	 */
-	inline uint64_t downloaded() const;
+	uint64_t downloaded() const;
 
 	/**
 	 * @brief Get the ratio of bytes downloaded to content length.
 	 * @return The ratio of bytes downloaded to content length.
 	 */
-	inline float progress() const;
+	float progress() const;
+
+	bool redirected() const;
+
+	const String &location() const;
 };
 
 } // namespace net

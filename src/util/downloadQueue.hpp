@@ -70,11 +70,10 @@ public:
 	/**
 	 * @brief Add a download to the queue.
 	 * @param file The destination file path.
-	 * @param hostname The hostname for the download.
 	 * @param url The URL for the download.
 	 * @return The unique identifier for the download.
 	 */
-	int download(const fs::Path &file, const String &hostname, const String &url);
+	int download(const fs::Path &file, const String &url);
 
 	/**
 	 * @brief Check if a download is finished.
