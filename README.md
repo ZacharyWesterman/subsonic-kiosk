@@ -24,16 +24,17 @@ It's very much a WIP (there's not even a UI yet!) but by the end, any audio shou
   - [x] File download queue
     - [x] Iterate over downloads
   - [ ] Make Subsonic requests
-    - [ ] Request transcoding of audio if possible
+    - [ ] Request transcoding of audio to a supported format (fail gracefully if no supported format)
     - [ ] Browse audio based on folder
 - Audio
   - [ ] Play audio
     - [x] Play WAV files
-    - [ ] Play FLAC files
-    - [ ] Play OGG files
-    - [ ] Play MP3 files
-    - [ ] Play AAC files...? see if needed.
-    - (other audio formats may be added as needed)
+    - Not planned (yet, at least)
+      - [-] Play FLAC files
+      - [-] Play OGG files
+      - [-] Play MP3 files
+      - [-] Play AAC files...? see if needed.
+      - (other audio formats may be added as needed)
   - [ ] Seek position in audio (seconds)
 - Misc
     - [x] JSON parsing
