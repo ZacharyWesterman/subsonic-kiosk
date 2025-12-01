@@ -29,12 +29,13 @@ It's very much a WIP (there's not even a UI yet!) but by the end, any audio shou
 - Audio
   - [ ] Play audio
     - [x] Play WAV files
-    - Not planned (yet, at least)
+    - [ ] Transcode audio (on-the-fly, ideally)
+      - [ ] MP3 to WAV using lame
+    - Not planned
       - [-] Play FLAC files
       - [-] Play OGG files
-      - [-] Play MP3 files
       - [-] Play AAC files...? see if needed.
-      - (other audio formats may be added as needed)
+      - (other audio formats may be added as needed) 
   - [ ] Seek position in audio (seconds)
 - Misc
     - [x] JSON parsing
