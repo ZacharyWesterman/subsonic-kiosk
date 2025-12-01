@@ -29,12 +29,13 @@ It's very much a WIP (there's not even a UI yet!) but by the end, any audio shou
 - Audio
   - [ ] Play audio
     - [x] Play WAV files
-    - Not planned (yet, at least)
+    - [ ] Transcode audio (on-the-fly, ideally)
+      - [ ] MP3 to WAV using lame
+    - Not planned
       - [-] Play FLAC files
       - [-] Play OGG files
-      - [-] Play MP3 files
       - [-] Play AAC files...? see if needed.
-      - (other audio formats may be added as needed)
+      - (other audio formats may be added as needed) 
   - [ ] Seek position in audio (seconds)
 - Misc
     - [x] JSON parsing
@@ -45,3 +46,35 @@ It's very much a WIP (there's not even a UI yet!) but by the end, any audio shou
     - [ ] LVGL
     - [ ] Run on separate thread from backend?
     - **(Future plans will be decided when non-UI is in a more complete state)**
+
+
+## Configs
+
+Required configs on the top-level directory of the bulk storage (flash drive, etc):
+
+### `network.json`
+```json
+{
+  "ssid": "YOUR NETWORK SSID",
+  "password": "PLAINTEXT PASSWORD"
+}
+```
+
+### `subsonic.json`
+```json
+{
+  "host": "CONNECTION URL, E.G. http://www.example.com:1234/subsonic",
+  "username": "SUBSONIC_USER",
+  "md5sum": "MD5 SALTED AND HASHED PASSWORD",
+  "salt": "SALT STRING"
+}
+```
+Here's a small sample Python script that can be used to generate the md5sum and salt.
+```py
+import random, hashlib
+
+salt = ('%32x' % random.randrange(16**32)).strip()
+md5sum = hashlib.md5((password + salt).encode('utf-8')).hexdigest()
+
+print(salt, md5sum)
+```
