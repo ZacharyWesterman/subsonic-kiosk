@@ -19,6 +19,10 @@ var annotated_dup =
       [ "NetClient", "classnet_1_1NetClient.html", "classnet_1_1NetClient" ],
       [ "Request", "classnet_1_1Request.html", "classnet_1_1Request" ]
     ] ],
+    [ "subsonic", null, [
+      [ "Client", "classsubsonic_1_1Client.html", "classsubsonic_1_1Client" ],
+      [ "Response", "classsubsonic_1_1Response.html", null ]
+    ] ],
     [ "util", null, [
       [ "Download", "structutil_1_1Download.html", "structutil_1_1Download" ],
       [ "DownloadQueue", "classutil_1_1DownloadQueue.html", "classutil_1_1DownloadQueue" ],

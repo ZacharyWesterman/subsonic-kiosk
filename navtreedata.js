@@ -25,7 +25,12 @@
 var NAVTREE =
 [
   [ "subsonic-kiosk", "index.html", [
-    [ "Road Map", "index.html#autotoc_md1", null ],
+    [ "Road Map", "index.html#autotoc_md1", [
+      [ "Configs", "index.html#autotoc_md2", [
+        [ "<tt>network.json</tt>", "index.html#autotoc_md3", null ],
+        [ "<tt>subsonic.json</tt>", "index.html#autotoc_md4", null ]
+      ] ]
+    ] ],
     [ "Todo List", "todo.html", null ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
@@ -49,7 +54,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"structaudio_1_1wav_1_1header__t.html#ae9c0026c553a147c2c8fe648e9babb81"
+"structaudio_1_1wav_1_1header__t.html#a209c06d739be5b31d868a8fbe8a76998"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

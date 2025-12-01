@@ -3,6 +3,7 @@ var dir_68267d1309a1af8e8297ef4c3efbcdba =
     [ "audio", "dir_a63dedf81f1e5ea1d42bb45ef831eb8c.html", "dir_a63dedf81f1e5ea1d42bb45ef831eb8c" ],
     [ "fs", "dir_7d71b6c457a61cbf03a04bfdc57b6110.html", "dir_7d71b6c457a61cbf03a04bfdc57b6110" ],
     [ "net", "dir_c72b25b75abe208498b36a3e44a3726c.html", "dir_c72b25b75abe208498b36a3e44a3726c" ],
+    [ "subsonic", "dir_b5a5b125e9b29ac6da97925b4bd62375.html", "dir_b5a5b125e9b29ac6da97925b4bd62375" ],
     [ "util", "dir_b7878ad5ecbf2506f4125b9d34c97e45.html", "dir_b7878ad5ecbf2506f4125b9d34c97e45" ],
     [ "audio.hpp", "audio_8hpp.html", "audio_8hpp" ],
     [ "callback.hpp", "callback_8hpp.html", "callback_8hpp" ],

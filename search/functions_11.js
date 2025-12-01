@@ -1,14 +1,11 @@
 var searchData=
 [
-  ['samplerate_0',['sampleRate',['../header_8hpp.html#a19dbecca0854b35bd2fc03b84aae14a3',1,'audio::wav']]],
-  ['seconds_1',['seconds',['../classaudio_1_1Player.html#a1e600625ab879d237d51702c1c5e6079',1,'audio::Player']]],
-  ['seek_2',['seek',['../classaudio_1_1Player.html#ace7a1a0bcf0bc63806c54bab7538fa8a',1,'audio::Player::seek()'],['../classfs_1_1FileStream.html#a00d00d3976efc0ec7fac35a61f8d1991',1,'fs::FileStream::seek()']]],
-  ['seekdata_3',['seekData',['../header_8hpp.html#a81f4324a3a0c774d3bd2b9f54b5b7bad',1,'audio::wav']]],
-  ['serial_4',['serial',['../require_8hpp.html#a4c0dec1dc606cafe3d66201141b91376',1,'require']]],
-  ['size_5',['size',['../classfs_1_1FileStream.html#ad9c895288891cd152d8b7a56c0bc0f2f',1,'fs::FileStream::size()'],['../classfs_1_1Path.html#a932edcd367c9357fba41cbfa2ef21b78',1,'fs::Path::size()'],['../fs_8hpp.html#aaf435b5e1293ff5efa1ad8880ab04475',1,'fs::size()']]],
-  ['status_6',['status',['../classnet_1_1Request.html#a2b6ef3dd0ac4e79a1fd0a24aff4c2b05',1,'net::Request']]],
-  ['stem_7',['stem',['../classfs_1_1Path.html#af8420f58d94f5295c4feb5bb58ea633c',1,'fs::Path']]],
-  ['str_8',['str',['../classfs_1_1Path.html#aead221fa255d02f0d7f9212a8cd6cc5e',1,'fs::Path']]],
-  ['stream_9',['stream',['../classfs_1_1Path.html#a4075d75498533520765b0fcf27b89b3f',1,'fs::Path']]],
-  ['supported_10',['supported',['../audio_8hpp.html#a38897a3afdf463203a4378d6aefe3fca',1,'audio']]]
+  ['raw_0',['raw',['../logger_8hpp.html#a6e79a61230b6ef7f8d372b767d0f01fb',1,'logger']]],
+  ['read_1',['read',['../classfs_1_1FileStream.html#a7967efef63f5ee9782e600ad49a772c4',1,'fs::FileStream::read()'],['../classfs_1_1Path.html#a9b4f69e93dc6aee117d1e8754afc0587',1,'fs::Path::read()'],['../classnet_1_1Request.html#aba9e396a129680642cf585e9728d4a85',1,'net::Request::read()']]],
+  ['readlines_2',['readlines',['../classfs_1_1Path.html#a8e7e6259c3ba3db19d522b358d7be1ac',1,'fs::Path']]],
+  ['readln_3',['readln',['../classnet_1_1Request.html#a20576d1e849419ac04bfb27f78297cf8',1,'net::Request']]],
+  ['ready_4',['ready',['../classnet_1_1Request.html#ac80a38ce646201b4d612d5e0ec8595c1',1,'net::Request']]],
+  ['red_5',['red',['../pins_8hpp.html#a3d83cd1e33786ad4505f103beb4be5bf',1,'pins']]],
+  ['repeat_6',['repeat',['../classcallback_1_1repeat.html#adc0c65ba6a747e221afcc73b303ced54',1,'callback::repeat']]],
+  ['request_7',['Request',['../classnet_1_1Request.html#a244a9313cbed6692a13ed23eed5ae071',1,'net::Request']]]
 ];
