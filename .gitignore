@@ -1,4 +1,3 @@
-build/
-secret/
+.build/
 html/
 doxygen.log
