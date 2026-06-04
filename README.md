@@ -5,7 +5,16 @@ It's very much a WIP (there's not even a UI yet!) but by the end, any audio shou
 
 [The documentation](https://zacharywesterman.github.io/subsonic-kiosk) is automatically generated with Doxygen. Check it out for a breakdown of the internals.
 
+# Build Requirements
+
+- The "Arduino Community Edition" VS Code extension, if uploading with VS Code.
+- The following Arduino libraries:
+  - `Arduino_USBHostMbed5`
+  - `ArduinoJson`
+  - `Arduino_AdvancedAnalog`
+
 # Road Map
+
 - File System
   - [x] Allow disconnecting/reconnecting at run-time
   - [x] Simple file system traversal/modification
