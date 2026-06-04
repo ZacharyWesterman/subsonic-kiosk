@@ -6,7 +6,7 @@ var searchData=
   ['netclient_3',['netclient',['../classnet_1_1NetClient.html',1,'net::NetClient'],['../classnet_1_1NetClient.html#a657655bc4667c626d50bc3fbcdf2dff8',1,'net::NetClient::NetClient()']]],
   ['netclient_2ehpp_4',['netClient.hpp',['../netClient_8hpp.html',1,'']]],
   ['netinit_5',['netInit',['../require_8hpp.html#a251ae28941bc9bfc2cdc495d000824aa',1,'request']]],
-  ['network_20json_20tt_6',['&lt;tt&gt;network.json&lt;/tt&gt;',['../index.html#autotoc_md3',1,'']]],
+  ['network_20json_20tt_6',['&lt;tt&gt;network.json&lt;/tt&gt;',['../index.html#autotoc_md4',1,'']]],
   ['network_5fpass_7',['NETWORK_PASS',['../net_8hpp.html#a606e356e6d06218a52b6033d2b63dedd',1,'net']]],
   ['network_5fssid_8',['NETWORK_SSID',['../net_8hpp.html#a27e62f901e39ea59ec5c36880ff2c420',1,'net']]],
   ['numchannels_9',['numChannels',['../structaudio_1_1wav_1_1header__t.html#a934b5c019d2e9e637d4d1db5b44d500d',1,'audio::wav::header_t']]]

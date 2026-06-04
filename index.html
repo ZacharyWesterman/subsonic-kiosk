@@ -104,6 +104,17 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 <p>It's very much a WIP (there's not even a UI yet!) but by the end, any audio should be able to be browsed and played.</p>
 <p><a href="https://zacharywesterman.github.io/subsonic-kiosk">The documentation</a> is automatically generated with Doxygen. Check it out for a breakdown of the internals.</p>
 <h1><a class="anchor" id="autotoc_md1"></a>
+Build Requirements</h1>
+<ul>
+<li>The "Arduino Community Edition" VS Code extension, if uploading with VS Code.</li>
+<li>The following Arduino libraries:<ul>
+<li><code>Arduino_USBHostMbed5</code></li>
+<li><code>ArduinoJson</code></li>
+<li><code>Arduino_AdvancedAnalog</code></li>
+</ul>
+</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md2"></a>
 Road Map</h1>
 <ul>
 <li>File System<ul>
@@ -173,16 +184,16 @@ Road Map</h1>
 </ul>
 </li>
 </ul>
-<h2><a class="anchor" id="autotoc_md2"></a>
+<h2><a class="anchor" id="autotoc_md3"></a>
 Configs</h2>
 <p>Required configs on the top-level directory of the bulk storage (flash drive, etc):</p>
-<h3><a class="anchor" id="autotoc_md3"></a>
+<h3><a class="anchor" id="autotoc_md4"></a>
 &lt;tt&gt;network.json&lt;/tt&gt;</h3>
 <div class="fragment"><div class="line">{</div>
 <div class="line">  &quot;ssid&quot;: &quot;YOUR NETWORK SSID&quot;,</div>
 <div class="line">  &quot;password&quot;: &quot;PLAINTEXT PASSWORD&quot;</div>
 <div class="line">}</div>
-</div><!-- fragment --><h3><a class="anchor" id="autotoc_md4"></a>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md5"></a>
 &lt;tt&gt;subsonic.json&lt;/tt&gt;</h3>
 <div class="fragment"><div class="line">{</div>
 <div class="line">  &quot;host&quot;: &quot;CONNECTION URL, E.G. http://www.example.com:1234/subsonic&quot;,</div>

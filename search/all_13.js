@@ -14,7 +14,7 @@ var searchData=
   ['stream_11',['stream',['../classfs_1_1Path.html#a4075d75498533520765b0fcf27b89b3f',1,'fs::Path']]],
   ['subchunk1id_12',['subchunk1ID',['../structaudio_1_1wav_1_1header__t.html#aed9de56b691bf024d02553e476d9b558',1,'audio::wav::header_t']]],
   ['subchunk1size_13',['subchunk1Size',['../structaudio_1_1wav_1_1header__t.html#a209c06d739be5b31d868a8fbe8a76998',1,'audio::wav::header_t']]],
-  ['subsonic_20json_20tt_14',['&lt;tt&gt;subsonic.json&lt;/tt&gt;',['../index.html#autotoc_md4',1,'']]],
+  ['subsonic_20json_20tt_14',['&lt;tt&gt;subsonic.json&lt;/tt&gt;',['../index.html#autotoc_md5',1,'']]],
   ['subsonic_20kiosk_15',['subsonic-kiosk',['../index.html',1,'']]],
   ['supported_16',['supported',['../audio_8hpp.html#a38897a3afdf463203a4378d6aefe3fca',1,'audio']]]
 ];

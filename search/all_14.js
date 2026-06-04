@@ -5,6 +5,6 @@ var searchData=
   ['text_2',['text',['../classnet_1_1Request.html#ae7b6885caeda9574be03b5c6e6ec079a',1,'net::Request']]],
   ['todo_20list_3',['Todo List',['../todo.html',1,'']]],
   ['tryconnect_4',['tryConnect',['../net_8hpp.html#afef7a16f3b3a3b9148635396c1a8960c',1,'net']]],
-  ['tt_20network_20json_20tt_5',['&lt;tt&gt;network.json&lt;/tt&gt;',['../index.html#autotoc_md3',1,'']]],
-  ['tt_20subsonic_20json_20tt_6',['&lt;tt&gt;subsonic.json&lt;/tt&gt;',['../index.html#autotoc_md4',1,'']]]
+  ['tt_20network_20json_20tt_5',['&lt;tt&gt;network.json&lt;/tt&gt;',['../index.html#autotoc_md4',1,'']]],
+  ['tt_20subsonic_20json_20tt_6',['&lt;tt&gt;subsonic.json&lt;/tt&gt;',['../index.html#autotoc_md5',1,'']]]
 ];
