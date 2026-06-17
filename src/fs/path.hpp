@@ -3,6 +3,10 @@
 
 #include "../fs.hpp"
 
+#ifdef EMULATE
+#include <dirent.h>
+#endif
+
 namespace fs {
 
 class Path; // Forward declaration

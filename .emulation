@@ -1,2 +1,4 @@
 #Special flags or adjustments needed when emulating.
 includes = ArduinoJson/src
+#compiler_flags = -I
+linker_flags = -lcurl

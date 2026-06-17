@@ -88,3 +88,15 @@ md5sum = hashlib.md5((password + salt).encode('utf-8')).hexdigest()
 
 print(salt, md5sum)
 ```
+
+
+## Emulating
+
+If emulating, this project requires libcurl development files. On Ubuntu, you can install this with
+```sh
+sudo apt install libcurl4-gnutls-dev
+# or
+sudo apt install libcurl4-openssl-dev
+```
+
+Also, a `./usb/` directory will be used as the USB flash drive storage, and will be created if it doesn't exist.

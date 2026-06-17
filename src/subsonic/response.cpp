@@ -31,7 +31,7 @@ bool Response::ok() {
 
 String Response::error() {
 	if (!request.ok()) {
-		return String("HTTP request returned error code ") + static_cast<int>(request.status()) + ".";
+		return String("HTTP request returned error code ") + String(static_cast<int>(request.status())) + ".";
 	}
 
 	parseData();
