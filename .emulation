@@ -1,0 +1,2 @@
+#Special flags or adjustments needed when emulating.
+includes = ArduinoJson/src

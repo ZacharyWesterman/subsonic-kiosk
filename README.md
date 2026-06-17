@@ -9,9 +9,10 @@ It's very much a WIP (there's not even a UI yet!) but by the end, any audio shou
 
 - The "Arduino Community Edition" VS Code extension, if uploading with VS Code.
 - The following Arduino libraries:
-  - `Arduino_USBHostMbed5`
-  - `ArduinoJson`
-  - `Arduino_AdvancedAnalog`
+  - `Arduino_USBHostMbed5` - Managing files on a connected USB device.
+  - `ArduinoJson` - Simple, efficient parsing of JSON data (usually from network requests).
+  - `Arduino_AdvancedAnalog` - Playing music through the audio jack.
+  - `WiFi` - Network requests.
 
 # Road Map
 
