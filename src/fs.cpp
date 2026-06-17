@@ -1,16 +1,25 @@
 #include "fs.hpp"
 #include "logger.hpp"
 #include "pins.hpp"
-#include <Arduino_USBHostMbed5.h>
 #include <vector>
+
+#ifdef EMULATE
+#include <cstdio>
+#else
+#include <Arduino_USBHostMbed5.h>
+#endif
 
 namespace fs {
 
+#ifndef EMULATE
 static USBHostMSD device;
 static mbed::FATFileSystem filesystem("usb");
+#endif
+
 static bool initialized = false;
 
 bool connect(int maxRetries) {
+#ifndef EMULATE
 	if (maxRetries < 0) {
 		maxRetries = 10000; // Default to a large number if not specified
 	}
@@ -54,16 +63,29 @@ bool connect(int maxRetries) {
 	}
 
 	pins::off();
+#else
+	struct stat st;
+	if (stat("./usb", &st) == 0) {
+		mkdir("./usb", 0755);
+	}
+#endif
+
 	initialized = true;
 	return true;
 }
 
 bool connected() {
+#ifdef EMULATE
+	return initialized;
+#else
 	return initialized && device.connected();
+#endif
 }
 
 void disconnect() {
+#ifndef EMULATE
 	filesystem.unmount();
+#endif
 	initialized = false;
 	logger::info("USB device disconnected.");
 }
@@ -73,12 +95,17 @@ size_t size() {
 		return 0;
 	}
 
+#ifndef EMULATE
 	struct statvfs fsInfo;
 	if (statvfs("/usb", &fsInfo) != 0) {
 		logger::error("Failed to get filesystem info.");
 		return 0;
 	}
 	return fsInfo.f_blocks * fsInfo.f_bsize;
+#else
+	// When emulating, just assume we have 16GB of disk space.
+	return 16 * 1024 * 1024 * 1024;
+#endif
 }
 
 size_t used() {
@@ -86,12 +113,16 @@ size_t used() {
 		return 0;
 	}
 
+#ifndef EMULATE
 	struct statvfs fsInfo;
 	if (statvfs("/usb", &fsInfo) != 0) {
 		logger::error("Failed to get filesystem info.");
 		return 0;
 	}
 	return (fsInfo.f_blocks * fsInfo.f_bsize - fsInfo.f_bfree * fsInfo.f_bsize);
+#else
+	return 0;
+#endif
 }
 
 size_t free() {
@@ -99,16 +130,25 @@ size_t free() {
 		return 0;
 	}
 
+#ifndef EMULATE
 	struct statvfs fsInfo;
 	if (statvfs("/usb", &fsInfo) != 0) {
 		logger::error("Failed to get filesystem info.");
 		return 0;
 	}
 	return fsInfo.f_bfree * fsInfo.f_bsize;
+#else
+	// When emulating, just assume we have 16GB of disk space.
+	return 16 * 1024 * 1024 * 1024;
+#endif
 }
 
 String _path(const String &path) {
+#ifndef EMULATE
 	return "/usb" + path;
+#else
+	return "./usb" + path;
+#endif
 }
 
 } // namespace fs

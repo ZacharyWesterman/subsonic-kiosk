@@ -2,8 +2,13 @@
 #pragma once
 
 #include "../logger.hpp"
-#include <Arduino_USBHostMbed5.h>
 #include <vector>
+
+#ifdef EMULATE
+#include <cstdio>
+#else
+#include <Arduino_USBHostMbed5.h>
+#endif
 
 namespace fs {
 
