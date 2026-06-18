@@ -66,7 +66,7 @@ bool connect(int maxRetries) {
 	pins::off();
 #else
 	struct stat st;
-	if (stat("./usb", &st) == 0) {
+	if (stat("./usb", &st) != 0) {
 		mkdir("./usb", 0755);
 	}
 #endif
