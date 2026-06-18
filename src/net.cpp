@@ -3,7 +3,10 @@
 #include "net/netClient.hpp"
 #include "pins.hpp"
 #include <Arduino.h>
+
+#ifndef EMULATE
 #include <WiFi.h>
+#endif
 
 namespace net {
 
@@ -13,7 +16,11 @@ static unsigned long LAST_CONNECT_TIME = 0;
 static bool CONNECTING = false;
 
 bool available() {
+#ifndef EMULATE
 	return WiFi.status() != WL_NO_MODULE;
+#else
+	return true;
+#endif
 }
 
 void init(const String &ssid, const String &password) {
@@ -26,7 +33,11 @@ void init(const String &ssid, const String &password) {
 }
 
 bool connected() {
+#ifndef EMULATE
 	return WiFi.status() == WL_CONNECTED;
+#else
+	return true;
+#endif
 }
 
 void tryConnect() {
@@ -50,7 +61,9 @@ void tryConnect() {
 
 	pins::blue();
 	logger::info("Connecting to WiFi network: " + NETWORK_SSID);
+#ifndef EMULATE
 	WiFi.begin(NETWORK_SSID.c_str(), NETWORK_PASS.c_str());
+#endif
 
 	CONNECTING = true;
 	LAST_CONNECT_TIME = millis();
@@ -65,7 +78,9 @@ void tryConnect() {
 
 void disconnect() {
 	logger::info("Disconnecting from WiFi... ", false);
+#ifndef EMULATE
 	WiFi.disconnect();
+#endif
 	logger::raw("Done.\n");
 }
 
@@ -74,7 +89,11 @@ int ping(const char *host, int timeout) {
 		return -1; // Not connected
 	}
 
+#ifndef EMULATE
 	return WiFi.ping(host, timeout);
+#else
+	return 0;
+#endif
 }
 
 NetClient client(const String &host, int port) {

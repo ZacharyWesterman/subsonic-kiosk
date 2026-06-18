@@ -2,7 +2,10 @@
 #pragma once
 
 #include "request.hpp"
+
+#ifndef EMULATE
 #include <WiFi.h>
+#endif
 
 namespace net {
 
@@ -11,7 +14,9 @@ namespace net {
  * This class is used to create HTTP requests to a specified host and port.
  */
 class NetClient {
+#ifndef EMULATE
 	WiFiClient client;
+#endif
 	String host;
 	int port;
 	bool connected = false;

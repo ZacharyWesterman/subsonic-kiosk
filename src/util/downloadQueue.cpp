@@ -1,5 +1,3 @@
-#pragma once
-
 #include "downloadQueue.hpp"
 #include "uid.hpp"
 

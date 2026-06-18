@@ -3,16 +3,31 @@
 namespace net {
 
 NetClient::NetClient(const String &host, int port) : host(host), port(port) {
+#ifdef EMULATE
+	connected = true;
+#else
 	connected = client.connect(host.c_str(), port);
+#endif
 }
 
 NetClient::~NetClient() {
+#ifndef EMULATE
 	if (connected) {
 		client.stop();
 	}
+#endif
 }
 
 Request NetClient::get(const String &path) {
+#ifdef EMULATE
+	String requestPath = path;
+	if (!requestPath.startsWith("/")) {
+		requestPath = "/" + requestPath;
+	}
+	const String scheme = (port == 443) ? "https" : "http";
+	const String requestUrl = scheme + "://" + host + ":" + String(port) + requestPath;
+	return Request(requestUrl);
+#else
 	if (!connected) {
 		connected = client.connect(host.c_str(), port);
 	}
@@ -28,6 +43,7 @@ Request NetClient::get(const String &path) {
 
 	Request response(client);
 	return response;
+#endif
 }
 
 } // namespace net

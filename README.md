@@ -9,9 +9,10 @@ It's very much a WIP (there's not even a UI yet!) but by the end, any audio shou
 
 - The "Arduino Community Edition" VS Code extension, if uploading with VS Code.
 - The following Arduino libraries:
-  - `Arduino_USBHostMbed5`
-  - `ArduinoJson`
-  - `Arduino_AdvancedAnalog`
+  - `Arduino_USBHostMbed5` - Managing files on a connected USB device.
+  - `ArduinoJson` - Simple, efficient parsing of JSON data (usually from network requests).
+  - `Arduino_AdvancedAnalog` - Playing music through the audio jack.
+  - `WiFi` - Network requests.
 
 # Road Map
 
@@ -87,3 +88,15 @@ md5sum = hashlib.md5((password + salt).encode('utf-8')).hexdigest()
 
 print(salt, md5sum)
 ```
+
+
+## Emulating
+
+If emulating, this project requires libcurl development files. On Ubuntu, you can install this with
+```sh
+sudo apt install libcurl4-gnutls-dev
+# or
+sudo apt install libcurl4-openssl-dev
+```
+
+Also, a `./usb/` directory will be used as the USB flash drive storage, and will be created if it doesn't exist.

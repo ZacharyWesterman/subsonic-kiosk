@@ -3,8 +3,14 @@
 
 #include "statusCodes.hpp"
 #include <ArduinoJson.h>
-#include <WiFi.h>
 #include <vector>
+
+#ifdef EMULATE
+#include <Arduino.h>
+#include <curl/curl.h>
+#else
+#include <WiFi.h>
+#endif
 
 namespace net {
 
@@ -12,7 +18,15 @@ namespace net {
  * @brief A class to represent an HTTP request.
  */
 class Request {
+#ifdef EMULATE
+	CURL *curlHandle = nullptr;
+	String requestUrl;
+	size_t bodyIndex = 0;
+	static size_t writeCallback(char *ptr, size_t size, size_t nmemb, void *userdata);
+	static size_t headerCallback(char *ptr, size_t size, size_t nmemb, void *userdata);
+#else
 	WiFiClient client;
+#endif
 	bool finished = false;
 	String responseBody;
 	StatusCode status_code;
@@ -25,7 +39,11 @@ public:
 	 * @brief Constructor for the Request class.
 	 * @param client The WiFiClient object to use for the request.
 	 */
+#ifdef EMULATE
+	Request(const String &url);
+#else
 	Request(WiFiClient &client);
+#endif
 
 	/**
 	 * @brief Boolean conversion operator to check if the request is successful.
