@@ -1,6 +1,6 @@
 var classnet_1_1Request =
 [
-    [ "Request", "classnet_1_1Request.html#a244a9313cbed6692a13ed23eed5ae071", null ],
+    [ "Request", "classnet_1_1Request.html#a948221f84eb5a6cf1073e7fa10a73c00", null ],
     [ "data", "classnet_1_1Request.html#a70c05be80b609d651669d9866568a3be", null ],
     [ "done", "classnet_1_1Request.html#ad1f0452724b2aa03711393327e669b39", null ],
     [ "downloaded", "classnet_1_1Request.html#a36cb78753d01bda9a8c3e61094ea3896", null ],

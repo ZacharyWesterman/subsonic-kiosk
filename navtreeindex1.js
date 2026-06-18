@@ -1,5 +1,7 @@
 var NAVTREEINDEX1 =
 {
+"statusCodes_8hpp.html#a85e56800e889acd3704beb9e441179ffafd13ded9d0c9afb4e7a449bc18314043":[4,0,0,2,2,0,14],
+"statusCodes_8hpp_source.html":[4,0,0,2,2],
 "structaudio_1_1wav_1_1header__t.html":[3,0,0,0,0],
 "structaudio_1_1wav_1_1header__t.html#a209c06d739be5b31d868a8fbe8a76998":[3,0,0,0,0,10],
 "structaudio_1_1wav_1_1header__t.html#a2f6e3521a8e59f662a970baeea6b7316":[3,0,0,0,0,2],

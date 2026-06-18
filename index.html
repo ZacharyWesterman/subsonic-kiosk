@@ -108,9 +108,10 @@ Build Requirements</h1>
 <ul>
 <li>The "Arduino Community Edition" VS Code extension, if uploading with VS Code.</li>
 <li>The following Arduino libraries:<ul>
-<li><code>Arduino_USBHostMbed5</code></li>
-<li><code>ArduinoJson</code></li>
-<li><code>Arduino_AdvancedAnalog</code></li>
+<li><code>Arduino_USBHostMbed5</code> - Managing files on a connected USB device.</li>
+<li><code>ArduinoJson</code> - Simple, efficient parsing of JSON data (usually from network requests).</li>
+<li><code>Arduino_AdvancedAnalog</code> - Playing music through the audio jack.</li>
+<li><code>WiFi</code> - Network requests.</li>
 </ul>
 </li>
 </ul>
@@ -207,7 +208,13 @@ Configs</h2>
 <div class="line">md5sum = hashlib.md5((password + salt).encode(<span class="stringliteral">&#39;utf-8&#39;</span>)).hexdigest()</div>
 <div class="line"> </div>
 <div class="line">print(salt, md5sum)</div>
-</div><!-- fragment --> </div></div><!-- PageDoc -->
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md6"></a>
+Emulating</h2>
+<p>If emulating, this project requires libcurl development files. On Ubuntu, you can install this with </p><div class="fragment"><div class="line">sudo apt install libcurl4-gnutls-dev</div>
+<div class="line"># or</div>
+<div class="line">sudo apt install libcurl4-openssl-dev</div>
+</div><!-- fragment --><p>Also, a <code>./usb/</code> directory will be used as the USB flash drive storage, and will be created if it doesn't exist. </p>
+</div></div><!-- PageDoc -->
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

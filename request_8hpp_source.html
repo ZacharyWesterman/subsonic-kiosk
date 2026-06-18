@@ -105,70 +105,88 @@ $(document).ready(function(){initNavTree('request_8hpp_source.html',''); initRes
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="statusCodes_8hpp.html">statusCodes.hpp</a>&quot;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;ArduinoJson.h&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;WiFi.h&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span><a class="code hl_function" href="require_8hpp.html#a6e4000d4136f4416e6cdee7e8a405139">net</a> {</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="foldopen" id="foldopen00014" data-start="{" data-end="};">
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="classnet_1_1Request.html">   14</a></span><span class="keyword">class </span><a class="code hl_class" href="classnet_1_1Request.html">Request</a> {</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    WiFiClient client;</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="keywordtype">bool</span> finished = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    String responseBody;</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <a class="code hl_enumeration" href="statusCodes_8hpp.html#a85e56800e889acd3704beb9e441179ff">StatusCode</a> status_code;</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    uint64_t content_length;</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    uint64_t downloaded_bytes;</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    String redirect_to;</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="classnet_1_1Request.html#a244a9313cbed6692a13ed23eed5ae071">   28</a></span>    <a class="code hl_function" href="classnet_1_1Request.html#a244a9313cbed6692a13ed23eed5ae071">Request</a>(WiFiClient &amp;client);</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="foldopen" id="foldopen00034" data-start="{" data-end="}">
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="classnet_1_1Request.html#ae591117f0d9610b55a9d8078e15f5da8">   34</a></span>    <span class="keyword">inline</span> <span class="keyword">operator</span> bool()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="classnet_1_1Request.html#a0cb2a1245739a7849fba0383efdaed91">ok</a>();</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    }</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#ifdef EMULATE</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;Arduino.h&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;curl/curl.h&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#else</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;WiFi.h&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">namespace </span><a class="code hl_function" href="require_8hpp.html#a6e4000d4136f4416e6cdee7e8a405139">net</a> {</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="foldopen" id="foldopen00020" data-start="{" data-end="};">
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="classnet_1_1Request.html">   20</a></span><span class="keyword">class </span><a class="code hl_class" href="classnet_1_1Request.html">Request</a> {</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#ifdef EMULATE</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    CURL *curlHandle = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    String requestUrl;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keywordtype">size_t</span> bodyIndex = 0;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keyword">static</span> <span class="keywordtype">size_t</span> writeCallback(<span class="keywordtype">char</span> *ptr, <span class="keywordtype">size_t</span> size, <span class="keywordtype">size_t</span> nmemb, <span class="keywordtype">void</span> *userdata);</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keyword">static</span> <span class="keywordtype">size_t</span> headerCallback(<span class="keywordtype">char</span> *ptr, <span class="keywordtype">size_t</span> size, <span class="keywordtype">size_t</span> nmemb, <span class="keywordtype">void</span> *userdata);</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#else</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    WiFiClient client;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keywordtype">bool</span> finished = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    String responseBody;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <a class="code hl_enumeration" href="statusCodes_8hpp.html#a85e56800e889acd3704beb9e441179ff">StatusCode</a> status_code;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    uint64_t content_length;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    uint64_t downloaded_bytes;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    String redirect_to;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="preprocessor">#ifdef EMULATE</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="classnet_1_1Request.html#a948221f84eb5a6cf1073e7fa10a73c00">   43</a></span>    <a class="code hl_function" href="classnet_1_1Request.html#a948221f84eb5a6cf1073e7fa10a73c00">Request</a>(<span class="keyword">const</span> String &amp;url);</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="preprocessor">#else</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <a class="code hl_class" href="classnet_1_1Request.html">Request</a>(WiFiClient &amp;client);</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="foldopen" id="foldopen00052" data-start="{" data-end="}">
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="classnet_1_1Request.html#ae591117f0d9610b55a9d8078e15f5da8">   52</a></span>    <span class="keyword">inline</span> <span class="keyword">operator</span> bool()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="classnet_1_1Request.html#a0cb2a1245739a7849fba0383efdaed91">ok</a>();</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    }</div>
 </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="classnet_1_1Request.html#ad1f0452724b2aa03711393327e669b39">   42</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classnet_1_1Request.html#ad1f0452724b2aa03711393327e669b39">done</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="classnet_1_1Request.html#a0cb2a1245739a7849fba0383efdaed91">   48</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classnet_1_1Request.html#a0cb2a1245739a7849fba0383efdaed91">ok</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="classnet_1_1Request.html#a2b6ef3dd0ac4e79a1fd0a24aff4c2b05">   54</a></span>    <a class="code hl_enumeration" href="statusCodes_8hpp.html#a85e56800e889acd3704beb9e441179ff">StatusCode</a> <a class="code hl_function" href="classnet_1_1Request.html#a2b6ef3dd0ac4e79a1fd0a24aff4c2b05">status</a>() <span class="keyword">const</span>;</div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="classnet_1_1Request.html#aba9e396a129680642cf585e9728d4a85">   64</a></span>    std::vector&lt;uint8_t&gt; <a class="code hl_function" href="classnet_1_1Request.html#aba9e396a129680642cf585e9728d4a85">read</a>(<span class="keywordtype">int</span> chunkSize = 1024);</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno"><a class="line" href="classnet_1_1Request.html#a20576d1e849419ac04bfb27f78297cf8">   73</a></span>    String <a class="code hl_function" href="classnet_1_1Request.html#a20576d1e849419ac04bfb27f78297cf8">readln</a>();</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno"><a class="line" href="classnet_1_1Request.html#ae7b6885caeda9574be03b5c6e6ec079a">   81</a></span>    String <a class="code hl_function" href="classnet_1_1Request.html#ae7b6885caeda9574be03b5c6e6ec079a">text</a>();</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno"><a class="line" href="classnet_1_1Request.html#a1dd9e2c8131e371afc0e12e9c9bcea36">   91</a></span>    JsonDocument <a class="code hl_function" href="classnet_1_1Request.html#a1dd9e2c8131e371afc0e12e9c9bcea36">json</a>();</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="classnet_1_1Request.html#ad1f0452724b2aa03711393327e669b39">   60</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classnet_1_1Request.html#ad1f0452724b2aa03711393327e669b39">done</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="classnet_1_1Request.html#a0cb2a1245739a7849fba0383efdaed91">   66</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classnet_1_1Request.html#a0cb2a1245739a7849fba0383efdaed91">ok</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="classnet_1_1Request.html#a2b6ef3dd0ac4e79a1fd0a24aff4c2b05">   72</a></span>    <a class="code hl_enumeration" href="statusCodes_8hpp.html#a85e56800e889acd3704beb9e441179ff">StatusCode</a> <a class="code hl_function" href="classnet_1_1Request.html#a2b6ef3dd0ac4e79a1fd0a24aff4c2b05">status</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="classnet_1_1Request.html#aba9e396a129680642cf585e9728d4a85">   82</a></span>    std::vector&lt;uint8_t&gt; <a class="code hl_function" href="classnet_1_1Request.html#aba9e396a129680642cf585e9728d4a85">read</a>(<span class="keywordtype">int</span> chunkSize = 1024);</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno"><a class="line" href="classnet_1_1Request.html#a20576d1e849419ac04bfb27f78297cf8">   91</a></span>    String <a class="code hl_function" href="classnet_1_1Request.html#a20576d1e849419ac04bfb27f78297cf8">readln</a>();</div>
 <div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno"><a class="line" href="classnet_1_1Request.html#ac80a38ce646201b4d612d5e0ec8595c1">   97</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classnet_1_1Request.html#ac80a38ce646201b4d612d5e0ec8595c1">ready</a>();</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno"><a class="line" href="classnet_1_1Request.html#a70c05be80b609d651669d9866568a3be">  103</a></span>    std::vector&lt;uint8_t&gt; <a class="code hl_function" href="classnet_1_1Request.html#a70c05be80b609d651669d9866568a3be">data</a>();</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno"><a class="line" href="classnet_1_1Request.html#af403ca1f36d000a23b119a53bd56ccb4">  109</a></span>    uint64_t <a class="code hl_function" href="classnet_1_1Request.html#af403ca1f36d000a23b119a53bd56ccb4">length</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno"><a class="line" href="classnet_1_1Request.html#ae7b6885caeda9574be03b5c6e6ec079a">   99</a></span>    String <a class="code hl_function" href="classnet_1_1Request.html#ae7b6885caeda9574be03b5c6e6ec079a">text</a>();</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno"><a class="line" href="classnet_1_1Request.html#a1dd9e2c8131e371afc0e12e9c9bcea36">  109</a></span>    JsonDocument <a class="code hl_function" href="classnet_1_1Request.html#a1dd9e2c8131e371afc0e12e9c9bcea36">json</a>();</div>
 <div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno"><a class="line" href="classnet_1_1Request.html#a36cb78753d01bda9a8c3e61094ea3896">  115</a></span>    uint64_t <a class="code hl_function" href="classnet_1_1Request.html#a36cb78753d01bda9a8c3e61094ea3896">downloaded</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno"><a class="line" href="classnet_1_1Request.html#ac80a38ce646201b4d612d5e0ec8595c1">  115</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classnet_1_1Request.html#ac80a38ce646201b4d612d5e0ec8595c1">ready</a>();</div>
 <div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno"><a class="line" href="classnet_1_1Request.html#a341ee5dfb7b5bf8c3798f77aaa614c7e">  121</a></span>    <span class="keywordtype">float</span> <a class="code hl_function" href="classnet_1_1Request.html#a341ee5dfb7b5bf8c3798f77aaa614c7e">progress</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno"><a class="line" href="classnet_1_1Request.html#a70c05be80b609d651669d9866568a3be">  121</a></span>    std::vector&lt;uint8_t&gt; <a class="code hl_function" href="classnet_1_1Request.html#a70c05be80b609d651669d9866568a3be">data</a>();</div>
 <div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    <span class="keywordtype">bool</span> redirected() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span> </div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    <span class="keyword">const</span> String &amp;location() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>};</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno"><a class="line" href="classnet_1_1Request.html#af403ca1f36d000a23b119a53bd56ccb4">  127</a></span>    uint64_t <a class="code hl_function" href="classnet_1_1Request.html#af403ca1f36d000a23b119a53bd56ccb4">length</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno"><a class="line" href="classnet_1_1Request.html#a36cb78753d01bda9a8c3e61094ea3896">  133</a></span>    uint64_t <a class="code hl_function" href="classnet_1_1Request.html#a36cb78753d01bda9a8c3e61094ea3896">downloaded</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span> </div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno"><a class="line" href="classnet_1_1Request.html#a341ee5dfb7b5bf8c3798f77aaa614c7e">  139</a></span>    <span class="keywordtype">float</span> <a class="code hl_function" href="classnet_1_1Request.html#a341ee5dfb7b5bf8c3798f77aaa614c7e">progress</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span> </div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    <span class="keywordtype">bool</span> redirected() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span> </div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    <span class="keyword">const</span> String &amp;location() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>};</div>
 </div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span> </div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>} <span class="comment">// namespace net</span></div>
-<div class="ttc" id="aclassnet_1_1Request_html"><div class="ttname"><a href="classnet_1_1Request.html">net::Request</a></div><div class="ttdoc">A class to represent an HTTP request.</div><div class="ttdef"><b>Definition</b> request.hpp:14</div></div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span> </div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>} <span class="comment">// namespace net</span></div>
+<div class="ttc" id="aclassnet_1_1Request_html"><div class="ttname"><a href="classnet_1_1Request.html">net::Request</a></div><div class="ttdoc">A class to represent an HTTP request.</div><div class="ttdef"><b>Definition</b> request.hpp:20</div></div>
 <div class="ttc" id="aclassnet_1_1Request_html_a0cb2a1245739a7849fba0383efdaed91"><div class="ttname"><a href="classnet_1_1Request.html#a0cb2a1245739a7849fba0383efdaed91">net::Request::ok</a></div><div class="ttdeci">bool ok() const</div><div class="ttdoc">Check if the request was successful.</div></div>
 <div class="ttc" id="aclassnet_1_1Request_html_a1dd9e2c8131e371afc0e12e9c9bcea36"><div class="ttname"><a href="classnet_1_1Request.html#a1dd9e2c8131e371afc0e12e9c9bcea36">net::Request::json</a></div><div class="ttdeci">JsonDocument json()</div><div class="ttdoc">Read the response body as a JSON document.</div></div>
 <div class="ttc" id="aclassnet_1_1Request_html_a20576d1e849419ac04bfb27f78297cf8"><div class="ttname"><a href="classnet_1_1Request.html#a20576d1e849419ac04bfb27f78297cf8">net::Request::readln</a></div><div class="ttdeci">String readln()</div><div class="ttdoc">Read a line from the response body.</div></div>
-<div class="ttc" id="aclassnet_1_1Request_html_a244a9313cbed6692a13ed23eed5ae071"><div class="ttname"><a href="classnet_1_1Request.html#a244a9313cbed6692a13ed23eed5ae071">net::Request::Request</a></div><div class="ttdeci">Request(WiFiClient &amp;client)</div><div class="ttdoc">Constructor for the Request class.</div></div>
 <div class="ttc" id="aclassnet_1_1Request_html_a2b6ef3dd0ac4e79a1fd0a24aff4c2b05"><div class="ttname"><a href="classnet_1_1Request.html#a2b6ef3dd0ac4e79a1fd0a24aff4c2b05">net::Request::status</a></div><div class="ttdeci">StatusCode status() const</div><div class="ttdoc">Get the HTTP status code of the response.</div></div>
 <div class="ttc" id="aclassnet_1_1Request_html_a341ee5dfb7b5bf8c3798f77aaa614c7e"><div class="ttname"><a href="classnet_1_1Request.html#a341ee5dfb7b5bf8c3798f77aaa614c7e">net::Request::progress</a></div><div class="ttdeci">float progress() const</div><div class="ttdoc">Get the ratio of bytes downloaded to content length.</div></div>
 <div class="ttc" id="aclassnet_1_1Request_html_a36cb78753d01bda9a8c3e61094ea3896"><div class="ttname"><a href="classnet_1_1Request.html#a36cb78753d01bda9a8c3e61094ea3896">net::Request::downloaded</a></div><div class="ttdeci">uint64_t downloaded() const</div><div class="ttdoc">Get the number of bytes downloaded so far.</div></div>
 <div class="ttc" id="aclassnet_1_1Request_html_a70c05be80b609d651669d9866568a3be"><div class="ttname"><a href="classnet_1_1Request.html#a70c05be80b609d651669d9866568a3be">net::Request::data</a></div><div class="ttdeci">std::vector&lt; uint8_t &gt; data()</div><div class="ttdoc">Get the data that's available to be read from the response.</div></div>
+<div class="ttc" id="aclassnet_1_1Request_html_a948221f84eb5a6cf1073e7fa10a73c00"><div class="ttname"><a href="classnet_1_1Request.html#a948221f84eb5a6cf1073e7fa10a73c00">net::Request::Request</a></div><div class="ttdeci">Request(const String &amp;url)</div><div class="ttdoc">Constructor for the Request class.</div></div>
 <div class="ttc" id="aclassnet_1_1Request_html_aba9e396a129680642cf585e9728d4a85"><div class="ttname"><a href="classnet_1_1Request.html#aba9e396a129680642cf585e9728d4a85">net::Request::read</a></div><div class="ttdeci">std::vector&lt; uint8_t &gt; read(int chunkSize=1024)</div><div class="ttdoc">Read the response body in chunks.</div></div>
 <div class="ttc" id="aclassnet_1_1Request_html_ac80a38ce646201b4d612d5e0ec8595c1"><div class="ttname"><a href="classnet_1_1Request.html#ac80a38ce646201b4d612d5e0ec8595c1">net::Request::ready</a></div><div class="ttdeci">bool ready()</div><div class="ttdoc">Check if data is ready to be read from the response.</div></div>
 <div class="ttc" id="aclassnet_1_1Request_html_ad1f0452724b2aa03711393327e669b39"><div class="ttname"><a href="classnet_1_1Request.html#ad1f0452724b2aa03711393327e669b39">net::Request::done</a></div><div class="ttdeci">bool done() const</div><div class="ttdoc">Check if the request is finished.</div></div>

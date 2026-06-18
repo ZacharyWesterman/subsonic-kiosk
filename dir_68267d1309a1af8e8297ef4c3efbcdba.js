@@ -7,6 +7,7 @@ var dir_68267d1309a1af8e8297ef4c3efbcdba =
     [ "util", "dir_b7878ad5ecbf2506f4125b9d34c97e45.html", "dir_b7878ad5ecbf2506f4125b9d34c97e45" ],
     [ "audio.hpp", "audio_8hpp.html", "audio_8hpp" ],
     [ "callback.hpp", "callback_8hpp.html", "callback_8hpp" ],
+    [ "emulation_helpers.hpp", "emulation__helpers_8hpp_source.html", null ],
     [ "fs.hpp", "fs_8hpp.html", "fs_8hpp" ],
     [ "logger.hpp", "logger_8hpp.html", "logger_8hpp" ],
     [ "net.hpp", "net_8hpp.html", "net_8hpp" ],

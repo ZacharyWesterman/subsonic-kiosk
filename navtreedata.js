@@ -30,7 +30,8 @@ var NAVTREE =
       [ "Configs", "index.html#autotoc_md3", [
         [ "<tt>network.json</tt>", "index.html#autotoc_md4", null ],
         [ "<tt>subsonic.json</tt>", "index.html#autotoc_md5", null ]
-      ] ]
+      ] ],
+      [ "Emulating", "index.html#autotoc_md6", null ]
     ] ],
     [ "Todo List", "todo.html", null ],
     [ "Classes", "annotated.html", [
@@ -55,7 +56,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"structaudio_1_1wav_1_1header__t.html"
+"statusCodes_8hpp.html#a85e56800e889acd3704beb9e441179ffafd13ded9d0c9afb4e7a449bc18314043"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
