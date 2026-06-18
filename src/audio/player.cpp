@@ -1,10 +1,18 @@
 #include "player.hpp"
 #include <Arduino.h>
+
+#ifndef EMULATE
 #include <Arduino_AdvancedAnalog.h>
+#else
+#warning "Audio playback not supported when emulating. No sound will be produced!"
+#include <string.h>
+#endif
 
 namespace audio {
 
+#ifndef EMULATE
 static AdvancedDAC dac0(A12);
+#endif
 
 Player::Player(const fs::Path &file) : initialized(false), playing(false), format(NO_AUDIO), stream(file.stream()), currentSeconds(0.0f) {
 	if (!stream) {
@@ -34,11 +42,13 @@ Player::Player(const fs::Path &file) : initialized(false), playing(false), forma
 		return;
 	}
 
+#ifndef EMULATE
 	/* Configure the advanced DAC. */
 	if (!dac0.begin(AN_RESOLUTION_12, sampleRate * 2, 256, 16)) {
 		logger::error("Failed to start DAC0!");
 		return;
 	}
+#endif
 
 	totalSeconds = getTotalSeconds(stream, header, format);
 
@@ -52,6 +62,7 @@ bool Player::output() {
 		return false;
 	}
 
+#ifndef EMULATE
 	if (!initialized || !dac0.available()) {
 		return false;
 	}
@@ -84,8 +95,11 @@ bool Player::output() {
 
 	// Write the buffer to DAC.
 	dac0.write(buf);
+#endif
 
 	currentSeconds = getCurrentSeconds(stream, header, format);
+
+	return true;
 }
 
 void Player::play() {

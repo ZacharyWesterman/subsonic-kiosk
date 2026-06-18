@@ -1,4 +1,3 @@
 #Special flags or adjustments needed when emulating.
-includes = ArduinoJson/src
-#compiler_flags = -I
+includes = ArduinoJson/src Adafruit_GFX_Library
 linker_flags = -lcurl
