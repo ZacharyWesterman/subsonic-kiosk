@@ -1,4 +1,5 @@
 #pragma once
+#include "objects/search_results.hpp"
 #include "response.hpp"
 
 namespace subsonic {

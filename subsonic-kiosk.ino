@@ -4,6 +4,7 @@
 #include "src/net.hpp"
 #include "src/pins.hpp"
 #include "src/require.hpp"
+#include "src/subsonic/client.hpp"
 #include "src/util/downloadQueue.hpp"
 
 audio::Player *player;
