@@ -6,6 +6,7 @@
 #include <vector>
 
 #ifdef EMULATE
+#include <Arduino.h>
 #include <curl/curl.h>
 #else
 #include <WiFi.h>

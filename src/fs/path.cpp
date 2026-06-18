@@ -1,5 +1,9 @@
 #include "path.hpp"
 
+#ifdef EMULATE
+#include <sys/stat.h>
+#endif
+
 namespace fs {
 
 IterDir::IterDir(const Path &parent, const String &path, bool end) : parent(parent) {
