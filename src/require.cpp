@@ -1,4 +1,5 @@
 #include "require.hpp"
+#include "emulation_helpers.hpp"
 #include "fs.hpp"
 #include "logger.hpp"
 #include "net.hpp"
@@ -70,19 +71,19 @@ void netInit() {
 		}
 
 		// Make sure the JSON has the required fields
-		if (!config.is<JsonObject>() || !config["ssid"].is<JsonString>() || !config["password"].is<JsonString>()) {
+		if (!json_is_obj(config) || !json_is_str(config["ssid"]) || !json_is_str(config["password"])) {
 			netConfigError();
 			return;
 		}
 
-		if (net::connected() && (String(config["ssid"].as<JsonString>().c_str()) == net::NETWORK_SSID && String(config["password"].as<JsonString>().c_str()) == net::NETWORK_PASS)) {
+		if (net::connected() && (json_to_str(config["ssid"]) == net::NETWORK_SSID && json_to_str(config["password"]) == net::NETWORK_PASS)) {
 			return; // Already connected with the same credentials
 		}
 
 		if (net::connected()) {
 			net::disconnect();
 		}
-		net::init(config["ssid"].as<JsonString>().c_str(), config["password"].as<JsonString>().c_str());
+		net::init(json_to_str(config["ssid"]), json_to_str(config["password"]));
 		NET_AVAILABLE = true;
 	}
 }

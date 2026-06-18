@@ -1,4 +1,5 @@
 #include "response.hpp"
+#include "../emulation_helpers.hpp"
 
 namespace subsonic {
 
@@ -23,10 +24,10 @@ bool Response::ok() {
 	}
 
 	parseData();
-	if (responseJson.isNull()) {
+	if (json_is_null(responseJson)) {
 		return false;
 	}
-	return responseJson["subsonic-response"]["status"].as<String>() == "ok";
+	return json_to_str(responseJson["subsonic-response"]["status"]) == "ok";
 }
 
 String Response::error() {
@@ -35,10 +36,10 @@ String Response::error() {
 	}
 
 	parseData();
-	if (responseJson.isNull()) {
+	if (json_is_null(responseJson)) {
 		return "No data received.";
 	}
-	return responseJson["subsonic-response"]["error"]["message"].as<String>();
+	return json_to_str(responseJson["subsonic-response"]["error"]["message"]);
 }
 
 String Response::text() {
