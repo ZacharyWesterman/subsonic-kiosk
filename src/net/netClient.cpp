@@ -24,7 +24,9 @@ Request NetClient::get(const String &path) {
 	if (!requestPath.startsWith("/")) {
 		requestPath = "/" + requestPath;
 	}
-	return Request("http://" + host + ":" + String(port) + requestPath);
+	const String scheme = (port == 443) ? "https" : "http";
+	const String requestUrl = scheme + "://" + host + ":" + String(port) + requestPath;
+	return Request(requestUrl);
 #else
 	if (!connected) {
 		connected = client.connect(host.c_str(), port);

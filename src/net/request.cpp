@@ -82,6 +82,7 @@ Request::Request(const String &url) : requestUrl(url) {
 	if (code != CURLE_OK) {
 		logger::error("Failed to perform request to " + requestUrl + ": " + String(curl_easy_strerror(code)));
 		status_code = BAD_REQUEST;
+		finished = true;
 	} else {
 		long responseCode = 0;
 		curl_easy_getinfo(curlHandle, CURLINFO_RESPONSE_CODE, &responseCode);
@@ -92,11 +93,14 @@ Request::Request(const String &url) : requestUrl(url) {
 		if (content_length == 0 && downloaded_bytes > 0) {
 			content_length = downloaded_bytes;
 		}
+
+		logger::info("curl response for " + requestUrl + " => status=" + String(static_cast<int>(status_code)) + ", bytes=" + String(responseBody.length()) + ", content-length=" + String(content_length));
+		finished = (responseBody.length() == 0);
 	}
 
 	curl_easy_cleanup(curlHandle);
 	curlHandle = nullptr;
-	finished = true;
+	logger::info("curl complete for " + requestUrl + ": bodyBytes=" + String(responseBody.length()) + ", contentLength=" + String(content_length) + ", status=" + String(static_cast<int>(status_code)) + ", finished=" + String(finished ? 1 : 0));
 }
 #else
 Request::Request(WiFiClient &client) : client(client) {
@@ -282,14 +286,13 @@ String Request::readln() {
 }
 
 String Request::text() {
+#ifdef EMULATE
+	return responseBody;
+#else
 	if (finished) {
 		return responseBody;
 	}
 
-#ifdef EMULATE
-	finished = true;
-	return responseBody;
-#else
 	while (client.connected()) {
 		String line = readln();
 		responseBody += line + "\n";
@@ -317,7 +320,7 @@ JsonDocument Request::json() {
 
 bool Request::ready() {
 #ifdef EMULATE
-	return !finished && bodyIndex < responseBody.length();
+	return bodyIndex < responseBody.length();
 #else
 	return client.available();
 #endif
@@ -326,12 +329,13 @@ bool Request::ready() {
 std::vector<uint8_t> Request::data() {
 	std::vector<uint8_t> availableData;
 
-	if (finished) {
+#ifdef EMULATE
+	const size_t bytes = responseBody.length() - bodyIndex;
+	if (bytes == 0) {
+		finished = true;
 		return availableData;
 	}
 
-#ifdef EMULATE
-	const size_t bytes = responseBody.length() - bodyIndex;
 	availableData.reserve(bytes);
 	for (size_t i = 0; i < bytes; ++i) {
 		availableData.push_back(static_cast<uint8_t>(responseBody[bodyIndex + i]));
@@ -339,8 +343,13 @@ std::vector<uint8_t> Request::data() {
 	bodyIndex = responseBody.length();
 	downloaded_bytes = bodyIndex;
 	finished = true;
+	logger::info("request.data() copied " + String(bytes) + " bytes from " + requestUrl);
 	return availableData;
 #else
+	if (finished) {
+		return availableData;
+	}
+
 	logger::info(String(client.connected()));
 
 	if (!client.connected()) {
