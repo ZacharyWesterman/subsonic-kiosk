@@ -5,6 +5,7 @@
 
 #ifdef EMULATE
 #include <cstdio>
+#include <sys/stat.h>
 #else
 #include <Arduino_USBHostMbed5.h>
 #endif
@@ -103,8 +104,8 @@ size_t size() {
 	}
 	return fsInfo.f_blocks * fsInfo.f_bsize;
 #else
-	// When emulating, just assume we have 16GB of disk space.
-	return 16 * 1024 * 1024 * 1024;
+	// When emulating, just assume we have 1GB of disk space.
+	return 1024 * 1024 * 1024;
 #endif
 }
 
@@ -138,8 +139,8 @@ size_t free() {
 	}
 	return fsInfo.f_bfree * fsInfo.f_bsize;
 #else
-	// When emulating, just assume we have 16GB of disk space.
-	return 16 * 1024 * 1024 * 1024;
+	// When emulating, just assume we have 1GB of disk space.
+	return 1024 * 1024 * 1024;
 #endif
 }
 

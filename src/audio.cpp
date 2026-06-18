@@ -1,6 +1,8 @@
 #include "audio.hpp"
 #include "audio/player.hpp"
 
+#include <algorithm>
+
 namespace audio {
 
 static const std::vector<const char *> supportedTypes = {
