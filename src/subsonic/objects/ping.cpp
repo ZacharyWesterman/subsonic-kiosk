@@ -11,13 +11,16 @@ optional<Ping> Response<Ping>::await() {
 	}
 
 	auto json = requestData.json();
-	const auto response = json["subsonic-response"];
 
-	if (response["status"] != "ok") {
+	if (json["subsonic-response"]["status"] != "ok") {
 		return {};
 	}
 
-	return Ping{json_to_str(response["status"]), json_to_str(response["version"]), json_to_str(response["type"])};
+	return Ping{
+		json_to_str(json["subsonic-response"]["status"]),
+		json_to_str(json["subsonic-response"]["version"]),
+		json_to_str(json["subsonic-response"]["type"]),
+	};
 }
 
 } // namespace subsonic
