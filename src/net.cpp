@@ -105,14 +105,20 @@ Request get(const String &url) {
 	int protocolIndex = url.indexOf("://");
 	int protocolEnd = (protocolIndex < 0) ? 0 : protocolIndex + 3; // Skip "://"
 	int pathStart = url.indexOf("/", protocolEnd);
+	int portStart = url.indexOf(":", protocolEnd);
+
+	int hostEnd = (portStart >= 0 && portStart < pathStart) ? portStart : pathStart;
 
 	String protocol = (protocolIndex < 0) ? "" : url.substring(0, protocolIndex);
-	String host = url.substring(protocolEnd, pathStart);
+	String host = url.substring(protocolEnd, hostEnd - protocolEnd);
 	String path = (pathStart < 0) ? "/" : url.substring(pathStart);
 
-	logger::info("Creating GET request to [" + protocol + "] (" + host + ") <" + path + ">");
-
 	int port = (protocol == "https") ? 443 : 80;
+	if (portStart >= 0 && portStart < pathStart) {
+		port = url.substring(portStart + 1, (pathStart >= 0 ? pathStart : url.length()) - portStart + 1).toInt();
+	}
+
+	logger::info("Creating GET request to [" + protocol + "] (" + host + ":" + String(port) + ") <" + path + ">");
 
 	return Request(net::client(host, port).get(path));
 }

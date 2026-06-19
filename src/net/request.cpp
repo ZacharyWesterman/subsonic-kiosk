@@ -159,6 +159,23 @@ StatusCode Request::status() const {
 	return status_code;
 }
 
+void Request::process() {
+#ifdef EMULATE
+	read(1024);
+#else
+	if (!client.connected()) {
+		return;
+	}
+
+	int bytes = client.available();
+	if (bytes == 0) {
+		return;
+	}
+
+	read(bytes);
+#endif
+}
+
 std::vector<uint8_t> Request::read(int chunkSize) {
 	std::vector<uint8_t> data;
 	if (finished) {

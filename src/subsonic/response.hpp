@@ -1,29 +1,35 @@
 #pragma once
 #include "../net/request.hpp"
+#include "../polyfill/optional.hpp"
 
 namespace subsonic {
 
+template <typename T>
 class Response {
-	net::Request request;
-	bool fetchedData = false;
-	JsonDocument responseJson;
-
-	void parseData();
+	net::Request requestData;
 
 public:
-	Response(net::Request &&request);
+	Response(net::Request &&request) : requestData(request) {}
 
-	bool done() const;
-
-	inline bool errored() {
-		return !ok();
+	inline net::Request &request() {
+		return requestData;
 	}
-	bool ok();
 
-	String error();
+	inline bool ready() const {
+		return requestData.done();
+	}
+	inline operator bool() const {
+		return requestData.ok();
+	}
+	inline bool ok() const {
+		return requestData.ok();
+	}
+	inline void process() {
+		requestData.process();
+	}
 
-	String text();
-	JsonDocument json();
+	// This needs to be implemented for each object!
+	optional<T> await();
 };
 
 } // namespace subsonic

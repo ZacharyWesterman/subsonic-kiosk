@@ -71,6 +71,8 @@ public:
 	 */
 	StatusCode status() const;
 
+	void process();
+
 	/**
 	 * @brief Read the response body in chunks.
 	 * @param chunkSize The size of each chunk to read.

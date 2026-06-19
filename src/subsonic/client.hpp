@@ -1,4 +1,5 @@
 #pragma once
+#include "objects/ping.hpp"
 #include "objects/search_results.hpp"
 #include "response.hpp"
 
@@ -19,7 +20,9 @@ public:
 	 * @param action The API action to perform.
 	 * @param parameters Parameters to include in the query, if any.
 	 */
-	Response query(const String &action, const String &parameters) const;
+	net::Request query(const String &action, const String &parameters = "") const;
+
+	Response<Ping> ping() const;
 };
 
 } // namespace subsonic

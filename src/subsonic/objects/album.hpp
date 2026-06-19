@@ -25,8 +25,11 @@ struct Album : public SubsonicObject {
 	optional<float> averageRating;
 	optional<String> parent;
 
-	std::vector<Song> songs() const;
-	String cover() const;
+	const std::vector<Song> &songs() const;
+	const String &cover() const;
+
+private:
+	optional<std::vector<Song>> songList;
 };
 
 } // namespace subsonic
