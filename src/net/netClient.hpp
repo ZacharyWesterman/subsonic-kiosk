@@ -40,7 +40,7 @@ public:
 	 * @param path The path to request from the host.
 	 * @return A Request object containing the response from the server.
 	 */
-	Request get(const String &path);
+	Request get(const String &path, unsigned long timeout = 10000);
 };
 
 } // namespace net

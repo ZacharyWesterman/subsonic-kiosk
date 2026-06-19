@@ -100,7 +100,7 @@ NetClient client(const String &host, int port) {
 	return NetClient(host, port);
 }
 
-Request get(const String &url) {
+Request get(const String &url, unsigned long timeout) {
 	// Split URL into host and path
 	int protocolIndex = url.indexOf("://");
 	int protocolEnd = (protocolIndex < 0) ? 0 : protocolIndex + 3; // Skip "://"
@@ -110,17 +110,17 @@ Request get(const String &url) {
 	int hostEnd = (portStart >= 0 && portStart < pathStart) ? portStart : pathStart;
 
 	String protocol = (protocolIndex < 0) ? "" : url.substring(0, protocolIndex);
-	String host = url.substring(protocolEnd, hostEnd - protocolEnd);
+	String host = url.substring(protocolEnd, hostEnd);
 	String path = (pathStart < 0) ? "/" : url.substring(pathStart);
 
 	int port = (protocol == "https") ? 443 : 80;
 	if (portStart >= 0 && portStart < pathStart) {
-		port = url.substring(portStart + 1, (pathStart >= 0 ? pathStart : url.length()) - portStart + 1).toInt();
+		port = url.substring(portStart + 1, (pathStart >= 0 ? pathStart : url.length())).toInt();
 	}
 
 	logger::info("Creating GET request to [" + protocol + "] (" + host + ":" + String(port) + ") <" + path + ">");
 
-	return Request(net::client(host, port).get(path));
+	return net::client(host, port).get(path, timeout);
 }
 
 } // namespace net

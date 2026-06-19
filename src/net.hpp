@@ -62,6 +62,6 @@ int ping(const char *host, int timeout = 5000);
  */
 NetClient client(const String &host, int port = 80);
 
-Request get(const String &url);
+Request get(const String &url, unsigned long timeout = 10000);
 
 } // namespace net

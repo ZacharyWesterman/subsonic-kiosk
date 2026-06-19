@@ -33,6 +33,9 @@ class Request {
 	uint64_t content_length;
 	uint64_t downloaded_bytes;
 	String redirect_to;
+	unsigned long requestTimeoutAt;
+
+	void waitWithTimeout();
 
 public:
 	/**
@@ -40,9 +43,9 @@ public:
 	 * @param client The WiFiClient object to use for the request.
 	 */
 #ifdef EMULATE
-	Request(const String &url);
+	Request(const String &url, unsigned long timeout);
 #else
-	Request(WiFiClient &client);
+	Request(WiFiClient &client, unsigned long timeout);
 #endif
 
 	/**

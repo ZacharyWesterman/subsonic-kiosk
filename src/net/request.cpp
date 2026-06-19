@@ -57,7 +57,9 @@ size_t Request::headerCallback(char *ptr, size_t size, size_t nmemb, void *userd
 	return total;
 }
 
-Request::Request(const String &url) : requestUrl(url) {
+Request::Request(const String &url, unsigned long timeout) : requestUrl(url) {
+	requestTimeoutAt = millis() + timeout;
+
 	status_code = BAD_REQUEST;
 	content_length = 0;
 	downloaded_bytes = 0;
@@ -76,7 +78,7 @@ Request::Request(const String &url) : requestUrl(url) {
 	curl_easy_setopt(curlHandle, CURLOPT_WRITEDATA, this);
 	curl_easy_setopt(curlHandle, CURLOPT_HEADERFUNCTION, &Request::headerCallback);
 	curl_easy_setopt(curlHandle, CURLOPT_HEADERDATA, this);
-	curl_easy_setopt(curlHandle, CURLOPT_TIMEOUT_MS, 10000L);
+	curl_easy_setopt(curlHandle, CURLOPT_TIMEOUT_MS, timeout);
 
 	const CURLcode code = curl_easy_perform(curlHandle);
 	if (code != CURLE_OK) {
@@ -103,7 +105,9 @@ Request::Request(const String &url) : requestUrl(url) {
 	logger::info("curl complete for " + requestUrl + ": bodyBytes=" + String(responseBody.length()) + ", contentLength=" + String(content_length) + ", status=" + String(static_cast<int>(status_code)) + ", finished=" + String(finished ? 1 : 0));
 }
 #else
-Request::Request(WiFiClient &client) : client(client) {
+Request::Request(WiFiClient &client, unsigned long timeout) : client(client) {
+	requestTimeoutAt = millis() + timeout;
+
 	status_code = BAD_REQUEST; // Default to bad request
 	content_length = 0;
 	downloaded_bytes = 0;
@@ -169,6 +173,11 @@ void Request::process() {
 
 	int bytes = client.available();
 	if (bytes == 0) {
+		if (millis() > requestTimeoutAt) {
+			finished = true;
+			status_code = GATEWAY_TIMEOUT;
+		}
+
 		return;
 	}
 
@@ -203,7 +212,10 @@ std::vector<uint8_t> Request::read(int chunkSize) {
 	while (client.connected()) {
 		int bytes = client.available();
 		if (bytes == 0) {
-			delay(10);
+			waitWithTimeout();
+			if (finished) {
+				break;
+			}
 			continue;
 		}
 
@@ -267,7 +279,10 @@ String Request::readln() {
 		bool lineComplete = false;
 
 		if (bytes == 0) {
-			delay(10);
+			waitWithTimeout();
+			if (finished) {
+				break;
+			}
 			continue;
 		}
 
@@ -310,7 +325,7 @@ String Request::text() {
 		return responseBody;
 	}
 
-	while (client.connected()) {
+	while (client.connected() && !finished) {
 		String line = readln();
 		responseBody += line + "\n";
 	}
@@ -367,8 +382,6 @@ std::vector<uint8_t> Request::data() {
 		return availableData;
 	}
 
-	logger::info(String(client.connected()));
-
 	if (!client.connected()) {
 		finished = true;
 		return availableData;
@@ -410,6 +423,16 @@ bool Request::redirected() const {
 
 const String &Request::location() const {
 	return redirect_to;
+}
+
+void Request::waitWithTimeout() {
+	if (millis() > requestTimeoutAt) {
+		finished = true;
+		status_code = GATEWAY_TIMEOUT;
+		return;
+	}
+
+	delay(10);
 }
 
 } // namespace net
