@@ -1,7 +1,9 @@
 #pragma once
+#include "objects/folder.hpp"
 #include "objects/ping.hpp"
 #include "objects/search_results.hpp"
 #include "response.hpp"
+#include <vector>
 
 namespace subsonic {
 
@@ -22,7 +24,17 @@ public:
 	 */
 	net::Request query(const String &action, const String &parameters = "") const;
 
+	/**
+	 * @brief Ping the Subsonic API for a response.
+	 * @return The ping response.
+	 */
 	Response<Ping> ping() const;
+
+	/**
+	 * @brief Get a list of available folders.
+	 * @return The folder list response.
+	 */
+	Response<std::vector<Folder>> folders() const;
 };
 
 } // namespace subsonic

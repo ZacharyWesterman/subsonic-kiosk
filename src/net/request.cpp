@@ -190,21 +190,7 @@ void Request::process() {
 #ifdef EMULATE
 	read(1024);
 #else
-	if (!client.connected()) {
-		return;
-	}
-
-	int bytes = client.available();
-	if (bytes == 0) {
-		// if (millis() > requestTimeoutAt) {
-		// 	finished = true;
-		// 	status_code = GATEWAY_TIMEOUT;
-		// }
-
-		return;
-	}
-
-	read(bytes);
+	collect();
 #endif
 }
 

@@ -20,4 +20,8 @@ Response<Ping> Client::ping() const {
 	return Response<Ping>(query("ping"));
 }
 
+Response<std::vector<Folder>> Client::folders() const {
+	return Response<std::vector<Folder>>(query("getMusicFolders"));
+}
+
 } // namespace subsonic
