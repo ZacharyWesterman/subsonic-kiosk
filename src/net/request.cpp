@@ -481,7 +481,7 @@ bool Request::redirected() const {
 	return status_code == MOVED_PERMANENTLY || status_code == TEMPORARY_REDIRECT || status_code == PERMANENT_REDIRECT;
 }
 
-const String Request::location() const {
+String Request::location() const {
 	int begin = findHeader("Location");
 
 	if (begin < 0) {
