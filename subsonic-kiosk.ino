@@ -1,18 +1,13 @@
-#include "src/audio.hpp"
-#include "src/callback.hpp"
+// #include "src/audio.hpp"
+// #include "src/callback.hpp"
+#include "src/emulation_helpers.hpp"
 #include "src/fs.hpp"
 #include "src/net.hpp"
 #include "src/pins.hpp"
 #include "src/require.hpp"
 #include "src/subsonic/client.hpp"
-#include "src/util/downloadQueue.hpp"
 
-audio::Player *player;
-
-callback::repeat *progress = nullptr;
-
-util::DownloadQueue queue;
-int id = 0;
+subsonic::Client *client;
 
 void setup() {
 	pins::init();
@@ -24,50 +19,42 @@ void setup() {
 		request::net();
 	}
 
-#ifdef DEBUG
-	require::serial(); // Initialize serial communication
-#endif
+	require::serial(); // Wait for serial port to open.
 
-	// Initialize the audio player with a specific file, if supported.
-	/*
-	fs::Path filename("/spark.wav");
-	if (filename.isFile() && audio::supported(filename.ext())) {
-		player = new audio::Player(filename);
-		player->play();
-
-		progress = new callback::repeat(1000, []() { logger::info("Current playback progress: " + String(player->seconds()) + "/" + String(player->duration()) + " seconds"); });
-	}
-	*/
-	queue.download(fs::Path("/test.html"), "https://www.google.com/");
-}
-
-void loop() {
-	queue.process();
-	for (auto download : queue) {
-		if (download.request.done()) {
-			logger::info("Download finished for ID: " + String(download.id));
-		}
-	}
-	queue.cleanup();
-
-	/*
-	if (!fs::connected()) {
-		logger::warn("USB device disconnected! Attempting to reconnect...");
-		fs::connect();
-
+	// Load subsonic client from file
+	//  Read network credentials from the filesystem
+	fs::Path configPath("/subsonic.json");
+	if (!configPath.isFile()) {
 		return;
 	}
 
-	if (player && player->good()) {
-		(*progress)();
-
-		if (player->finished()) {
-			logger::info("Playback finished.");
-			delete player;
-			player = nullptr;
-		} else {
-			player->output();
-		}
+	// Sanity check in case the file is too large
+	if (configPath.size() > 5 * 1024) {
+		return;
 	}
-	*/
+
+	// Deserialize the JSON file
+	JsonDocument config;
+	auto error = deserializeJson(config, configPath.read().c_str());
+	if (error) {
+		return;
+	}
+
+	// Make sure the JSON has the required fields
+	if (!json_is_obj(config) || !json_is_str(config["host"]) || !json_is_str(config["username"]) || !json_is_str(config["md5sum"]) || !json_is_str(config["salt"])) {
+		return;
+	}
+
+	client = new subsonic::Client(json_to(String, config["host"]), json_to(String, config["username"]), json_to(String, config["md5sum"]), json_to(String, config["salt"]));
+
+	auto res = client->folders().await();
+	for (auto folder : res.value()) {
+		Serial.println(String("{ id: ") + folder.id + ", name: " + folder.name + " }");
+	}
+}
+
+void loop() {
+#ifdef EMULATE
+	exit(0);
+#endif
 }
