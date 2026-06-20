@@ -20,21 +20,6 @@ int DownloadQueue::download(const fs::Path &file, const String &url) {
 	}
 	auto dl = new Download{file, net::get(url), id};
 
-	// Automatically follow redirects.
-	int i = 0;
-	while (i++ < REDIRECT_LIMIT && dl->request.redirected()) {
-		auto location = dl->request.location();
-
-		logger::info("Redirecting from " + url + " to " + location);
-
-		if (location.isEmpty()) {
-			break; // No location to redirect to, abort
-		}
-
-		delete dl;
-		dl = new Download{file, net::get(location), id};
-	}
-
 	downloads.push_back(dl);
 	return id;
 }

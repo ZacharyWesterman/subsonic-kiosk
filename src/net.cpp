@@ -8,6 +8,8 @@
 #include <WiFi.h>
 #endif
 
+#define REDIRECT_LIMIT 5
+
 namespace net {
 
 String NETWORK_SSID;
@@ -100,7 +102,7 @@ NetClient client(const String &host, int port) {
 	return NetClient(host, port);
 }
 
-Request get(const String &url, unsigned long timeout) {
+Request get_request(const String &url, unsigned long timeout, int redirect) {
 	// Split URL into host and path
 	int protocolIndex = url.indexOf("://");
 	int protocolEnd = (protocolIndex < 0) ? 0 : protocolIndex + 3; // Skip "://"
@@ -120,7 +122,19 @@ Request get(const String &url, unsigned long timeout) {
 
 	logger::info("Creating GET request to [" + protocol + "] (" + host + ":" + String(port) + ") <" + path + ">");
 
-	return net::client(host, port).get(path, timeout);
+	auto req = net::client(host, port).get(path, timeout);
+
+	// Follow redirects up to the max redirect count.
+
+	if (req.redirected() && redirect < REDIRECT_LIMIT) {
+		req = get_request(req.location(), redirect + 1);
+	}
+
+	return req;
+}
+
+Request get(const String &url, unsigned long timeout) {
+	return get_request(url, timeout, 0);
 }
 
 } // namespace net
