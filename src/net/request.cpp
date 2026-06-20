@@ -2,6 +2,17 @@
 #include "../logger.hpp"
 #include <algorithm>
 
+#define IN_LOOP_WAIT_UNTIL_TIMEOUT_ELSE(bytes, on_timeout) \
+	if (!bytes) { \
+		waitWithTimeout(); \
+		if (finished) { \
+			on_timeout; \
+		} \
+		continue; \
+	} else { \
+		waitStart = millis(); \
+	}
+
 namespace net {
 
 #ifdef EMULATE
@@ -105,36 +116,38 @@ Request::Request(const String &url, unsigned long timeout) : requestUrl(url) {
 	logger::info("curl complete for " + requestUrl + ": bodyBytes=" + String(responseBody.length()) + ", contentLength=" + String(content_length) + ", status=" + String(static_cast<int>(status_code)) + ", finished=" + String(finished ? 1 : 0));
 }
 #else
-Request::Request(WiFiClient &client, unsigned long timeout) : client(client) {
-	requestTimeoutAt = millis() + timeout;
+Request::Request(WiFiClient &client, unsigned long timeout) : client(client), responseBody(), content_start(0), content_length(-1), downloaded_bytes(0), redirect_to(), timeout(timeout), status_code(BAD_REQUEST), finished(false), found_content(false) {
+	waitStart = millis();
 
-	status_code = BAD_REQUEST; // Default to bad request
-	content_length = 0;
-	downloaded_bytes = 0;
-
-	// Read the response status line
+	// Read the status code (first line of response)
 	String line = readln();
 	int i1 = line.indexOf(' ');
-	if (i1 != -1) {
-		int i2 = line.indexOf(' ', i1 + 1);
-		if (i2 != -1) {
-			status_code = static_cast<StatusCode>(line.substring(i1 + 1, i2).toInt());
-		}
+	if (i1 == -1) {
+		finished = true;
+		return;
 	}
+	int i2 = line.indexOf(' ', i1 + 1);
+	if (i2 == -1) {
+		i2 = line.length();
+	}
+	status_code = static_cast<StatusCode>(line.substring(i1 + 1, i2).toInt());
 
 	// Read headers
-	while (client.connected()) {
+	String id, value;
+	while (!finished) {
 		line = readln();
 		if (line.length() == 0) {
 			// Empty line indicates end of headers
+			found_content = true;
 			break;
 		}
-		String id, value;
+
 		const int i1 = line.indexOf(": ");
-		if (i1 != -1) {
-			id = line.substring(0, i1);
-			value = line.substring(i1 + 2);
+		if (i1 == -1) {
+			continue;
 		}
+		id = line.substring(0, i1);
+		value = line.substring(i1 + 2);
 
 		if (id == "Content-Length") {
 			content_length = value.toInt();
@@ -145,7 +158,24 @@ Request::Request(WiFiClient &client, unsigned long timeout) : client(client) {
 		}
 	}
 
-	if (!ok()) {
+	// Read any more data that was received after the headers.
+	if (content_length != (uint64_t)-1) {
+		responseBody.reserve(content_start + content_length);
+	}
+	while (true) {
+		while (client.available()) {
+			char c = client.read();
+			downloaded_bytes++;
+			responseBody.concat(c);
+		}
+
+		delay(1);
+		if (!client.available()) {
+			break;
+		}
+	}
+
+	if (found_content && downloaded_bytes - content_start >= content_length) {
 		finished = true;
 	}
 }
@@ -173,10 +203,10 @@ void Request::process() {
 
 	int bytes = client.available();
 	if (bytes == 0) {
-		if (millis() > requestTimeoutAt) {
-			finished = true;
-			status_code = GATEWAY_TIMEOUT;
-		}
+		// if (millis() > requestTimeoutAt) {
+		// 	finished = true;
+		// 	status_code = GATEWAY_TIMEOUT;
+		// }
 
 		return;
 	}
@@ -204,12 +234,12 @@ std::vector<uint8_t> Request::read(int chunkSize) {
 	bodyIndex += bytes;
 	downloaded_bytes = bodyIndex;
 
-	if (bodyIndex >= responseBody.length() || downloaded_bytes >= content_length) {
+	if (content_length > 0 && downloaded_bytes >= content_length) {
 		finished = true;
 	}
 	return data;
 #else
-	while (client.connected()) {
+	while (client.connected() || client.available() > 0) {
 		int bytes = client.available();
 		if (bytes == 0) {
 			waitWithTimeout();
@@ -234,11 +264,7 @@ std::vector<uint8_t> Request::read(int chunkSize) {
 		}
 	}
 
-	if (!client.connected()) {
-		finished = true;
-	}
-
-	if (downloaded_bytes >= content_length) {
+	if ((!client.connected() && client.available() == 0) || (content_length > 0 && downloaded_bytes >= content_length)) {
 		finished = true;
 	}
 
@@ -269,51 +295,77 @@ String Request::readln() {
 	}
 	bodyIndex = std::min<size_t>(bodyIndex, responseBody.length());
 	downloaded_bytes = bodyIndex;
-	if (bodyIndex >= responseBody.length() || downloaded_bytes >= content_length) {
+	if (bodyIndex >= responseBody.length() || (content_length > 0 && downloaded_bytes >= content_length)) {
 		finished = true;
 	}
 	return line;
 #else
-	while (client.connected()) {
-		int bytes = client.available();
-		bool lineComplete = false;
 
-		if (bytes == 0) {
-			waitWithTimeout();
-			if (finished) {
-				break;
-			}
-			continue;
-		}
+	while (!finished) {
+		unsigned int bytes = client.available();
+		IN_LOOP_WAIT_UNTIL_TIMEOUT_ELSE(bytes, return line);
 
-		downloaded_bytes += bytes;
-
-		line.reserve(line.length() + bytes);
-		for (int i = 0; i < bytes; ++i) {
+		line.reserve(bytes + line.length());
+		responseBody.reserve(bytes + responseBody.length());
+		bool endOfLine = false;
+		for (unsigned int i = 0; i < bytes; i++) {
 			char c = client.read();
+			downloaded_bytes++;
+			responseBody.concat(c);
+			if (!found_content) {
+				content_start++;
+			}
+			if (c == '\r') {
+				continue;
+			}
 			if (c == '\n') {
-				lineComplete = true;
+				endOfLine = true;
 				break;
 			}
-			if (c != '\r') {
-				line += c;
-			}
+			line.concat(c);
 		}
 
-		if (lineComplete) {
+		if (found_content && downloaded_bytes - content_start >= content_length) {
+			finished = true;
+		}
+
+		if (endOfLine) {
 			break;
 		}
 	}
 
-	if (!client.connected()) {
-		finished = true;
-	}
-
-	if (downloaded_bytes >= content_length) {
-		finished = true;
-	}
-
 	return line;
+#endif
+}
+
+void Request::collect() {
+#ifndef EMULATE
+	if (content_length != (uint64_t)-1) {
+		responseBody.reserve(content_start + content_length);
+	}
+
+	while (!finished) {
+		unsigned int bytes = client.available();
+		IN_LOOP_WAIT_UNTIL_TIMEOUT_ELSE(bytes, break);
+
+		// read as much data as possible.
+		while (true) {
+			while (client.available()) {
+				char c = client.read();
+				downloaded_bytes++;
+				responseBody.concat(c);
+			}
+
+			delay(1);
+			if (!client.available()) {
+				break;
+			}
+		}
+
+		if (found_content && downloaded_bytes - content_start >= content_length) {
+			finished = true;
+		}
+	}
 #endif
 }
 
@@ -321,17 +373,13 @@ String Request::text() {
 #ifdef EMULATE
 	return responseBody;
 #else
-	if (finished) {
-		return responseBody;
+	collect();
+
+	if (!found_content) {
+		return "";
 	}
 
-	while (client.connected() && !finished) {
-		String line = readln();
-		responseBody += line + "\n";
-	}
-
-	finished = true;
-	return responseBody;
+	return responseBody.substring(content_start, responseBody.length());
 #endif
 }
 
@@ -354,7 +402,7 @@ bool Request::ready() {
 #ifdef EMULATE
 	return bodyIndex < responseBody.length();
 #else
-	return client.available();
+	return client.available() > 0 || (!client.connected() && !finished);
 #endif
 }
 
@@ -382,19 +430,21 @@ std::vector<uint8_t> Request::data() {
 		return availableData;
 	}
 
-	if (!client.connected()) {
-		finished = true;
+	const int bytes = client.available();
+	if (bytes == 0) {
+		if (!client.connected()) {
+			finished = true;
+		}
 		return availableData;
 	}
 
-	const int bytes = client.available();
 	availableData.reserve(bytes);
 	for (int i = 0; i < bytes; ++i) {
 		availableData.push_back(client.read());
 	}
 
 	downloaded_bytes += bytes;
-	if (downloaded_bytes >= content_length) {
+	if ((!client.connected() && client.available() == 0) || (content_length > 0 && downloaded_bytes >= content_length)) {
 		finished = true;
 	}
 
@@ -411,10 +461,10 @@ uint64_t Request::downloaded() const {
 }
 
 float Request::progress() const {
-	if (content_length == 0) {
+	if (content_length == 0 || !found_content) {
 		return 0.0f;
 	}
-	return static_cast<float>(downloaded_bytes) / static_cast<float>(content_length);
+	return static_cast<float>(downloaded_bytes - content_start) / static_cast<float>(content_length);
 }
 
 bool Request::redirected() const {
@@ -426,7 +476,7 @@ const String &Request::location() const {
 }
 
 void Request::waitWithTimeout() {
-	if (millis() > requestTimeoutAt) {
+	if (millis() - waitStart > timeout) {
 		finished = true;
 		status_code = GATEWAY_TIMEOUT;
 		return;

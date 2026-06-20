@@ -27,15 +27,29 @@ class Request {
 #else
 	WiFiClient client;
 #endif
-	bool finished = false;
 	String responseBody;
-	StatusCode status_code;
+	uint64_t content_start;
 	uint64_t content_length;
 	uint64_t downloaded_bytes;
 	String redirect_to;
-	unsigned long requestTimeoutAt;
+	unsigned long timeout;
+	unsigned long waitStart;
+	StatusCode status_code;
+	bool finished;
+	bool found_content;
 
 	void waitWithTimeout();
+
+	/**
+	 * @brief Read a line from the response body.
+	 * @return A String containing the line read from the response body.
+	 *
+	 * @warning This function will block until a line is available or the
+	 * end of the response is reached.
+	 */
+	String readln();
+
+	void collect();
 
 public:
 	/**
@@ -85,15 +99,6 @@ public:
 	 * available or the end of the response is reached.
 	 */
 	std::vector<uint8_t> read(int chunkSize = 1024);
-
-	/**
-	 * @brief Read a line from the response body.
-	 * @return A String containing the line read from the response body.
-	 *
-	 * @warning This function will block until a line is available or the
-	 * end of the response is reached.
-	 */
-	String readln();
 
 	/**
 	 * @brief Read the entire response body.
