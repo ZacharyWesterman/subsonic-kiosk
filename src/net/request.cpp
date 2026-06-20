@@ -52,10 +52,6 @@ size_t Request::headerCallback(char *ptr, size_t size, size_t nmemb, void *userd
 		if (id == "Content-Length") {
 			request->content_length = value.toInt();
 		}
-
-		if ((request->status_code == MOVED_PERMANENTLY || request->status_code == TEMPORARY_REDIRECT || request->status_code == PERMANENT_REDIRECT) && id == "Location") {
-			request->redirect_to = value;
-		}
 	} else if (header.startsWith("HTTP/")) {
 		const int firstSpace = header.indexOf(' ');
 		const int secondSpace = header.indexOf(' ', firstSpace + 1);
@@ -116,7 +112,7 @@ Request::Request(const String &url, unsigned long timeout) : requestUrl(url) {
 	logger::info("curl complete for " + requestUrl + ": bodyBytes=" + String(responseBody.length()) + ", contentLength=" + String(content_length) + ", status=" + String(static_cast<int>(status_code)) + ", finished=" + String(finished ? 1 : 0));
 }
 #else
-Request::Request(WiFiClient &client, unsigned long timeout) : client(client), responseBody(), content_start(0), content_length(-1), downloaded_bytes(0), redirect_to(), timeout(timeout), status_code(BAD_REQUEST), finished(false), found_content(false) {
+Request::Request(WiFiClient &client, unsigned long timeout) : client(client), responseBody(), content_start(0), content_length(-1), downloaded_bytes(0), timeout(timeout), status_code(BAD_REQUEST), finished(false), found_content(false) {
 	waitStart = millis();
 
 	// Read the status code (first line of response)
@@ -151,10 +147,6 @@ Request::Request(WiFiClient &client, unsigned long timeout) : client(client), re
 
 		if (id == "Content-Length") {
 			content_length = value.toInt();
-		}
-
-		if ((status_code == MOVED_PERMANENTLY || status_code == TEMPORARY_REDIRECT || status_code == PERMANENT_REDIRECT) && id == "Location") {
-			redirect_to = value;
 		}
 	}
 
@@ -406,7 +398,7 @@ bool Request::ready() {
 #endif
 }
 
-std::vector<uint8_t> Request::data() {
+std::vector<uint8_t> Request::stream() {
 	std::vector<uint8_t> availableData;
 
 #ifdef EMULATE
@@ -430,22 +422,40 @@ std::vector<uint8_t> Request::data() {
 		return availableData;
 	}
 
-	const int bytes = client.available();
-	if (bytes == 0) {
-		if (!client.connected()) {
+	// Load any cached data first
+	if (found_content && content_start < downloaded_bytes) {
+		availableData.reserve(content_start - downloaded_bytes);
+
+		for (size_t i = content_start; i < downloaded_bytes; i++) {
+			availableData.push_back((uint8_t)responseBody[i]);
+		}
+		// Adjust index so we don't load again on subsequent calls.
+		content_start = downloaded_bytes;
+	}
+
+	bool downloaded = false;
+	while (!finished && !downloaded) {
+		unsigned int bytes = client.available();
+		IN_LOOP_WAIT_UNTIL_TIMEOUT_ELSE(bytes, return availableData);
+
+		// read as much data as possible.
+		while (true) {
+			while (client.available()) {
+				uint8_t c = client.read();
+				downloaded_bytes++;
+				downloaded = true;
+				availableData.push_back(c);
+			}
+
+			delay(1);
+			if (!client.available()) {
+				break;
+			}
+		}
+
+		if (found_content && downloaded_bytes - content_start >= content_length) {
 			finished = true;
 		}
-		return availableData;
-	}
-
-	availableData.reserve(bytes);
-	for (int i = 0; i < bytes; ++i) {
-		availableData.push_back(client.read());
-	}
-
-	downloaded_bytes += bytes;
-	if ((!client.connected() && client.available() == 0) || (content_length > 0 && downloaded_bytes >= content_length)) {
-		finished = true;
 	}
 
 	return availableData;
@@ -471,8 +481,15 @@ bool Request::redirected() const {
 	return status_code == MOVED_PERMANENTLY || status_code == TEMPORARY_REDIRECT || status_code == PERMANENT_REDIRECT;
 }
 
-const String &Request::location() const {
-	return redirect_to;
+const String Request::location() const {
+	int begin = findHeader("Location");
+
+	if (begin < 0) {
+		return "";
+	}
+
+	int end = responseBody.indexOf('\n', begin + 1);
+	return responseBody.substring(begin, end < 0 ? responseBody.length() : end);
 }
 
 void Request::waitWithTimeout() {
@@ -483,6 +500,40 @@ void Request::waitWithTimeout() {
 	}
 
 	delay(10);
+}
+
+int Request::findHeader(const char *name) {
+	int index = 0;
+	while ((index = responseBody.indexOf('\n', index)) != -1) {
+		// 1. No more data, so header wasn't found.
+		// 2. Two end lines indicates the end of headers.
+		if (index == responseBody.length() - 1 || responseBody[index + 1] == '\n') {
+			return -1;
+		}
+
+		int n = 0;
+		int begin = ++index;
+		int end = responseBody.length();
+		bool found = false;
+		for (int i = begin; i < end; i++) {
+			char find_c = name[n++];
+			char search_c = responseBody[i];
+
+			// We found an exact header match!
+			// Return the index *after* the header name.
+			if (!find_c && search_c == ' ') {
+				return i + 1;
+			}
+
+			// This isn't the header we're looking for,
+			// move to the next header.
+			if (search_c != find_c) {
+				break;
+			}
+		}
+	}
+
+	return -1;
 }
 
 } // namespace net

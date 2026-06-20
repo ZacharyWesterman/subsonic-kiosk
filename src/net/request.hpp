@@ -38,6 +38,7 @@ class Request {
 	bool found_content;
 
 	void waitWithTimeout();
+	int findHeader(const char *name);
 
 	/**
 	 * @brief Read a line from the response body.
@@ -104,6 +105,10 @@ public:
 	 * @return A String containing the entire response body.
 	 *
 	 * @warning This function will block until the entire response body is read.
+	 * Avoid using this method if you expect the response to be very large
+	 * (e.g. downloading files).
+	 *
+	 * @see stream()
 	 */
 	String text();
 
@@ -124,10 +129,20 @@ public:
 	bool ready();
 
 	/**
-	 * @brief Get the data that's available to be read from the response.
-	 * @return A vector containing the bytes that are available to be read.
+	 * @brief Stream response data from the request without storing all of it.
+	 *
+	 * This first reads any cached data, then streams data from the network.
+	 *
+	 * @note This will block while waiting to receive more data from the network.
+	 *
+	 * @warning Avoid using stream() and text()/json() on the same request object;
+	 * stream() will actively consume data such that it will no longer be available
+	 * to other methods.
+	 *
+	 * @return A vector containing the bytes read from the network.
+	 * Returns an empty vector if there's no more data to be read.
 	 */
-	std::vector<uint8_t> data();
+	std::vector<uint8_t> stream();
 
 	/**
 	 * @brief Get the content length of the response.
@@ -147,9 +162,17 @@ public:
 	 */
 	float progress() const;
 
+	/**
+	 * @brief Check whether the response was a redirect.
+	 * @return True if redirected, false otherwise.
+	 */
 	bool redirected() const;
 
-	const String &location() const;
+	/**
+	 * @brief Get the redirect url, if any.
+	 * @return The url to be redirected to, or an empty string if not redirecting.
+	 */
+	String location() const;
 };
 
 } // namespace net
