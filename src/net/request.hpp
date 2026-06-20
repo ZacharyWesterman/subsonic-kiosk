@@ -38,7 +38,7 @@ class Request {
 	bool found_content;
 
 	void waitWithTimeout();
-	int findHeader(const char *name);
+	int findHeader(const char *name) const;
 
 	/**
 	 * @brief Read a line from the response body.

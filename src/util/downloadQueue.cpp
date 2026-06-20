@@ -36,7 +36,7 @@ bool DownloadQueue::finished(int id) const {
 void DownloadQueue::process() {
 	for (auto download : downloads) {
 		if (download && download->request.ready()) {
-			download->file.write(download->request.data(), true);
+			download->file.write(download->request.stream(), true);
 		}
 	}
 }

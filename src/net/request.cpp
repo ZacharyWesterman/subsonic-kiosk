@@ -65,7 +65,8 @@ size_t Request::headerCallback(char *ptr, size_t size, size_t nmemb, void *userd
 }
 
 Request::Request(const String &url, unsigned long timeout) : requestUrl(url) {
-	requestTimeoutAt = millis() + timeout;
+	waitStart = millis();
+	this->timeout = timeout;
 
 	status_code = BAD_REQUEST;
 	content_length = 0;
@@ -502,12 +503,12 @@ void Request::waitWithTimeout() {
 	delay(10);
 }
 
-int Request::findHeader(const char *name) {
+int Request::findHeader(const char *name) const {
 	int index = 0;
 	while ((index = responseBody.indexOf('\n', index)) != -1) {
 		// 1. No more data, so header wasn't found.
 		// 2. Two end lines indicates the end of headers.
-		if (index == responseBody.length() - 1 || responseBody[index + 1] == '\n') {
+		if ((size_t)index == responseBody.length() - 1 || responseBody[index + 1] == '\n') {
 			return -1;
 		}
 

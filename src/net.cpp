@@ -127,7 +127,7 @@ Request get_request(const String &url, unsigned long timeout, int redirect) {
 	// Follow redirects up to the max redirect count.
 
 	if (req.redirected() && redirect < REDIRECT_LIMIT) {
-		req = get_request(req.location(), redirect + 1);
+		req = get_request(req.location(), timeout, redirect + 1);
 	}
 
 	return req;
