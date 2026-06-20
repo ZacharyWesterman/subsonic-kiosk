@@ -31,7 +31,6 @@ class Request {
 	uint64_t content_start;
 	uint64_t content_length;
 	uint64_t downloaded_bytes;
-	String redirect_to;
 	unsigned long timeout;
 	unsigned long waitStart;
 	StatusCode status_code;

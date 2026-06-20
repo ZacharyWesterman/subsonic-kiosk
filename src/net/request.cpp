@@ -84,7 +84,7 @@ Request::Request(const String &url, unsigned long timeout) : requestUrl(url) {
 	}
 
 	curl_easy_setopt(curlHandle, CURLOPT_URL, requestUrl.c_str());
-	curl_easy_setopt(curlHandle, CURLOPT_FOLLOWLOCATION, 1L);
+	curl_easy_setopt(curlHandle, CURLOPT_FOLLOWLOCATION, 0L);
 	curl_easy_setopt(curlHandle, CURLOPT_WRITEFUNCTION, &Request::writeCallback);
 	curl_easy_setopt(curlHandle, CURLOPT_WRITEDATA, this);
 	curl_easy_setopt(curlHandle, CURLOPT_HEADERFUNCTION, &Request::headerCallback);
