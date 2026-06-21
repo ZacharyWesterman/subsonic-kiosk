@@ -27,7 +27,7 @@ optional<std::vector<Song>> Response<std::vector<Song>>::await() {
 	std::vector<Song> results;
 	JsonArray data;
 
-	if (json_is_array(json["subsonic-response"]["playlist"])) {
+	if (json_is_obj(json["subsonic-response"]["playlist"])) {
 		// Querying from a playlist.
 		data = json_to(JsonArray, json["subsonic-response"]["playlist"]["entry"]);
 	}
