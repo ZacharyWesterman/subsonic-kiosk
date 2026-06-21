@@ -278,28 +278,28 @@ void Request::collect() {
 			delay(1);
 		}
 
-		chunkSize = readChunkSize();
-		Serial.println(String("Chunk Size: ") + String(chunkSize));
-		if (chunkSize == 0) {
-			finished = true;
-			return;
-		}
+		while (client.available()) {
+			chunkSize = readChunkSize();
+			if (chunkSize == 0) {
+				finished = true;
+				return;
+			}
 
-		responseBody.reserve(content_start + chunkSize);
-		for (int i = 0; i < chunkSize; i++) {
-			unsigned int bytes = client.available();
-			IN_LOOP_WAIT_UNTIL_TIMEOUT_ELSE(bytes, break);
+			responseBody.reserve(content_start + chunkSize);
+			int i = 0;
+			while (i < chunkSize) {
+				unsigned int bytes = client.available();
+				IN_LOOP_WAIT_UNTIL_TIMEOUT_ELSE(bytes, break);
 
-			// Read another byte.
-			char c = client.read();
-			downloaded_bytes++;
-			responseBody.concat(c);
+				i++;
 
-			// Try to ensure we always read the full chunk size.
-			if (!client.available()) {
-				delay(1);
+				// Read another byte.
+				char c = client.read();
+				downloaded_bytes++;
+				responseBody.concat(c);
 			}
 		}
+
 		return;
 	}
 
@@ -511,19 +511,21 @@ int Request::readChunkSize() {
 
 #ifndef EMULATE
 	int c = client.read();
-	if (c == '\n') {
+	while (c == '\r' || c == '\n') {
 		c = client.read();
 	}
+
 	while (c != -1 && c != '\n') {
-		size *= 16;
 		if (c >= 'A' && c <= 'Z') {
-			c -= 'A';
+			size = size * 16 + c - 'A' + 10;
 		} else if (c >= 'a' && c <= 'z') {
-			c -= 'a';
+			size = size * 16 + c - 'a' + 10;
+		} else if (c >= '0' && c <= '9') {
+			size = size * 16 + c - '0';
 		} else {
-			c -= '0';
+			c = client.read();
+			continue;
 		}
-		size += c;
 
 		c = client.read();
 	}
