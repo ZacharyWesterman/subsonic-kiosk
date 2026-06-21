@@ -9,6 +9,8 @@
 #define json_to_str(o) o.get<String>()
 #define json_to(type, obj) obj.get<type>()
 
+#define json_array_length(o) o.size()
+
 #else
 
 #define json_is_obj(o) o.is<JsonObject>()
@@ -17,5 +19,7 @@
 
 #define json_to_str(o) o.as<String>()
 #define json_to(type, obj) obj.as<type>()
+
+#define json_array_length(o) o.length()
 
 #endif

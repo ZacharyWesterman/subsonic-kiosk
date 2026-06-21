@@ -4,12 +4,15 @@
 
 namespace subsonic {
 
+class Client;
+
 template <typename T>
 class Response {
 	net::Request requestData;
+	const Client *client;
 
 public:
-	Response(net::Request &&request) : requestData(request) {}
+	Response(net::Request &&request, const Client *client) : requestData(request), client(client) {}
 
 	inline net::Request &request() {
 		return requestData;

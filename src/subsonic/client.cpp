@@ -17,11 +17,15 @@ net::Request Client::query(const String &action, const String &parameters) const
 }
 
 Response<Ping> Client::ping() const {
-	return Response<Ping>(query("ping"));
+	return Response<Ping>(query("ping"), this);
 }
 
 Response<std::vector<Folder>> Client::folders() const {
-	return Response<std::vector<Folder>>(query("getMusicFolders"));
+	return Response<std::vector<Folder>>(query("getMusicFolders"), this);
+}
+
+Response<std::vector<Playlist>> Client::playlists() const {
+	return Response<std::vector<Playlist>>(query("getPlaylists"), this);
 }
 
 } // namespace subsonic

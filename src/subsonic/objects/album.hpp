@@ -2,14 +2,13 @@
 
 #include "../../polyfill/optional.hpp"
 #include "song.hpp"
-#include "subsonic_object.hpp"
 #include <Arduino.h>
 #include <vector>
 
 namespace subsonic {
 
 /// @brief Represents a music album with metadata and related operations.
-struct Album : public SubsonicObject {
+struct Album {
 
 	String id;
 	bool isDir;

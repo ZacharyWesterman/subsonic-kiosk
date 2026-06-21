@@ -1,18 +1,21 @@
 #pragma once
 
 #include "../../polyfill/optional.hpp"
+#include "../response.hpp"
 #include "song.hpp"
-#include "subsonic_object.hpp"
 #include <Arduino.h>
 #include <vector>
 
 namespace subsonic {
 
-/// @brief Represents a Subsonic playlist with netadata and song entries.
+class Client;
 
-struct Playlist : public SubsonicObject {
-	/// @brief A unique identifer for this playlist.
-	String id;
+/// @brief Represents a Subsonic playlist with netadata and song entries.
+struct Playlist {
+	const Client *client;
+
+	///@brief A unique identifer for this playlist.
+	int id;
 
 	///@brief The name of the playlist.
 	String name;
@@ -26,7 +29,7 @@ struct Playlist : public SubsonicObject {
 	///@todo Creation timestamp (datetime)
 	///@todo Changed timestamp (datetime)
 
-	///@brief The cover art of the playlist.
+	///@brief The ID of the playlist's cover art
 	String coverArt;
 
 	/// @brief The number of songs in the playlist.
@@ -36,13 +39,11 @@ struct Playlist : public SubsonicObject {
 	int duration;
 
 	///@brief Indicates if the playlist is public.
-	bool public;
+	bool isPublic;
 
-	optional<std::vector<Song>> songs();
+	Playlist(const Client *client, int id, String &&name, String &&comment, String &&owner, String &&coverArt, int songCount, int duration, int isPublic);
 
-private:
-	/// @brief A lost of songs in the playlist, if any.
-	optional<std::vector<Song>> entry;
-}
+	Response<std::vector<Song>> songs();
+};
 
 } // namespace subsonic

@@ -1,13 +1,12 @@
 #pragma once
 
 #include "../../polyfill/optional.hpp"
-#include "subsonic_object.hpp"
 #include <Arduino.h>
 
 namespace subsonic {
 
 /// @brief Represents a Subsonic song object with metadata and streaming capabilities.
-struct Song : public SubsonicObject {
+struct Song {
 	/// @brief A unique identifier for the song.
 	String id;
 

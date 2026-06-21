@@ -1,6 +1,7 @@
 #pragma once
 #include "objects/folder.hpp"
 #include "objects/ping.hpp"
+#include "objects/playlist.hpp"
 #include "objects/search_results.hpp"
 #include "response.hpp"
 #include <vector>
@@ -35,6 +36,12 @@ public:
 	 * @return The folder list response.
 	 */
 	Response<std::vector<Folder>> folders() const;
+
+	/**
+	 * @brief Get all available playlists
+	 * @return A list of playlists.
+	 */
+	Response<std::vector<Playlist>> playlists() const;
 };
 
 } // namespace subsonic
