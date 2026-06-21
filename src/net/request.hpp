@@ -33,9 +33,11 @@ class Request {
 	uint64_t downloaded_bytes;
 	unsigned long timeout;
 	unsigned long waitStart;
+	int chunkSize;
 	StatusCode status_code;
 	bool finished;
 	bool found_content;
+	bool isChunked;
 
 	void waitWithTimeout();
 	int findHeader(const char *name) const;
@@ -50,6 +52,8 @@ class Request {
 	String readln();
 
 	void collect();
+
+	int readChunkSize();
 
 public:
 	/**
@@ -89,16 +93,6 @@ public:
 	StatusCode status() const;
 
 	void process();
-
-	/**
-	 * @brief Read the response body in chunks.
-	 * @param chunkSize The size of each chunk to read.
-	 * @return A vector containing the bytes read from the response body.
-	 *
-	 * @warning This function will block until the specified number of bytes is
-	 * available or the end of the response is reached.
-	 */
-	std::vector<uint8_t> read(int chunkSize = 1024);
 
 	/**
 	 * @brief Read the entire response body.
