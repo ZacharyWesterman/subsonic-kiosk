@@ -28,4 +28,8 @@ Response<std::vector<Playlist>> Client::playlists() const {
 	return Response<std::vector<Playlist>>(query("getPlaylists"), this);
 }
 
+Response<Playlist> Client::playlist(int id) const {
+	return Response<Playlist>(query("getPlaylist", "id=" + String(id)), this);
+}
+
 } // namespace subsonic

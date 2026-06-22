@@ -42,6 +42,13 @@ public:
 	 * @return A list of playlists.
 	 */
 	Response<std::vector<Playlist>> playlists() const;
+
+	/**
+	 * @brief Get a playlist by its ID.
+	 * @param id The ID of the playlist.
+	 * @return A response containing the playlist if it exists.
+	 */
+	Response<Playlist> playlist(int id) const;
 };
 
 } // namespace subsonic

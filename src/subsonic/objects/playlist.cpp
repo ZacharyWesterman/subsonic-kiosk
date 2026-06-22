@@ -45,4 +45,35 @@ optional<std::vector<Playlist>> Response<std::vector<Playlist>>::await() {
 	return results;
 }
 
+template <>
+optional<Playlist> Response<Playlist>::await() {
+	if (!requestData.ok()) {
+		return {};
+	}
+
+	auto json = requestData.json();
+
+	if (json["subsonic-response"]["status"] != "ok") {
+		return {};
+	}
+
+	if (!json_is_obj(json["subsonic-response"]["playlist"])) {
+		return {};
+	}
+
+	auto item = json_to(JsonObject, json["subsonic-response"]["playlist"]);
+
+	return (Playlist{
+		client,
+		json_to(String, item["id"]).toInt(),
+		json_to(String, item["name"]),
+		json_to(String, item["comment"]),
+		json_to(String, item["owner"]),
+		json_to(String, item["coverArt"]),
+		json_to(int, item["songCount"]),
+		json_to(int, item["duration"]),
+		json_to(bool, item["public"]),
+	});
+}
+
 } // namespace subsonic
