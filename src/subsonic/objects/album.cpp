@@ -1,7 +1,6 @@
 #include "album.hpp"
 #include "../../emulation_helpers.hpp"
 #include "../response.hpp"
-#include <iostream>
 #include <vector>
 
 namespace subsonic {
