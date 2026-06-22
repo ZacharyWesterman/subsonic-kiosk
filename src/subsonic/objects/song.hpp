@@ -37,13 +37,13 @@ struct Song {
 	// optional<String> coverArt;
 	// optional<String> artist;
 	// optional<String> artistId;
-	// optional<int> track;
-	// optional<int> year;
+	optional<int> track;
+	optional<int> year;
 	// optional<String> genre;
-	// optional<int> discNumber;
+	optional<int> discNumber;
 	// optional<String> transcodedContentType;
 	// optional<String> transcodedSuffix;
-	// optional<float> averageRating;
+	optional<float> averageRating;
 
 	// String uri() const;
 };

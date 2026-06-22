@@ -49,6 +49,10 @@ optional<std::vector<Song>> Response<std::vector<Song>>::await() {
 			json_to(unsigned long, item["size"]),
 			json_to(int, item["duration"]),
 			json_to(String, item["albumId"]).toInt(),
+			json_optional_to(int, item["track"]),
+			json_optional_to(int, item["year"]),
+			json_optional_to(int, item["discNumber"]),
+			json_optional_to(float, item["averageRating"]),
 		});
 	}
 
@@ -90,6 +94,10 @@ optional<Song> Response<Song>::await() {
 		json_to(unsigned long, item["size"]),
 		json_to(int, item["duration"]),
 		json_to(String, item["albumId"]).toInt(),
+		json_optional_to(int, item["track"]),
+		json_optional_to(int, item["year"]),
+		json_optional_to(int, item["discNumber"]),
+		json_optional_to(float, item["averageRating"]),
 	});
 }
 
