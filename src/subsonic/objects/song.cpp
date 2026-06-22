@@ -6,6 +6,40 @@
 namespace subsonic {
 
 template <>
+optional<Song> jsonDecode(const JsonDocument &document) {
+	if (!json_is_obj(document)) {
+		return {};
+	}
+
+	auto item = json_to(JsonObject, document);
+
+	// Only keep if it's actually a song!
+	if (json_to(bool, item["isDir"]) || json_to(bool, item["isVideo"])) {
+		return {};
+	}
+
+	return (Song{
+		json_to(String, item["id"]).toInt(),
+		json_to(String, item["parent"]).toInt(),
+		json_to(String, item["title"]),
+		json_to(String, item["album"]),
+		json_to_or(String, item["artist"], ""),
+		json_to(String, item["contentType"]),
+		json_to(String, item["suffix"]),
+		json_to(String, item["path"]),
+		json_to(String, item["type"]),
+		json_to(int, item["playCount"]),
+		json_to(unsigned long, item["size"]),
+		json_to(int, item["duration"]),
+		json_to(String, item["albumId"]).toInt(),
+		json_optional_to(int, item["track"]),
+		json_optional_to(int, item["year"]),
+		json_optional_to(int, item["discNumber"]),
+		json_optional_to(int, item["averageRating"]),
+	});
+}
+
+template <>
 optional<std::vector<Song>> Response<std::vector<Song>>::await() {
 	// Two possible ways to get a list of songs:
 	// 1. Querying from a playlist.
@@ -31,29 +65,10 @@ optional<std::vector<Song>> Response<std::vector<Song>>::await() {
 
 	results.reserve(data.size());
 	for (auto item : data) {
-		// Only songs here!
-		if (json_to(bool, item["isDir"]) || json_to(bool, item["isVideo"])) {
-			continue;
+		auto song = jsonDecode<Song>(item);
+		if (song.has_value()) {
+			results.push_back(song.value());
 		}
-
-		results.push_back(Song{
-			json_to(String, item["id"]).toInt(),
-			json_to(String, item["parent"]).toInt(),
-			json_to(String, item["title"]),
-			json_to(String, item["album"]),
-			json_to(String, item["contentType"]),
-			json_to(String, item["suffix"]),
-			json_to(String, item["path"]),
-			json_to(String, item["type"]),
-			json_to(int, item["playCount"]),
-			json_to(unsigned long, item["size"]),
-			json_to(int, item["duration"]),
-			json_to(String, item["albumId"]).toInt(),
-			json_optional_to(int, item["track"]),
-			json_optional_to(int, item["year"]),
-			json_optional_to(int, item["discNumber"]),
-			json_optional_to(float, item["averageRating"]),
-		});
 	}
 
 	return results;
@@ -70,35 +85,13 @@ optional<Song> Response<Song>::await() {
 	if (json["subsonic-response"]["status"] != "ok") {
 		return {};
 	}
-	if (!json_is_obj(json["subsonic-response"]["song"])) {
+
+	auto song = jsonDecode<Song>(json["subsonic-response"]["song"]);
+	if (!song.has_value()) {
 		return {};
+	} else {
+		return song.value();
 	}
-
-	auto item = json_to(JsonObject, json["subsonic-response"]["song"]);
-
-	// Only keep if it's actually a song!
-	if (json_to(bool, item["isDir"]) || json_to(bool, item["isVideo"])) {
-		return {};
-	}
-
-	return (Song{
-		json_to(String, item["id"]).toInt(),
-		json_to(String, item["parent"]).toInt(),
-		json_to(String, item["title"]),
-		json_to(String, item["album"]),
-		json_to(String, item["contentType"]),
-		json_to(String, item["suffix"]),
-		json_to(String, item["path"]),
-		json_to(String, item["type"]),
-		json_to(int, item["playCount"]),
-		json_to(unsigned long, item["size"]),
-		json_to(int, item["duration"]),
-		json_to(String, item["albumId"]).toInt(),
-		json_optional_to(int, item["track"]),
-		json_optional_to(int, item["year"]),
-		json_optional_to(int, item["discNumber"]),
-		json_optional_to(float, item["averageRating"]),
-	});
 }
 
 } // namespace subsonic

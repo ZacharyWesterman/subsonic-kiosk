@@ -1,6 +1,7 @@
 #pragma once
 #include "../net/request.hpp"
 #include "../polyfill/optional.hpp"
+#include <ArduinoJson.h>
 
 namespace subsonic {
 
@@ -34,5 +35,9 @@ public:
 	// This needs to be implemented for each object!
 	optional<T> await();
 };
+
+// This needs to be implemented for each object it's used with!
+template <typename T>
+optional<T> jsonDecode(const JsonDocument &json);
 
 } // namespace subsonic

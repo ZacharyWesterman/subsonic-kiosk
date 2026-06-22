@@ -137,4 +137,29 @@ Request get(const String &url, unsigned long timeout) {
 	return get_request(url, timeout, 0);
 }
 
+char nibbleToHex(unsigned char nibble) {
+	return nibble + (nibble > 9 ? 'A' : '0');
+}
+
+String urlencode(const String &text) {
+	String result;
+	result.reserve(text.length()); // Will be *at least* the length of the original string.
+
+	for (int i = 0; i < text.length(); i++) {
+		unsigned char c = text[i];
+		if (c == '-' || c == '_' || c == '.' || c == '~' || (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9')) {
+			result.concat((char)c);
+			continue;
+		}
+
+		// Convert non-accepted chars into %XX hex format.
+		result.reserve(text.length() + 2);
+		result.concat('%');
+		result.concat(nibbleToHex(c & 0xf));
+		result.concat(nibbleToHex((c >> 4) & 0xf));
+	}
+
+	return result;
+}
+
 } // namespace net

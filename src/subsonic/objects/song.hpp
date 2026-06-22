@@ -19,6 +19,8 @@ struct Song {
 	/// @brief The name of the album that the song belongs to.
 	String album;
 
+	String artist;
+
 	/// TODO created (datetime)
 
 	String contentType;
@@ -35,7 +37,6 @@ struct Song {
 	int albumId;
 
 	// optional<String> coverArt;
-	// optional<String> artist;
 	// optional<String> artistId;
 	optional<int> track;
 	optional<int> year;
@@ -43,7 +44,7 @@ struct Song {
 	optional<int> discNumber;
 	// optional<String> transcodedContentType;
 	// optional<String> transcodedSuffix;
-	optional<float> averageRating;
+	optional<int> averageRating;
 
 	// String uri() const;
 };

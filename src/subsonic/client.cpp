@@ -40,4 +40,8 @@ Response<Album> Client::album(int id) const {
 	return Response<Album>(query("getAlbum", "id=" + String(id)), this);
 }
 
+Response<SearchResults> Client::search(const String &text) const {
+	return Response<SearchResults>(query("search2", "query=" + net::urlencode(text)), this);
+}
+
 } // namespace subsonic

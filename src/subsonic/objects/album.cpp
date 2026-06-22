@@ -49,7 +49,7 @@ optional<Album> Response<Album>::await() {
 				json_optional_to(int, song["track"]),
 				json_optional_to(int, song["year"]),
 				json_optional_to(int, song["discNumber"]),
-				json_optional_to(float, song["averageRating"]),
+				json_optional_to(int, song["averageRating"]),
 			});
 		}
 	}
@@ -61,7 +61,7 @@ optional<Album> Response<Album>::await() {
 		json_to_or(String, item["artist"], ""),
 		json_to_or(String, item["coverArt"], ""),
 		json_optional_to(int, item["year"]),
-		json_optional_to(float, item["averageRating"]),
+		json_optional_to(int, item["averageRating"]),
 		json_to_int(item["playCount"]),
 	});
 }

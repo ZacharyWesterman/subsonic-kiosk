@@ -65,6 +65,13 @@ public:
 	 * @return A response containing the album if it exists.
 	 */
 	Response<Album> album(int id) const;
+
+	/**
+	 * @brief Search for albums, songs or artists.
+	 * @param text The text to search for. This may be title, description, etc.
+	 * @return A response that resolves to the search results.
+	 */
+	Response<SearchResults> search(const String &text) const;
 };
 
 } // namespace subsonic

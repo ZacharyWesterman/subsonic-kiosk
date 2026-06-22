@@ -7,7 +7,7 @@ namespace subsonic {
 /// @brief Represents a music artist.
 struct Artist {
 	/// @brief A unique identifier for the artist.
-	String id;
+	int id;
 
 	/// @brief The name of the artist.
 	String name;

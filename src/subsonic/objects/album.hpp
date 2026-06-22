@@ -18,7 +18,7 @@ struct Album {
 	String coverArt;
 
 	optional<int> year;
-	optional<float> averageRating;
+	optional<int> averageRating;
 
 	int playCount;
 	/// TODO created (datetime)
