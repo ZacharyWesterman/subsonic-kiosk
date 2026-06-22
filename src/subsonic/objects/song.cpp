@@ -1,6 +1,5 @@
 #include "song.hpp"
 #include "../../emulation_helpers.hpp"
-#include "../../fs.hpp"
 #include "../response.hpp"
 #include <vector>
 
@@ -16,8 +15,6 @@ optional<std::vector<Song>> Response<std::vector<Song>>::await() {
 		return {};
 	}
 
-	// Serial.println(requestData.text());
-	// fs::Path("/songs-output.json").write(requestData.text());
 	auto json = requestData.json();
 
 	if (json["subsonic-response"]["status"] != "ok") {

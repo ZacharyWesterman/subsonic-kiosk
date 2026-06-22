@@ -9,26 +9,19 @@ namespace subsonic {
 
 /// @brief Represents a music album with metadata and related operations.
 struct Album {
+	std::vector<Song> songs;
 
-	String id;
-	bool isDir;
-	String title;
-	String album;
+	int id;
+	String name;
+
+	String artist;
+	String coverArt;
+
+	optional<int> year;
+	optional<float> averageRating;
+
 	int playCount;
 	/// TODO created (datetime)
-
-	optional<String> artist;
-	optional<int> year;
-	optional<String> genre;
-	optional<String> coverArt;
-	optional<float> averageRating;
-	optional<String> parent;
-
-	const std::vector<Song> &songs() const;
-	const String &cover() const;
-
-private:
-	optional<std::vector<Song>> songList;
 };
 
 } // namespace subsonic

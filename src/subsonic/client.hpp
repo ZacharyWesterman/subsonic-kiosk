@@ -1,8 +1,10 @@
 #pragma once
+#include "objects/album.hpp"
 #include "objects/folder.hpp"
 #include "objects/ping.hpp"
 #include "objects/playlist.hpp"
 #include "objects/search_results.hpp"
+#include "objects/song.hpp"
 #include "response.hpp"
 #include <vector>
 
@@ -55,7 +57,14 @@ public:
 	 * @param id The ID of the song.
 	 * @return A response containing the song if it exists.
 	 */
-	Response<Song> song(int it) const;
+	Response<Song> song(int id) const;
+
+	/**
+	 * @brief Get an album by its ID.
+	 * @param id The ID of the album.
+	 * @return A response containing the album if it exists.
+	 */
+	Response<Album> album(int id) const;
 };
 
 } // namespace subsonic

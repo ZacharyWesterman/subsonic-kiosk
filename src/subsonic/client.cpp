@@ -36,4 +36,8 @@ Response<Song> Client::song(int id) const {
 	return Response<Song>(query("getSong", "id=" + String(id)), this);
 }
 
+Response<Album> Client::album(int id) const {
+	return Response<Album>(query("getAlbum", "id=" + String(id)), this);
+}
+
 } // namespace subsonic

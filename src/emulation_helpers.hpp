@@ -29,3 +29,6 @@
 #endif
 
 #define json_to_int(o) (json_is_null(o) ? 0L : json_to(long, o))
+#define json_optional_to(type, obj) (json_is_null(obj) ? optional<type>{} : optional<type>{json_to(type, obj)})
+#define json_to_or(type, obj, alt) (json_is_null(obj) ? alt : json_to(type, obj))
+#define json_choose_key(obj, key1, key2) (json_is_null(obj[key1]) ? obj[key2] : obj[key1])
