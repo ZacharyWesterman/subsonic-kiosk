@@ -2,7 +2,6 @@
 #include "../../emulation_helpers.hpp"
 #include "../client.hpp"
 #include "playlist.hpp"
-#include <iostream>
 #include <vector>
 
 namespace subsonic {
