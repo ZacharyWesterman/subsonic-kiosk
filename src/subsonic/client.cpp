@@ -32,4 +32,8 @@ Response<Playlist> Client::playlist(int id) const {
 	return Response<Playlist>(query("getPlaylist", "id=" + String(id)), this);
 }
 
+Response<Song> Client::song(int id) const {
+	return Response<Song>(query("getSong", "id=" + String(id)), this);
+}
+
 } // namespace subsonic

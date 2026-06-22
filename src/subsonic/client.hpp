@@ -49,6 +49,13 @@ public:
 	 * @return A response containing the playlist if it exists.
 	 */
 	Response<Playlist> playlist(int id) const;
+
+	/**
+	 * @brief Get a song by its ID.
+	 * @param id The ID of the song.
+	 * @return A response containing the song if it exists.
+	 */
+	Response<Song> song(int it) const;
 };
 
 } // namespace subsonic

@@ -58,4 +58,42 @@ optional<std::vector<Song>> Response<std::vector<Song>>::await() {
 	return results;
 }
 
+template <>
+optional<Song> Response<Song>::await() {
+	if (!requestData.ok()) {
+		return {};
+	}
+
+	auto json = requestData.json();
+
+	if (json["subsonic-response"]["status"] != "ok") {
+		return {};
+	}
+	if (!json_is_obj(json["subsonic-response"]["song"])) {
+		return {};
+	}
+
+	auto item = json_to(JsonObject, json["subsonic-response"]["song"]);
+
+	// Only keep if it's actually a song!
+	if (json_to(bool, item["isDir"]) || json_to(bool, item["isVideo"])) {
+		return {};
+	}
+
+	return (Song{
+		json_to(String, item["id"]).toInt(),
+		json_to(String, item["parent"]).toInt(),
+		json_to(String, item["title"]),
+		json_to(String, item["album"]),
+		json_to(String, item["contentType"]),
+		json_to(String, item["suffix"]),
+		json_to(String, item["path"]),
+		json_to(String, item["type"]),
+		json_to(int, item["playCount"]),
+		json_to(unsigned long, item["size"]),
+		json_to(int, item["duration"]),
+		json_to(String, item["albumId"]).toInt(),
+	});
+}
+
 } // namespace subsonic
