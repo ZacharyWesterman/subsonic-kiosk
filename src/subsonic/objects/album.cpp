@@ -6,6 +6,26 @@
 namespace subsonic {
 
 template <>
+optional<Album> jsonDecode(const JsonDocument &document, const Client *client) {
+	if (!json_is_obj(document)) {
+		return {};
+	}
+
+	auto item = json_to(JsonObject, document);
+
+	return (Album{
+		jsonDecode<std::vector<Song>>(item["song"], client),
+		json_to(String, item["id"]).toInt(),
+		json_to(String, item["name"]),
+		json_to_or(String, item["artist"], ""),
+		json_to_or(String, item["coverArt"], ""),
+		json_optional_to(int, item["year"]),
+		json_optional_to(int, item["averageRating"]),
+		json_to_int(item["playCount"]),
+	});
+}
+
+template <>
 optional<Album> Response<Album>::await() {
 	if (!requestData.ok()) {
 		return {};
@@ -16,54 +36,8 @@ optional<Album> Response<Album>::await() {
 	if (json["subsonic-response"]["status"] != "ok") {
 		return {};
 	}
-	if (!json_is_obj(json["subsonic-response"]["album"])) {
-		return {};
-	}
 
-	auto item = json_to(JsonObject, json["subsonic-response"]["album"]);
-
-	std::vector<Song> songs;
-	if (json_is_array(item["song"])) {
-		auto songList = json_to(JsonArray, item["song"]);
-		songs.reserve(songList.size());
-
-		for (auto song : songList) {
-			// Only keep if it's actually a song!
-			if (json_to(bool, song["isDir"]) || json_to(bool, song["isVideo"])) {
-				return {};
-			}
-
-			songs.push_back(Song{
-				json_to(String, song["id"]).toInt(),
-				json_to(String, song["parent"]).toInt(),
-				json_to(String, song["title"]),
-				json_to(String, song["album"]),
-				json_to(String, song["contentType"]),
-				json_to(String, song["suffix"]),
-				json_to(String, song["path"]),
-				json_to(String, song["type"]),
-				json_to(int, song["playCount"]),
-				json_to(unsigned long, song["size"]),
-				json_to(int, song["duration"]),
-				json_to(String, song["albumId"]).toInt(),
-				json_optional_to(int, song["track"]),
-				json_optional_to(int, song["year"]),
-				json_optional_to(int, song["discNumber"]),
-				json_optional_to(int, song["averageRating"]),
-			});
-		}
-	}
-
-	return (Album{
-		songs,
-		json_to(String, item["id"]).toInt(),
-		json_to(String, item["name"]),
-		json_to_or(String, item["artist"], ""),
-		json_to_or(String, item["coverArt"], ""),
-		json_optional_to(int, item["year"]),
-		json_optional_to(int, item["averageRating"]),
-		json_to_int(item["playCount"]),
-	});
+	return jsonDecode<Album>(json["subsonic-response"]["album"], client);
 }
 
 } // namespace subsonic

@@ -13,6 +13,27 @@ Response<std::vector<Song>> Playlist::songs() {
 }
 
 template <>
+optional<Playlist> jsonDecode(const JsonDocument &document, const Client *client) {
+	if (!json_is_obj(document)) {
+		return {};
+	}
+
+	auto item = json_to(JsonObject, document);
+
+	return (Playlist{
+		client,
+		json_to(String, item["id"]).toInt(),
+		json_to(String, item["name"]),
+		json_to(String, item["comment"]),
+		json_to(String, item["owner"]),
+		json_to(String, item["coverArt"]),
+		json_to(int, item["songCount"]),
+		json_to(int, item["duration"]),
+		json_to(bool, item["public"]),
+	});
+}
+
+template <>
 optional<std::vector<Playlist>> Response<std::vector<Playlist>>::await() {
 	if (!requestData.ok()) {
 		return {};
@@ -29,17 +50,10 @@ optional<std::vector<Playlist>> Response<std::vector<Playlist>>::await() {
 	results.reserve(arr.size());
 
 	for (auto item : arr) {
-		results.push_back(Playlist{
-			client,
-			json_to(String, item["id"]).toInt(),
-			json_to(String, item["name"]),
-			json_to(String, item["comment"]),
-			json_to(String, item["owner"]),
-			json_to(String, item["coverArt"]),
-			json_to(int, item["songCount"]),
-			json_to(int, item["duration"]),
-			json_to(bool, item["public"]),
-		});
+		auto playlist = jsonDecode<Playlist>(item, client);
+		if (playlist.has_value()) {
+			results.push_back(playlist.value());
+		}
 	}
 
 	return results;
@@ -57,23 +71,7 @@ optional<Playlist> Response<Playlist>::await() {
 		return {};
 	}
 
-	if (!json_is_obj(json["subsonic-response"]["playlist"])) {
-		return {};
-	}
-
-	auto item = json_to(JsonObject, json["subsonic-response"]["playlist"]);
-
-	return (Playlist{
-		client,
-		json_to(String, item["id"]).toInt(),
-		json_to(String, item["name"]),
-		json_to(String, item["comment"]),
-		json_to(String, item["owner"]),
-		json_to(String, item["coverArt"]),
-		json_to(int, item["songCount"]),
-		json_to(int, item["duration"]),
-		json_to(bool, item["public"]),
-	});
+	return jsonDecode<Playlist>(json["subsonic-response"]["playlist"], client);
 }
 
 } // namespace subsonic

@@ -38,6 +38,6 @@ public:
 
 // This needs to be implemented for each object it's used with!
 template <typename T>
-optional<T> jsonDecode(const JsonDocument &json);
+optional<T> jsonDecode(const JsonDocument &json, const Client *client);
 
 } // namespace subsonic

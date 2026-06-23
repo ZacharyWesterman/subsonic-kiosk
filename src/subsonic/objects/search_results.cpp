@@ -32,7 +32,7 @@ optional<SearchResults> Response<SearchResults>::await() {
 		auto list = json_to(JsonArray, results["song"]);
 		songs.reserve(list.size());
 		for (auto item : list) {
-			auto song = jsonDecode<Song>(item);
+			auto song = jsonDecode<Song>(item, client);
 			if (song.has_value()) {
 				songs.push_back(song.value());
 			}

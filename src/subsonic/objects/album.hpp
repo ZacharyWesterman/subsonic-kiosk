@@ -9,7 +9,7 @@ namespace subsonic {
 
 /// @brief Represents a music album with metadata and related operations.
 struct Album {
-	std::vector<Song> songs;
+	optional<std::vector<Song>> songs;
 
 	int id;
 	String name;

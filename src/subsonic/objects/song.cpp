@@ -6,7 +6,7 @@
 namespace subsonic {
 
 template <>
-optional<Song> jsonDecode(const JsonDocument &document) {
+optional<Song> jsonDecode(const JsonDocument &document, const Client *client) {
 	if (!json_is_obj(document)) {
 		return {};
 	}
@@ -40,6 +40,26 @@ optional<Song> jsonDecode(const JsonDocument &document) {
 }
 
 template <>
+optional<std::vector<Song>> jsonDecode(const JsonDocument &document, const Client *client) {
+	if (!json_is_array(document)) {
+		return {};
+	}
+
+	std::vector<Song> songs;
+	auto data = json_to(JsonArray, document);
+	songs.reserve(data.size());
+
+	for (auto item : data) {
+		auto song = jsonDecode<Song>(item, client);
+		if (song.has_value()) {
+			songs.push_back(song.value());
+		}
+	}
+
+	return songs;
+}
+
+template <>
 optional<std::vector<Song>> Response<std::vector<Song>>::await() {
 	// Two possible ways to get a list of songs:
 	// 1. Querying from a playlist.
@@ -55,23 +75,7 @@ optional<std::vector<Song>> Response<std::vector<Song>>::await() {
 		return {};
 	}
 
-	std::vector<Song> results;
-	JsonArray data;
-
-	if (json_is_obj(json["subsonic-response"]["playlist"])) {
-		// Querying from a playlist.
-		data = json_to(JsonArray, json["subsonic-response"]["playlist"]["entry"]);
-	}
-
-	results.reserve(data.size());
-	for (auto item : data) {
-		auto song = jsonDecode<Song>(item);
-		if (song.has_value()) {
-			results.push_back(song.value());
-		}
-	}
-
-	return results;
+	return jsonDecode<std::vector<Song>>(json["subsonic-response"]["playlist"]["entry"], client);
 }
 
 template <>
@@ -86,7 +90,7 @@ optional<Song> Response<Song>::await() {
 		return {};
 	}
 
-	auto song = jsonDecode<Song>(json["subsonic-response"]["song"]);
+	auto song = jsonDecode<Song>(json["subsonic-response"]["song"], client);
 	if (!song.has_value()) {
 		return {};
 	} else {
