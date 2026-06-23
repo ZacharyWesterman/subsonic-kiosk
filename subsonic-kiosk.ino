@@ -58,10 +58,24 @@ void setup() {
 	auto &search = res.value();
 
 	Serial.println("Search Results:");
-	Serial.println("<<SONGS>>");
 	int i = 0;
+
+	Serial.println("\n<<ARTISTS>>");
+	i = 0;
+	for (const auto &artist : search.artists) {
+		Serial.println("  " + String(++i) + ". " + artist.name);
+	}
+
+	Serial.println("\n<<ALBUMS>>");
+	i = 0;
+	for (const auto &album : search.albums) {
+		Serial.println("  " + String(++i) + ". " + album.name + " [by " + album.artist + "]");
+	}
+
+	Serial.println("\n<<SONGS>>");
+	i = 0;
 	for (const auto &song : search.songs) {
-		Serial.println(String(++i) + ". " + song.title + " [by " + song.artist + "]");
+		Serial.println("  " + String(++i) + ". " + song.title + " [by " + song.artist + "]");
 	}
 }
 

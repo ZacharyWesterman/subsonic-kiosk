@@ -24,25 +24,10 @@ optional<SearchResults> Response<SearchResults>::await() {
 		return {};
 	}
 
-	std::vector<Artist> artists;
-	std::vector<Album> albums;
-	std::vector<Song> songs;
-
-	if (json_is_array(results["song"])) {
-		auto list = json_to(JsonArray, results["song"]);
-		songs.reserve(list.size());
-		for (auto item : list) {
-			auto song = jsonDecode<Song>(item, client);
-			if (song.has_value()) {
-				songs.push_back(song.value());
-			}
-		}
-	}
-
 	return SearchResults{
-		artists,
-		albums,
-		songs,
+		jsonDecode<std::vector<Artist>>(results["artist"], client).value_or<std::vector<Artist>>({}),
+		jsonDecode<std::vector<Album>>(results["album"], client).value_or<std::vector<Album>>({}),
+		jsonDecode<std::vector<Song>>(results["song"], client).value_or<std::vector<Song>>({}),
 	};
 }
 

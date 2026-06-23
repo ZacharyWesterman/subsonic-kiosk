@@ -16,13 +16,33 @@ optional<Album> jsonDecode(const JsonDocument &document, const Client *client) {
 	return (Album{
 		jsonDecode<std::vector<Song>>(item["song"], client),
 		json_to(String, item["id"]).toInt(),
-		json_to(String, item["name"]),
+		json_to_or(String, item["album"], ""),
 		json_to_or(String, item["artist"], ""),
 		json_to_or(String, item["coverArt"], ""),
 		json_optional_to(int, item["year"]),
 		json_optional_to(int, item["averageRating"]),
 		json_to_int(item["playCount"]),
 	});
+}
+
+template <>
+optional<std::vector<Album>> jsonDecode(const JsonDocument &document, const Client *client) {
+	if (!json_is_array(document)) {
+		return {};
+	}
+
+	std::vector<Album> albums;
+	auto data = json_to(JsonArray, document);
+	albums.reserve(data.size());
+
+	for (auto item : data) {
+		auto album = jsonDecode<Album>(item, client);
+		if (album.has_value()) {
+			albums.push_back(album.value());
+		}
+	}
+
+	return albums;
 }
 
 template <>
