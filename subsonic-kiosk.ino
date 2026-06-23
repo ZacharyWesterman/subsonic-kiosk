@@ -47,9 +47,21 @@ void setup() {
 
 	client = new subsonic::Client(json_to(String, config["host"]), json_to(String, config["username"]), json_to(String, config["md5sum"]), json_to(String, config["salt"]));
 
-	auto res = client->folders().await();
-	for (auto folder : res.value()) {
-		Serial.println(String("{ id: ") + folder.id + ", name: " + folder.name + " }");
+	// DEBUG: LOAD STUFF HERE
+	auto res = client->search("machine girl").await();
+
+	if (!res.has_value()) {
+		Serial.println("SEARCH FAILED!");
+		return;
+	}
+
+	auto &search = res.value();
+
+	Serial.println("Search Results:");
+	Serial.println("<<SONGS>>");
+	int i = 0;
+	for (const auto &song : search.songs) {
+		Serial.println(String(++i) + ". " + song.title + " [by " + song.artist + "]");
 	}
 }
 
