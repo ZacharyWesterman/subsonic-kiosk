@@ -26,7 +26,7 @@ optional<std::vector<Artist>> jsonDecode(const JsonDocument &document, const Cli
 	}
 
 	std::vector<Artist> artists;
-	auto data = json_to(JsonArray, document);
+	auto data = json_to_array(document);
 	artists.reserve(data.size());
 
 	for (auto item : data) {

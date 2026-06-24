@@ -45,7 +45,7 @@ optional<std::vector<Playlist>> Response<std::vector<Playlist>>::await() {
 		return {};
 	}
 
-	auto arr = json_to(JsonArray, json["subsonic-response"]["playlists"]["playlist"]);
+	auto arr = json_to_array(json["subsonic-response"]["playlists"]["playlist"]);
 	std::vector<Playlist> results;
 	results.reserve(arr.size());
 

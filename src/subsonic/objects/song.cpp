@@ -46,7 +46,7 @@ optional<std::vector<Song>> jsonDecode(const JsonDocument &document, const Clien
 	}
 
 	std::vector<Song> songs;
-	auto data = json_to(JsonArray, document);
+	auto data = json_to_array(document);
 	songs.reserve(data.size());
 
 	for (auto item : data) {

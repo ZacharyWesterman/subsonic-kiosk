@@ -18,7 +18,7 @@ optional<std::vector<Folder>> Response<std::vector<Folder>>::await() {
 	}
 
 	std::vector<Folder> folders;
-	auto arr = json_to(JsonArray, json["subsonic-response"]["musicFolders"]["musicFolder"]);
+	auto arr = json_to_array(json["subsonic-response"]["musicFolders"]["musicFolder"]);
 	for (auto item : arr) {
 		folders.push_back(Folder{
 			json_to(String, item["name"]),

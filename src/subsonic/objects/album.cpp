@@ -32,7 +32,7 @@ optional<std::vector<Album>> jsonDecode(const JsonDocument &document, const Clie
 	}
 
 	std::vector<Album> albums;
-	auto data = json_to(JsonArray, document);
+	auto data = json_to_array(document);
 	albums.reserve(data.size());
 
 	for (auto item : data) {
