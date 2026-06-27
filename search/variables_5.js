@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['network_5fpass_0',['NETWORK_PASS',['../net_8hpp.html#a606e356e6d06218a52b6033d2b63dedd',1,'net']]],
-  ['network_5fssid_1',['NETWORK_SSID',['../net_8hpp.html#a27e62f901e39ea59ec5c36880ff2c420',1,'net']]],
-  ['numchannels_2',['numChannels',['../structaudio_1_1wav_1_1header__t.html#a934b5c019d2e9e637d4d1db5b44d500d',1,'audio::wav::header_t']]]
+  ['id_0',['id',['../structsubsonic_1_1Artist.html#a5be7821793cb2265e2bd3642d8bec4cf',1,'subsonic::Artist::id'],['../structsubsonic_1_1Folder.html#a9f20e200b3d5db9dbe346b78d698ab70',1,'subsonic::Folder::id'],['../structsubsonic_1_1Playlist.html#a2806373f6b33ed97ae8256a57de92ff1',1,'subsonic::Playlist::id'],['../structsubsonic_1_1Song.html#a23022b645e99ec5790e6a2e080046fc6',1,'subsonic::Song::id'],['../structutil_1_1Download.html#a5dccea914c132c307e9af3e8c4b062b4',1,'util::Download::id']]],
+  ['ispublic_1',['isPublic',['../structsubsonic_1_1Playlist.html#a0cdc541023bf6c4640a38750e5d33276',1,'subsonic::Playlist']]]
 ];

@@ -6,8 +6,11 @@ var searchData=
   ['chunksize_3',['chunkSize',['../structaudio_1_1wav_1_1header__t.html#aa43ddfdd9ee246102f8c97dc1012c049',1,'audio::wav::header_t']]],
   ['cleanup_4',['cleanup',['../classutil_1_1DownloadQueue.html#ae4175efe328f8a63cac5ec35f2c5c6a1',1,'util::DownloadQueue']]],
   ['client_5',['client',['../classsubsonic_1_1Client.html',1,'subsonic::Client'],['../net_8hpp.html#a6f0c7250da7ffb5994e346a116574dbc',1,'net::client()']]],
-  ['configs_6',['Configs',['../index.html#autotoc_md3',1,'']]],
-  ['connect_7',['connect',['../fs_8hpp.html#af0961031c69b25145e23543f95730a32',1,'fs']]],
-  ['connected_8',['connected',['../fs_8hpp.html#a7695c3dd5932098fc6d2d3f5db2f3fb6',1,'fs::connected()'],['../net_8hpp.html#ad64f5941dd42dfcce4c4bccbc26b4f1f',1,'net::connected()']]],
-  ['cyan_9',['cyan',['../pins_8hpp.html#a402867885ea02945233e7daa364f9337',1,'pins']]]
+  ['comment_6',['comment',['../structsubsonic_1_1Playlist.html#a4ad12e14ca22514a079ff3700c068e3e',1,'subsonic::Playlist']]],
+  ['configs_7',['Configs',['../index.html#autotoc_md3',1,'']]],
+  ['connect_8',['connect',['../fs_8hpp.html#af0961031c69b25145e23543f95730a32',1,'fs']]],
+  ['connected_9',['connected',['../fs_8hpp.html#a7695c3dd5932098fc6d2d3f5db2f3fb6',1,'fs::connected()'],['../net_8hpp.html#ad64f5941dd42dfcce4c4bccbc26b4f1f',1,'net::connected()']]],
+  ['contenttype_10',['contentType',['../structsubsonic_1_1Song.html#ae6f2fc83890569b78d94138e3b2b459a',1,'subsonic::Song']]],
+  ['coverart_11',['coverArt',['../structsubsonic_1_1Playlist.html#a7d844f753b5d5aa2bb192f3b294b3dae',1,'subsonic::Playlist']]],
+  ['cyan_12',['cyan',['../pins_8hpp.html#a402867885ea02945233e7daa364f9337',1,'pins']]]
 ];

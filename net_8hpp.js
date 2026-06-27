@@ -7,6 +7,7 @@ var net_8hpp =
     [ "init", "net_8hpp.html#a439bc02a83ae4a963bcd67f3d7da7af9", null ],
     [ "ping", "net_8hpp.html#a29b5ce5759a4bb0baad3ce5096092e00", null ],
     [ "tryConnect", "net_8hpp.html#afef7a16f3b3a3b9148635396c1a8960c", null ],
+    [ "urlencode", "net_8hpp.html#af0eba5e0dffcc7f9c3e019da4826d02f", null ],
     [ "NETWORK_PASS", "net_8hpp.html#a606e356e6d06218a52b6033d2b63dedd", null ],
     [ "NETWORK_SSID", "net_8hpp.html#a27e62f901e39ea59ec5c36880ff2c420", null ]
 ];

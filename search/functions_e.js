@@ -1,7 +1,7 @@
 var searchData=
 [
   ['off_0',['off',['../pins_8hpp.html#aa465e67f60b61ed797009a5a4851ee5c',1,'pins']]],
-  ['ok_1',['ok',['../classnet_1_1Request.html#a0cb2a1245739a7849fba0383efdaed91',1,'net::Request']]],
+  ['ok_1',['ok',['../classnet_1_1Request.html#a0cb2a1245739a7849fba0383efdaed91',1,'net::Request::ok()'],['../structsubsonic_1_1Ping.html#a1428343e1b9096d7e4cc5fd6b05140ae',1,'subsonic::Ping::ok()']]],
   ['operator_20bool_2',['operator bool',['../classfs_1_1FileStream.html#ab1c976497df3c8f965c1659c8c97433a',1,'fs::FileStream::operator bool()'],['../classnet_1_1Request.html#ae591117f0d9610b55a9d8078e15f5da8',1,'net::Request::operator bool()']]],
   ['operator_21_3d_3',['operator!=',['../classfs_1_1IterDir.html#a6943c6c4dee7b9f721643662c6341ca4',1,'fs::IterDir::operator!=()'],['../classutil_1_1DownloadQueueIter.html#ac281d1ea486a642a23811ae5366aec3a',1,'util::DownloadQueueIter::operator!=()']]],
   ['operator_28_29_4',['operator()',['../classcallback_1_1repeat.html#a7081b5aae5df97290fc93d71c186c268',1,'callback::repeat']]],

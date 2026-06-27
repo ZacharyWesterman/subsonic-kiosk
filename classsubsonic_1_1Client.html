@@ -109,19 +109,154 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a2d3f94b14f430e8923fc39d5e61b8450" id="r_a2d3f94b14f430e8923fc39d5e61b8450"><td class="memItemLeft" align="right" valign="top"><a id="a2d3f94b14f430e8923fc39d5e61b8450" name="a2d3f94b14f430e8923fc39d5e61b8450"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Client</b> (const String &amp;host, const String &amp;user, const String &amp;pass_md5, const String &amp;salt)</td></tr>
 <tr class="separator:a2d3f94b14f430e8923fc39d5e61b8450"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adae19c2282aee760c2bc84350c4c4f66" id="r_adae19c2282aee760c2bc84350c4c4f66"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsubsonic_1_1Response.html">Response</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsubsonic_1_1Client.html#adae19c2282aee760c2bc84350c4c4f66">query</a> (const String &amp;action, const String &amp;parameters) const</td></tr>
-<tr class="memdesc:adae19c2282aee760c2bc84350c4c4f66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes a query against the Subsonic API.  <br /></td></tr>
-<tr class="separator:adae19c2282aee760c2bc84350c4c4f66"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5143550eb55c6489f6e0b3af1159ff47" id="r_a5143550eb55c6489f6e0b3af1159ff47"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnet_1_1Request.html">net::Request</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsubsonic_1_1Client.html#a5143550eb55c6489f6e0b3af1159ff47">query</a> (const String &amp;action, const String &amp;parameters=&quot;&quot;) const</td></tr>
+<tr class="memdesc:a5143550eb55c6489f6e0b3af1159ff47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes a query against the Subsonic API.  <br /></td></tr>
+<tr class="separator:a5143550eb55c6489f6e0b3af1159ff47"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a415927f5f09f43cea573d3b3ed91bebb" id="r_a415927f5f09f43cea573d3b3ed91bebb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsubsonic_1_1Response.html">Response</a>&lt; <a class="el" href="structsubsonic_1_1Ping.html">Ping</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsubsonic_1_1Client.html#a415927f5f09f43cea573d3b3ed91bebb">ping</a> () const</td></tr>
+<tr class="memdesc:a415927f5f09f43cea573d3b3ed91bebb"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="structsubsonic_1_1Ping.html" title="Represents a Subsonic ping response with status, version, and type attributes.">Ping</a> the Subsonic API for a response.  <br /></td></tr>
+<tr class="separator:a415927f5f09f43cea573d3b3ed91bebb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9cef07a572eff2d15c975cbabd59e9d5" id="r_a9cef07a572eff2d15c975cbabd59e9d5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsubsonic_1_1Response.html">Response</a>&lt; std::vector&lt; <a class="el" href="structsubsonic_1_1Folder.html">Folder</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsubsonic_1_1Client.html#a9cef07a572eff2d15c975cbabd59e9d5">folders</a> () const</td></tr>
+<tr class="memdesc:a9cef07a572eff2d15c975cbabd59e9d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a list of available folders.  <br /></td></tr>
+<tr class="separator:a9cef07a572eff2d15c975cbabd59e9d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a39f5dcda1a69b139f70526cf4cff7ea1" id="r_a39f5dcda1a69b139f70526cf4cff7ea1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsubsonic_1_1Response.html">Response</a>&lt; std::vector&lt; <a class="el" href="structsubsonic_1_1Playlist.html">Playlist</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsubsonic_1_1Client.html#a39f5dcda1a69b139f70526cf4cff7ea1">playlists</a> () const</td></tr>
+<tr class="memdesc:a39f5dcda1a69b139f70526cf4cff7ea1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get all available playlists.  <br /></td></tr>
+<tr class="separator:a39f5dcda1a69b139f70526cf4cff7ea1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a282835725c8713f265cf2e46d4d674fc" id="r_a282835725c8713f265cf2e46d4d674fc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsubsonic_1_1Response.html">Response</a>&lt; <a class="el" href="structsubsonic_1_1Playlist.html">Playlist</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsubsonic_1_1Client.html#a282835725c8713f265cf2e46d4d674fc">playlist</a> (int id) const</td></tr>
+<tr class="memdesc:a282835725c8713f265cf2e46d4d674fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a playlist by its ID.  <br /></td></tr>
+<tr class="separator:a282835725c8713f265cf2e46d4d674fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af2829ba787465aa356bdcdfb1544e8f4" id="r_af2829ba787465aa356bdcdfb1544e8f4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsubsonic_1_1Response.html">Response</a>&lt; <a class="el" href="structsubsonic_1_1Song.html">Song</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsubsonic_1_1Client.html#af2829ba787465aa356bdcdfb1544e8f4">song</a> (int id) const</td></tr>
+<tr class="memdesc:af2829ba787465aa356bdcdfb1544e8f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a song by its ID.  <br /></td></tr>
+<tr class="separator:af2829ba787465aa356bdcdfb1544e8f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a368dc6292a7520677278cc16d44d9dea" id="r_a368dc6292a7520677278cc16d44d9dea"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsubsonic_1_1Response.html">Response</a>&lt; <a class="el" href="structsubsonic_1_1Album.html">Album</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsubsonic_1_1Client.html#a368dc6292a7520677278cc16d44d9dea">album</a> (int id) const</td></tr>
+<tr class="memdesc:a368dc6292a7520677278cc16d44d9dea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get an album by its ID.  <br /></td></tr>
+<tr class="separator:a368dc6292a7520677278cc16d44d9dea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8bcac0e55b35a055db04ddee34c4d519" id="r_a8bcac0e55b35a055db04ddee34c4d519"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsubsonic_1_1Response.html">Response</a>&lt; <a class="el" href="structsubsonic_1_1SearchResults.html">SearchResults</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsubsonic_1_1Client.html#a8bcac0e55b35a055db04ddee34c4d519">search</a> (const String &amp;text) const</td></tr>
+<tr class="memdesc:a8bcac0e55b35a055db04ddee34c4d519"><td class="mdescLeft">&#160;</td><td class="mdescRight">Search for albums, songs or artists.  <br /></td></tr>
+<tr class="separator:a8bcac0e55b35a055db04ddee34c4d519"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="adae19c2282aee760c2bc84350c4c4f66" name="adae19c2282aee760c2bc84350c4c4f66"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adae19c2282aee760c2bc84350c4c4f66">&#9670;&#160;</a></span>query()</h2>
+<a id="a368dc6292a7520677278cc16d44d9dea" name="a368dc6292a7520677278cc16d44d9dea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a368dc6292a7520677278cc16d44d9dea">&#9670;&#160;</a></span>album()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classsubsonic_1_1Response.html">Response</a> subsonic::Client::query </td>
+          <td class="memname"><a class="el" href="classsubsonic_1_1Response.html">Response</a>&lt; <a class="el" href="structsubsonic_1_1Album.html">Album</a> &gt; subsonic::Client::album </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get an album by its ID. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>The ID of the album. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A response containing the album if it exists. </dd></dl>
+
+</div>
+</div>
+<a id="a9cef07a572eff2d15c975cbabd59e9d5" name="a9cef07a572eff2d15c975cbabd59e9d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9cef07a572eff2d15c975cbabd59e9d5">&#9670;&#160;</a></span>folders()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classsubsonic_1_1Response.html">Response</a>&lt; std::vector&lt; <a class="el" href="structsubsonic_1_1Folder.html">Folder</a> &gt; &gt; subsonic::Client::folders </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get a list of available folders. </p>
+<dl class="section return"><dt>Returns</dt><dd>The folder list response. </dd></dl>
+
+</div>
+</div>
+<a id="a415927f5f09f43cea573d3b3ed91bebb" name="a415927f5f09f43cea573d3b3ed91bebb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a415927f5f09f43cea573d3b3ed91bebb">&#9670;&#160;</a></span>ping()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classsubsonic_1_1Response.html">Response</a>&lt; <a class="el" href="structsubsonic_1_1Ping.html">Ping</a> &gt; subsonic::Client::ping </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><a class="el" href="structsubsonic_1_1Ping.html" title="Represents a Subsonic ping response with status, version, and type attributes.">Ping</a> the Subsonic API for a response. </p>
+<dl class="section return"><dt>Returns</dt><dd>The ping response. </dd></dl>
+
+</div>
+</div>
+<a id="a282835725c8713f265cf2e46d4d674fc" name="a282835725c8713f265cf2e46d4d674fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a282835725c8713f265cf2e46d4d674fc">&#9670;&#160;</a></span>playlist()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classsubsonic_1_1Response.html">Response</a>&lt; <a class="el" href="structsubsonic_1_1Playlist.html">Playlist</a> &gt; subsonic::Client::playlist </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get a playlist by its ID. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>The ID of the playlist. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A response containing the playlist if it exists. </dd></dl>
+
+</div>
+</div>
+<a id="a39f5dcda1a69b139f70526cf4cff7ea1" name="a39f5dcda1a69b139f70526cf4cff7ea1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a39f5dcda1a69b139f70526cf4cff7ea1">&#9670;&#160;</a></span>playlists()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classsubsonic_1_1Response.html">Response</a>&lt; std::vector&lt; <a class="el" href="structsubsonic_1_1Playlist.html">Playlist</a> &gt; &gt; subsonic::Client::playlists </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get all available playlists. </p>
+<dl class="section return"><dt>Returns</dt><dd>A list of playlists. </dd></dl>
+
+</div>
+</div>
+<a id="a5143550eb55c6489f6e0b3af1159ff47" name="a5143550eb55c6489f6e0b3af1159ff47"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5143550eb55c6489f6e0b3af1159ff47">&#9670;&#160;</a></span>query()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classnet_1_1Request.html">net::Request</a> subsonic::Client::query </td>
           <td>(</td>
           <td class="paramtype">const String &amp;&#160;</td>
           <td class="paramname"><em>action</em>, </td>
@@ -130,7 +265,7 @@ Public Member Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const String &amp;&#160;</td>
-          <td class="paramname"><em>parameters</em>&#160;</td>
+          <td class="paramname"><em>parameters</em> = <code>&quot;&quot;</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -148,6 +283,60 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a8bcac0e55b35a055db04ddee34c4d519" name="a8bcac0e55b35a055db04ddee34c4d519"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8bcac0e55b35a055db04ddee34c4d519">&#9670;&#160;</a></span>search()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classsubsonic_1_1Response.html">Response</a>&lt; <a class="el" href="structsubsonic_1_1SearchResults.html">SearchResults</a> &gt; subsonic::Client::search </td>
+          <td>(</td>
+          <td class="paramtype">const String &amp;&#160;</td>
+          <td class="paramname"><em>text</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Search for albums, songs or artists. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">text</td><td>The text to search for. This may be title, description, etc. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A response that resolves to the search results. </dd></dl>
+
+</div>
+</div>
+<a id="af2829ba787465aa356bdcdfb1544e8f4" name="af2829ba787465aa356bdcdfb1544e8f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af2829ba787465aa356bdcdfb1544e8f4">&#9670;&#160;</a></span>song()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classsubsonic_1_1Response.html">Response</a>&lt; <a class="el" href="structsubsonic_1_1Song.html">Song</a> &gt; subsonic::Client::song </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get a song by its ID. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>The ID of the song. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A response containing the song if it exists. </dd></dl>
 
 </div>
 </div>

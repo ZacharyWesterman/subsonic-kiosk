@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['header_5ft_0',['header_t',['../unionaudio_1_1header__t.html',1,'audio::header_t'],['../structaudio_1_1wav_1_1header__t.html',1,'audio::wav::header_t']]]
+  ['filestream_0',['FileStream',['../classfs_1_1FileStream.html',1,'fs']]],
+  ['folder_1',['Folder',['../structsubsonic_1_1Folder.html',1,'subsonic']]]
 ];
