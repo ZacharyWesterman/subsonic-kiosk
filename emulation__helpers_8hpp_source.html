@@ -137,6 +137,7 @@ $(document).ready(function(){initNavTree('emulation__helpers_8hpp_source.html','
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="preprocessor">#define json_to_or(type, obj, alt) (json_is_null(obj) ? alt : json_to(type, obj))</span></div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="preprocessor">#define json_choose_key(obj, key1, key2) (json_is_null(obj[key1]) ? obj[key2] : obj[key1])</span></div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="preprocessor">#define json_optional_key_to(type, obj, key) (json_contains_key(obj, key) ? optional&lt;type&gt;{json_to(type, obj[key])} : optional&lt;type&gt;{})</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="preprocessor">#define json_key_to_or(type, obj, key, alt) (json_contains_key(obj, key) ? json_to(type, obj[key]) : alt)</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
