@@ -18,7 +18,7 @@ optional<SearchResults> Response<SearchResults>::await() {
 		return {};
 	}
 
-	auto &results = json["subsonic-response"]["searchResult2"];
+	JsonDocument results = json["subsonic-response"]["searchResult2"];
 
 	if (!json_is_obj(results)) {
 		return {};

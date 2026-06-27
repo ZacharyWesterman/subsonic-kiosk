@@ -11,31 +11,29 @@ optional<Song> jsonDecode(const JsonDocument &document, const Client *client) {
 		return {};
 	}
 
-	auto item = json_to(JsonObject, document);
-
 	// Only keep if it's actually a song!
-	if (json_to(bool, item["isDir"]) || json_to(bool, item["isVideo"])) {
+	if (json_to(bool, document["isDir"]) || json_to(bool, document["isVideo"])) {
 		return {};
 	}
 
 	return (Song{
-		json_to(String, item["id"]).toInt(),
-		json_to(String, item["parent"]).toInt(),
-		json_to(String, item["title"]),
-		json_to(String, item["album"]),
-		json_to_or(String, item["artist"], ""),
-		json_to(String, item["contentType"]),
-		json_to(String, item["suffix"]),
-		json_to(String, item["path"]),
-		json_to(String, item["type"]),
-		json_to(int, item["playCount"]),
-		json_to(unsigned long, item["size"]),
-		json_to(int, item["duration"]),
-		json_to(String, item["albumId"]).toInt(),
-		json_optional_to(int, item["track"]),
-		json_optional_to(int, item["year"]),
-		json_optional_to(int, item["discNumber"]),
-		json_optional_to(int, item["averageRating"]),
+		json_to(String, document["id"]).toInt(),
+		json_to(String, document["parent"]).toInt(),
+		json_to(String, document["title"]),
+		json_to(String, document["album"]),
+		json_to_or(String, document["artist"], ""),
+		json_to(String, document["contentType"]),
+		json_to(String, document["suffix"]),
+		json_to(String, document["path"]),
+		json_to(String, document["type"]),
+		json_to(int, document["playCount"]),
+		json_to(unsigned long, document["size"]),
+		json_to(int, document["duration"]),
+		json_to(String, document["albumId"]).toInt(),
+		json_optional_to(int, document["track"]),
+		json_optional_to(int, document["year"]),
+		json_optional_to(int, document["discNumber"]),
+		json_optional_to(int, document["averageRating"]),
 	});
 }
 

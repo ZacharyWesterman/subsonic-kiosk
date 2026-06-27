@@ -18,18 +18,16 @@ optional<Playlist> jsonDecode(const JsonDocument &document, const Client *client
 		return {};
 	}
 
-	auto item = json_to(JsonObject, document);
-
 	return (Playlist{
 		client,
-		json_to(String, item["id"]).toInt(),
-		json_to(String, item["name"]),
-		json_to(String, item["comment"]),
-		json_to(String, item["owner"]),
-		json_to(String, item["coverArt"]),
-		json_to(int, item["songCount"]),
-		json_to(int, item["duration"]),
-		json_to(bool, item["public"]),
+		json_to(String, document["id"]).toInt(),
+		json_to(String, document["name"]),
+		json_to(String, document["comment"]),
+		json_to(String, document["owner"]),
+		json_to(String, document["coverArt"]),
+		json_to(int, document["songCount"]),
+		json_to(int, document["duration"]),
+		json_to(bool, document["public"]),
 	});
 }
 

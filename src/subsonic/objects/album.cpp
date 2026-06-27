@@ -11,17 +11,15 @@ optional<Album> jsonDecode(const JsonDocument &document, const Client *client) {
 		return {};
 	}
 
-	auto item = json_to(JsonObject, document);
-
 	return (Album{
-		jsonDecode<std::vector<Song>>(item["song"], client),
-		json_to(String, item["id"]).toInt(),
-		json_to_or(String, item["album"], ""),
-		json_to_or(String, item["artist"], ""),
-		json_to_or(String, item["coverArt"], ""),
-		json_optional_to(int, item["year"]),
-		json_optional_to(int, item["averageRating"]),
-		json_to_int(item["playCount"]),
+		jsonDecode<std::vector<Song>>(document["song"], client),
+		json_to(String, document["id"]).toInt(),
+		json_to_or(String, document["album"], ""),
+		json_to_or(String, document["artist"], ""),
+		json_to_or(String, document["coverArt"], ""),
+		json_optional_to(int, document["year"]),
+		json_optional_to(int, document["averageRating"]),
+		json_to_int(document["playCount"]),
 	});
 }
 

@@ -10,7 +10,6 @@
 #define json_to_str(o) o.get<String>()
 #define json_to(type, obj) obj.get<type>()
 #define json_to_array(obj) obj.get<JsonArray>()
-#define json_to_array(obj) obj.get<JsonObject>()
 
 #define json_array_length(o) o.size()
 #define json_contains_key(o, key) o.contains(key)
@@ -24,8 +23,7 @@
 
 #define json_to_str(o) o.as<String>()
 #define json_to(type, obj) obj.as<type>()
-#define json_to_array(obj) obj.as<ConstJsonArray>()
-#define json_to_object(obj) obj.as<ConstJsonObject>()
+#define json_to_array(obj) obj.as<JsonArrayConst>()
 
 #define json_array_length(o) o.length()
 #define json_contains_key(o, key) o.containsKey(key)

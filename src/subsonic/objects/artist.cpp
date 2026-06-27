@@ -11,11 +11,9 @@ optional<Artist> jsonDecode(const JsonDocument &document, const Client *client) 
 		return {};
 	}
 
-	auto item = json_to(JsonObject, document);
-
 	return (Artist{
-		json_to(String, item["id"]).toInt(),
-		json_to(String, item["name"]),
+		json_to(String, document["id"]).toInt(),
+		json_to(String, document["name"]),
 	});
 }
 
