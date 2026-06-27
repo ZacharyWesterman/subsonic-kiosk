@@ -34,3 +34,4 @@
 #define json_optional_to(type, obj) (json_is_null(obj) ? optional<type>{} : optional<type>{json_to(type, obj)})
 #define json_to_or(type, obj, alt) (json_is_null(obj) ? alt : json_to(type, obj))
 #define json_choose_key(obj, key1, key2) (json_is_null(obj[key1]) ? obj[key2] : obj[key1])
+#define json_optional_key_to(type, obj, key) (json_contains_key(obj, key) ? optional<type>{json_to(type, obj[key])} : optional<type>{})

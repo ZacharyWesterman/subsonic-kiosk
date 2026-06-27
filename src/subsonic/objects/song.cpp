@@ -30,10 +30,10 @@ optional<Song> jsonDecode(const JsonDocument &document, const Client *client) {
 		json_to(unsigned long, document["size"]),
 		json_to(int, document["duration"]),
 		json_to(String, document["albumId"]).toInt(),
-		json_optional_to(int, document["track"]),
-		json_optional_to(int, document["year"]),
-		json_optional_to(int, document["discNumber"]),
-		json_optional_to(int, document["averageRating"]),
+		json_optional_key_to(int, document, "track"),
+		json_optional_key_to(int, document, "year"),
+		json_optional_key_to(int, document, "discNumber"),
+		json_optional_key_to(int, document, "averageRating"),
 	});
 }
 

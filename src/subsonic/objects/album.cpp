@@ -12,13 +12,13 @@ optional<Album> jsonDecode(const JsonDocument &document, const Client *client) {
 	}
 
 	return (Album{
-		jsonDecode<std::vector<Song>>(document["song"], client),
+		(json_contains_key(document, "song") ? jsonDecode<std::vector<Song>>(document["song"], client) : optional<std::vector<Song>>{}),
 		json_to(String, document["id"]).toInt(),
 		json_to_or(String, document["album"], ""),
 		json_to_or(String, document["artist"], ""),
 		json_to_or(String, document["coverArt"], ""),
-		json_optional_to(int, document["year"]),
-		json_optional_to(int, document["averageRating"]),
+		json_optional_key_to(int, document, "year"),
+		json_optional_key_to(int, document, "averageRating"),
 		json_to_int(document["playCount"]),
 	});
 }
