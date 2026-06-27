@@ -7,13 +7,41 @@ Client::Client(const String &host, const String &user, const String &pass_md5, c
 
 Client::~Client() {}
 
-Response Client::query(const String &action, const String &parameters) const {
+net::Request Client::query(const String &action, const String &parameters) const {
 	String url = host + "/rest/" + action + ".view?u=" + user + "&t=" + md5sum + "&s=" + salt + "&v=1.15.1&c=subsonic-arduino&f=json";
 	if (!parameters.isEmpty()) {
 		url += "&" + parameters;
 	}
 
 	return net::get(url);
+}
+
+Response<Ping> Client::ping() const {
+	return Response<Ping>(query("ping"), this);
+}
+
+Response<std::vector<Folder>> Client::folders() const {
+	return Response<std::vector<Folder>>(query("getMusicFolders"), this);
+}
+
+Response<std::vector<Playlist>> Client::playlists() const {
+	return Response<std::vector<Playlist>>(query("getPlaylists"), this);
+}
+
+Response<Playlist> Client::playlist(int id) const {
+	return Response<Playlist>(query("getPlaylist", "id=" + String(id)), this);
+}
+
+Response<Song> Client::song(int id) const {
+	return Response<Song>(query("getSong", "id=" + String(id)), this);
+}
+
+Response<Album> Client::album(int id) const {
+	return Response<Album>(query("getAlbum", "id=" + String(id)), this);
+}
+
+Response<SearchResults> Client::search(const String &text) const {
+	return Response<SearchResults>(query("search2", "query=" + net::urlencode(text)), this);
 }
 
 } // namespace subsonic

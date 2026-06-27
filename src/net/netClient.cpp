@@ -18,7 +18,7 @@ NetClient::~NetClient() {
 #endif
 }
 
-Request NetClient::get(const String &path) {
+Request NetClient::get(const String &path, unsigned long timeout) {
 #ifdef EMULATE
 	String requestPath = path;
 	if (!requestPath.startsWith("/")) {
@@ -26,14 +26,14 @@ Request NetClient::get(const String &path) {
 	}
 	const String scheme = (port == 443) ? "https" : "http";
 	const String requestUrl = scheme + "://" + host + ":" + String(port) + requestPath;
-	return Request(requestUrl);
+	return Request(requestUrl, timeout);
 #else
 	if (!connected) {
 		connected = client.connect(host.c_str(), port);
 	}
 
 	if (!connected) {
-		return Request(client);
+		return Request(client, timeout);
 	}
 
 	client.println("GET " + path + " HTTP/1.1");
@@ -41,7 +41,7 @@ Request NetClient::get(const String &path) {
 	client.println("Connection: close");
 	client.println();
 
-	Request response(client);
+	Request response(client, timeout);
 	return response;
 #endif
 }

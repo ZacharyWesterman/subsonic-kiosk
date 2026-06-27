@@ -1,5 +1,12 @@
 #pragma once
+#include "objects/album.hpp"
+#include "objects/folder.hpp"
+#include "objects/ping.hpp"
+#include "objects/playlist.hpp"
+#include "objects/search_results.hpp"
+#include "objects/song.hpp"
 #include "response.hpp"
+#include <vector>
 
 namespace subsonic {
 
@@ -18,7 +25,53 @@ public:
 	 * @param action The API action to perform.
 	 * @param parameters Parameters to include in the query, if any.
 	 */
-	Response query(const String &action, const String &parameters) const;
+	net::Request query(const String &action, const String &parameters = "") const;
+
+	/**
+	 * @brief Ping the Subsonic API for a response.
+	 * @return The ping response.
+	 */
+	Response<Ping> ping() const;
+
+	/**
+	 * @brief Get a list of available folders.
+	 * @return The folder list response.
+	 */
+	Response<std::vector<Folder>> folders() const;
+
+	/**
+	 * @brief Get all available playlists
+	 * @return A list of playlists.
+	 */
+	Response<std::vector<Playlist>> playlists() const;
+
+	/**
+	 * @brief Get a playlist by its ID.
+	 * @param id The ID of the playlist.
+	 * @return A response containing the playlist if it exists.
+	 */
+	Response<Playlist> playlist(int id) const;
+
+	/**
+	 * @brief Get a song by its ID.
+	 * @param id The ID of the song.
+	 * @return A response containing the song if it exists.
+	 */
+	Response<Song> song(int id) const;
+
+	/**
+	 * @brief Get an album by its ID.
+	 * @param id The ID of the album.
+	 * @return A response containing the album if it exists.
+	 */
+	Response<Album> album(int id) const;
+
+	/**
+	 * @brief Search for albums, songs or artists.
+	 * @param text The text to search for. This may be title, description, etc.
+	 * @return A response that resolves to the search results.
+	 */
+	Response<SearchResults> search(const String &text) const;
 };
 
 } // namespace subsonic

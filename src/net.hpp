@@ -62,6 +62,13 @@ int ping(const char *host, int timeout = 5000);
  */
 NetClient client(const String &host, int port = 80);
 
-Request get(const String &url);
+Request get(const String &url, unsigned long timeout = 10000);
+
+/**
+ * @brief Escape special characters so they can be passed as a URL param.
+ * @param text The string to encode.
+ * @return A url-encoded string.
+ */
+String urlencode(const String &text);
 
 } // namespace net

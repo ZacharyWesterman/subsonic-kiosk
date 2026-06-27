@@ -27,12 +27,33 @@ class Request {
 #else
 	WiFiClient client;
 #endif
-	bool finished = false;
 	String responseBody;
-	StatusCode status_code;
+	uint64_t content_start;
 	uint64_t content_length;
 	uint64_t downloaded_bytes;
-	String redirect_to;
+	unsigned long timeout;
+	unsigned long waitStart;
+	int chunkSize;
+	StatusCode status_code;
+	bool finished;
+	bool found_content;
+	bool isChunked;
+
+	void waitWithTimeout();
+	int findHeader(const char *name) const;
+
+	/**
+	 * @brief Read a line from the response body.
+	 * @return A String containing the line read from the response body.
+	 *
+	 * @warning This function will block until a line is available or the
+	 * end of the response is reached.
+	 */
+	String readln();
+
+	void collect();
+
+	int readChunkSize();
 
 public:
 	/**
@@ -40,9 +61,9 @@ public:
 	 * @param client The WiFiClient object to use for the request.
 	 */
 #ifdef EMULATE
-	Request(const String &url);
+	Request(const String &url, unsigned long timeout);
 #else
-	Request(WiFiClient &client);
+	Request(WiFiClient &client, unsigned long timeout);
 #endif
 
 	/**
@@ -71,30 +92,17 @@ public:
 	 */
 	StatusCode status() const;
 
-	/**
-	 * @brief Read the response body in chunks.
-	 * @param chunkSize The size of each chunk to read.
-	 * @return A vector containing the bytes read from the response body.
-	 *
-	 * @warning This function will block until the specified number of bytes is
-	 * available or the end of the response is reached.
-	 */
-	std::vector<uint8_t> read(int chunkSize = 1024);
-
-	/**
-	 * @brief Read a line from the response body.
-	 * @return A String containing the line read from the response body.
-	 *
-	 * @warning This function will block until a line is available or the
-	 * end of the response is reached.
-	 */
-	String readln();
+	void process();
 
 	/**
 	 * @brief Read the entire response body.
 	 * @return A String containing the entire response body.
 	 *
 	 * @warning This function will block until the entire response body is read.
+	 * Avoid using this method if you expect the response to be very large
+	 * (e.g. downloading files).
+	 *
+	 * @see stream()
 	 */
 	String text();
 
@@ -115,10 +123,20 @@ public:
 	bool ready();
 
 	/**
-	 * @brief Get the data that's available to be read from the response.
-	 * @return A vector containing the bytes that are available to be read.
+	 * @brief Stream response data from the request without storing all of it.
+	 *
+	 * This first reads any cached data, then streams data from the network.
+	 *
+	 * @note This will block while waiting to receive more data from the network.
+	 *
+	 * @warning Avoid using stream() and text()/json() on the same request object;
+	 * stream() will actively consume data such that it will no longer be available
+	 * to other methods.
+	 *
+	 * @return A vector containing the bytes read from the network.
+	 * Returns an empty vector if there's no more data to be read.
 	 */
-	std::vector<uint8_t> data();
+	std::vector<uint8_t> stream();
 
 	/**
 	 * @brief Get the content length of the response.
@@ -138,9 +156,17 @@ public:
 	 */
 	float progress() const;
 
+	/**
+	 * @brief Check whether the response was a redirect.
+	 * @return True if redirected, false otherwise.
+	 */
 	bool redirected() const;
 
-	const String &location() const;
+	/**
+	 * @brief Get the redirect url, if any.
+	 * @return The url to be redirected to, or an empty string if not redirecting.
+	 */
+	String location() const;
 };
 
 } // namespace net

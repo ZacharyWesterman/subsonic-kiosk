@@ -1,29 +1,43 @@
 #pragma once
 #include "../net/request.hpp"
+#include "../polyfill/optional.hpp"
+#include <ArduinoJson.h>
 
 namespace subsonic {
 
-class Response {
-	net::Request request;
-	bool fetchedData = false;
-	JsonDocument responseJson;
+class Client;
 
-	void parseData();
+template <typename T>
+class Response {
+	net::Request requestData;
+	const Client *client;
 
 public:
-	Response(net::Request &&request);
+	Response(net::Request &&request, const Client *client) : requestData(request), client(client) {}
 
-	bool done() const;
-
-	inline bool errored() {
-		return !ok();
+	inline net::Request &request() {
+		return requestData;
 	}
-	bool ok();
 
-	String error();
+	inline bool ready() const {
+		return requestData.done();
+	}
+	inline operator bool() const {
+		return requestData.ok();
+	}
+	inline bool ok() const {
+		return requestData.ok();
+	}
+	inline void process() {
+		requestData.process();
+	}
 
-	String text();
-	JsonDocument json();
+	// This needs to be implemented for each object!
+	optional<T> await();
 };
+
+// This needs to be implemented for each object it's used with!
+template <typename T>
+optional<T> jsonDecode(const JsonDocument &json, const Client *client);
 
 } // namespace subsonic

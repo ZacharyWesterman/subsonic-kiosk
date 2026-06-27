@@ -8,6 +8,8 @@
 #include <WiFi.h>
 #endif
 
+#define REDIRECT_LIMIT 5
+
 namespace net {
 
 String NETWORK_SSID;
@@ -100,21 +102,64 @@ NetClient client(const String &host, int port) {
 	return NetClient(host, port);
 }
 
-Request get(const String &url) {
+Request get_request(const String &url, unsigned long timeout, int redirect) {
 	// Split URL into host and path
 	int protocolIndex = url.indexOf("://");
 	int protocolEnd = (protocolIndex < 0) ? 0 : protocolIndex + 3; // Skip "://"
 	int pathStart = url.indexOf("/", protocolEnd);
+	int portStart = url.indexOf(":", protocolEnd);
+
+	int hostEnd = (portStart >= 0 && portStart < pathStart) ? portStart : pathStart;
 
 	String protocol = (protocolIndex < 0) ? "" : url.substring(0, protocolIndex);
-	String host = url.substring(protocolEnd, pathStart);
+	String host = url.substring(protocolEnd, hostEnd);
 	String path = (pathStart < 0) ? "/" : url.substring(pathStart);
 
-	logger::info("Creating GET request to [" + protocol + "] (" + host + ") <" + path + ">");
-
 	int port = (protocol == "https") ? 443 : 80;
+	if (portStart >= 0 && portStart < pathStart) {
+		port = url.substring(portStart + 1, (pathStart >= 0 ? pathStart : url.length())).toInt();
+	}
 
-	return Request(net::client(host, port).get(path));
+	logger::info("Creating GET request to [" + protocol + "] (" + host + ":" + String(port) + ") <" + path + ">");
+
+	auto req = net::client(host, port).get(path, timeout);
+
+	// Follow redirects up to the max redirect count.
+
+	if (req.redirected() && redirect < REDIRECT_LIMIT) {
+		req = get_request(req.location(), timeout, redirect + 1);
+	}
+
+	return req;
+}
+
+Request get(const String &url, unsigned long timeout) {
+	return get_request(url, timeout, 0);
+}
+
+char nibbleToHex(unsigned char nibble) {
+	return nibble + (nibble > 9 ? 'A' : '0');
+}
+
+String urlencode(const String &text) {
+	String result;
+	result.reserve(text.length()); // Will be *at least* the length of the original string.
+
+	for (int i = 0; i < text.length(); i++) {
+		unsigned char c = text[i];
+		if (c == '-' || c == '_' || c == '.' || c == '~' || (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9')) {
+			result.concat((char)c);
+			continue;
+		}
+
+		// Convert non-accepted chars into %XX hex format.
+		result.reserve(text.length() + 2);
+		result.concat('%');
+		result.concat(nibbleToHex(c & 0xf));
+		result.concat(nibbleToHex((c >> 4) & 0xf));
+	}
+
+	return result;
 }
 
 } // namespace net

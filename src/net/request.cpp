@@ -2,6 +2,17 @@
 #include "../logger.hpp"
 #include <algorithm>
 
+#define IN_LOOP_WAIT_UNTIL_TIMEOUT_ELSE(bytes, on_timeout) \
+	if (!bytes) { \
+		waitWithTimeout(); \
+		if (finished) { \
+			on_timeout; \
+		} \
+		continue; \
+	} else { \
+		waitStart = millis(); \
+	}
+
 namespace net {
 
 #ifdef EMULATE
@@ -41,10 +52,6 @@ size_t Request::headerCallback(char *ptr, size_t size, size_t nmemb, void *userd
 		if (id == "Content-Length") {
 			request->content_length = value.toInt();
 		}
-
-		if ((request->status_code == MOVED_PERMANENTLY || request->status_code == TEMPORARY_REDIRECT || request->status_code == PERMANENT_REDIRECT) && id == "Location") {
-			request->redirect_to = value;
-		}
 	} else if (header.startsWith("HTTP/")) {
 		const int firstSpace = header.indexOf(' ');
 		const int secondSpace = header.indexOf(' ', firstSpace + 1);
@@ -57,7 +64,10 @@ size_t Request::headerCallback(char *ptr, size_t size, size_t nmemb, void *userd
 	return total;
 }
 
-Request::Request(const String &url) : requestUrl(url) {
+Request::Request(const String &url, unsigned long timeout) : requestUrl(url) {
+	waitStart = millis();
+	this->timeout = timeout;
+
 	status_code = BAD_REQUEST;
 	content_length = 0;
 	downloaded_bytes = 0;
@@ -71,12 +81,12 @@ Request::Request(const String &url) : requestUrl(url) {
 	}
 
 	curl_easy_setopt(curlHandle, CURLOPT_URL, requestUrl.c_str());
-	curl_easy_setopt(curlHandle, CURLOPT_FOLLOWLOCATION, 1L);
+	curl_easy_setopt(curlHandle, CURLOPT_FOLLOWLOCATION, 0L);
 	curl_easy_setopt(curlHandle, CURLOPT_WRITEFUNCTION, &Request::writeCallback);
 	curl_easy_setopt(curlHandle, CURLOPT_WRITEDATA, this);
 	curl_easy_setopt(curlHandle, CURLOPT_HEADERFUNCTION, &Request::headerCallback);
 	curl_easy_setopt(curlHandle, CURLOPT_HEADERDATA, this);
-	curl_easy_setopt(curlHandle, CURLOPT_TIMEOUT_MS, 10000L);
+	curl_easy_setopt(curlHandle, CURLOPT_TIMEOUT_MS, timeout);
 
 	const CURLcode code = curl_easy_perform(curlHandle);
 	if (code != CURLE_OK) {
@@ -103,47 +113,55 @@ Request::Request(const String &url) : requestUrl(url) {
 	logger::info("curl complete for " + requestUrl + ": bodyBytes=" + String(responseBody.length()) + ", contentLength=" + String(content_length) + ", status=" + String(static_cast<int>(status_code)) + ", finished=" + String(finished ? 1 : 0));
 }
 #else
-Request::Request(WiFiClient &client) : client(client) {
-	status_code = BAD_REQUEST; // Default to bad request
-	content_length = 0;
-	downloaded_bytes = 0;
+Request::Request(WiFiClient &client, unsigned long timeout) : client(client), responseBody(), content_start(0), content_length(-1), downloaded_bytes(0), timeout(timeout), chunkSize(-1), status_code(BAD_REQUEST), finished(false), found_content(false), isChunked(false) {
+	waitStart = millis();
 
-	// Read the response status line
+	// Read the status code (first line of response)
 	String line = readln();
 	int i1 = line.indexOf(' ');
-	if (i1 != -1) {
-		int i2 = line.indexOf(' ', i1 + 1);
-		if (i2 != -1) {
-			status_code = static_cast<StatusCode>(line.substring(i1 + 1, i2).toInt());
-		}
+	if (i1 == -1) {
+		finished = true;
+		return;
 	}
+	int i2 = line.indexOf(' ', i1 + 1);
+	if (i2 == -1) {
+		i2 = line.length();
+	}
+	status_code = static_cast<StatusCode>(line.substring(i1 + 1, i2).toInt());
 
 	// Read headers
-	while (client.connected()) {
+	String id, value;
+	while (!finished) {
 		line = readln();
 		if (line.length() == 0) {
 			// Empty line indicates end of headers
+			found_content = true;
 			break;
 		}
-		String id, value;
+
 		const int i1 = line.indexOf(": ");
-		if (i1 != -1) {
-			id = line.substring(0, i1);
-			value = line.substring(i1 + 2);
+		if (i1 == -1) {
+			continue;
 		}
+		id = line.substring(0, i1);
+		value = line.substring(i1 + 2);
 
 		if (id == "Content-Length") {
 			content_length = value.toInt();
-		}
-
-		if ((status_code == MOVED_PERMANENTLY || status_code == TEMPORARY_REDIRECT || status_code == PERMANENT_REDIRECT) && id == "Location") {
-			redirect_to = value;
+		} else if (id == "Transfer-Encoding") {
+			if (value.indexOf("chunked") != -1) {
+				isChunked = true;
+			}
 		}
 	}
 
-	if (!ok()) {
-		finished = true;
+	// Reserve (non-chunked) data that we know the size of.
+	if (!isChunked && content_length != (uint64_t)-1) {
+		responseBody.reserve(content_start + content_length);
 	}
+
+	// Read any more data that was received after the headers.
+	collect();
 }
 #endif
 
@@ -159,61 +177,27 @@ StatusCode Request::status() const {
 	return status_code;
 }
 
-std::vector<uint8_t> Request::read(int chunkSize) {
-	std::vector<uint8_t> data;
-	if (finished) {
-		return data;
-	}
-
+void Request::process() {
 #ifdef EMULATE
-	if (bodyIndex >= responseBody.length()) {
-		finished = true;
-		return data;
-	}
 
-	const size_t bytes = std::min<size_t>(static_cast<size_t>(chunkSize), responseBody.length() - bodyIndex);
-	for (size_t i = 0; i < bytes; ++i) {
-		data.push_back(static_cast<uint8_t>(responseBody[bodyIndex + i]));
-	}
-	bodyIndex += bytes;
-	downloaded_bytes = bodyIndex;
+	// if (bodyIndex >= responseBody.length()) {
+	// 	finished = true;
+	// 	return data;
+	// }
 
-	if (bodyIndex >= responseBody.length() || downloaded_bytes >= content_length) {
-		finished = true;
-	}
-	return data;
+	// const size_t bytes = responseBody.length() - bodyIndex;
+	// for (size_t i = 0; i < bytes; ++i) {
+	// 	data.push_back(static_cast<uint8_t>(responseBody[bodyIndex + i]));
+	// }
+	// bodyIndex += bytes;
+	// downloaded_bytes = bodyIndex;
+
+	// if (content_length > 0 && downloaded_bytes >= content_length) {
+	// 	finished = true;
+	// }
+	// return data;
 #else
-	while (client.connected()) {
-		int bytes = client.available();
-		if (bytes == 0) {
-			delay(10);
-			continue;
-		}
-
-		downloaded_bytes += bytes;
-
-		data.reserve(data.size() + bytes);
-		for (int i = 0; i < bytes; ++i) {
-			data.push_back(client.read());
-			if (data.size() >= chunkSize) {
-				break;
-			}
-		}
-
-		if (data.size() >= chunkSize) {
-			break;
-		}
-	}
-
-	if (!client.connected()) {
-		finished = true;
-	}
-
-	if (downloaded_bytes >= content_length) {
-		finished = true;
-	}
-
-	return data;
+	collect();
 #endif
 }
 
@@ -240,48 +224,108 @@ String Request::readln() {
 	}
 	bodyIndex = std::min<size_t>(bodyIndex, responseBody.length());
 	downloaded_bytes = bodyIndex;
-	if (bodyIndex >= responseBody.length() || downloaded_bytes >= content_length) {
+	if (bodyIndex >= responseBody.length() || (content_length > 0 && downloaded_bytes >= content_length)) {
 		finished = true;
 	}
 	return line;
 #else
-	while (client.connected()) {
-		int bytes = client.available();
-		bool lineComplete = false;
 
-		if (bytes == 0) {
-			delay(10);
-			continue;
-		}
+	while (!finished) {
+		unsigned int bytes = client.available();
+		IN_LOOP_WAIT_UNTIL_TIMEOUT_ELSE(bytes, return line);
 
-		downloaded_bytes += bytes;
-
-		line.reserve(line.length() + bytes);
-		for (int i = 0; i < bytes; ++i) {
+		line.reserve(bytes + line.length());
+		responseBody.reserve(bytes + responseBody.length());
+		bool endOfLine = false;
+		for (unsigned int i = 0; i < bytes; i++) {
 			char c = client.read();
+			downloaded_bytes++;
+			responseBody.concat(c);
+			if (!found_content) {
+				content_start++;
+			}
+			if (c == '\r') {
+				continue;
+			}
 			if (c == '\n') {
-				lineComplete = true;
+				endOfLine = true;
 				break;
 			}
-			if (c != '\r') {
-				line += c;
-			}
+			line.concat(c);
 		}
 
-		if (lineComplete) {
+		if (found_content && downloaded_bytes - content_start >= content_length) {
+			finished = true;
+		}
+
+		if (endOfLine) {
 			break;
 		}
 	}
 
-	if (!client.connected()) {
-		finished = true;
-	}
-
-	if (downloaded_bytes >= content_length) {
-		finished = true;
-	}
-
 	return line;
+#endif
+}
+
+void Request::collect() {
+#ifndef EMULATE
+	if (finished) {
+		return;
+	}
+
+	if (isChunked) {
+		if (!client.available()) {
+			delay(1);
+		}
+
+		while (client.available()) {
+			chunkSize = readChunkSize();
+			if (chunkSize == 0) {
+				finished = true;
+				return;
+			}
+
+			responseBody.reserve(content_start + chunkSize);
+			int i = 0;
+			while (i < chunkSize) {
+				unsigned int bytes = client.available();
+				IN_LOOP_WAIT_UNTIL_TIMEOUT_ELSE(bytes, break);
+
+				i++;
+
+				// Read another byte.
+				char c = client.read();
+				downloaded_bytes++;
+				responseBody.concat(c);
+			}
+		}
+
+		return;
+	}
+
+	// If not chunked, read everything.
+	while (!finished) {
+		unsigned int bytes = client.available();
+		IN_LOOP_WAIT_UNTIL_TIMEOUT_ELSE(bytes, break);
+
+		// Read as much data as is available.
+		while (true) {
+			while (client.available()) {
+				char c = client.read();
+				downloaded_bytes++;
+				responseBody.concat(c);
+			}
+
+			delay(1);
+			if (!client.available()) {
+				break;
+			}
+		}
+
+		if (found_content && downloaded_bytes - content_start >= content_length) {
+			finished = true;
+		}
+	}
 #endif
 }
 
@@ -289,17 +333,16 @@ String Request::text() {
 #ifdef EMULATE
 	return responseBody;
 #else
-	if (finished) {
-		return responseBody;
+
+	if (!found_content) {
+		return "";
 	}
 
-	while (client.connected()) {
-		String line = readln();
-		responseBody += line + "\n";
+	while (!finished) {
+		collect();
 	}
 
-	finished = true;
-	return responseBody;
+	return responseBody.substring(content_start, responseBody.length());
 #endif
 }
 
@@ -322,11 +365,11 @@ bool Request::ready() {
 #ifdef EMULATE
 	return bodyIndex < responseBody.length();
 #else
-	return client.available();
+	return client.available() > 0 || (!client.connected() && !finished);
 #endif
 }
 
-std::vector<uint8_t> Request::data() {
+std::vector<uint8_t> Request::stream() {
 	std::vector<uint8_t> availableData;
 
 #ifdef EMULATE
@@ -350,22 +393,40 @@ std::vector<uint8_t> Request::data() {
 		return availableData;
 	}
 
-	logger::info(String(client.connected()));
+	// Load any cached data first
+	if (found_content && content_start < downloaded_bytes) {
+		availableData.reserve(content_start - downloaded_bytes);
 
-	if (!client.connected()) {
-		finished = true;
-		return availableData;
+		for (size_t i = content_start; i < downloaded_bytes; i++) {
+			availableData.push_back((uint8_t)responseBody[i]);
+		}
+		// Adjust index so we don't load again on subsequent calls.
+		content_start = downloaded_bytes;
 	}
 
-	const int bytes = client.available();
-	availableData.reserve(bytes);
-	for (int i = 0; i < bytes; ++i) {
-		availableData.push_back(client.read());
-	}
+	bool downloaded = false;
+	while (!finished && !downloaded) {
+		unsigned int bytes = client.available();
+		IN_LOOP_WAIT_UNTIL_TIMEOUT_ELSE(bytes, return availableData);
 
-	downloaded_bytes += bytes;
-	if (downloaded_bytes >= content_length) {
-		finished = true;
+		// read as much data as possible.
+		while (true) {
+			while (client.available()) {
+				uint8_t c = client.read();
+				downloaded_bytes++;
+				downloaded = true;
+				availableData.push_back(c);
+			}
+
+			delay(1);
+			if (!client.available()) {
+				break;
+			}
+		}
+
+		if (found_content && downloaded_bytes - content_start >= content_length) {
+			finished = true;
+		}
 	}
 
 	return availableData;
@@ -381,18 +442,96 @@ uint64_t Request::downloaded() const {
 }
 
 float Request::progress() const {
-	if (content_length == 0) {
+	if (content_length == 0 || !found_content) {
 		return 0.0f;
 	}
-	return static_cast<float>(downloaded_bytes) / static_cast<float>(content_length);
+	return static_cast<float>(downloaded_bytes - content_start) / static_cast<float>(content_length);
 }
 
 bool Request::redirected() const {
 	return status_code == MOVED_PERMANENTLY || status_code == TEMPORARY_REDIRECT || status_code == PERMANENT_REDIRECT;
 }
 
-const String &Request::location() const {
-	return redirect_to;
+String Request::location() const {
+	int begin = findHeader("Location");
+
+	if (begin < 0) {
+		return "";
+	}
+
+	int end = responseBody.indexOf('\n', begin + 1);
+	return responseBody.substring(begin, end < 0 ? responseBody.length() : end);
+}
+
+void Request::waitWithTimeout() {
+	if (millis() - waitStart > timeout) {
+		finished = true;
+		status_code = GATEWAY_TIMEOUT;
+		return;
+	}
+
+	delay(10);
+}
+
+int Request::findHeader(const char *name) const {
+	int index = 0;
+	while ((index = responseBody.indexOf('\n', index)) != -1) {
+		// 1. No more data, so header wasn't found.
+		// 2. Two end lines indicates the end of headers.
+		if ((size_t)index == responseBody.length() - 1 || responseBody[index + 1] == '\n') {
+			return -1;
+		}
+
+		int n = 0;
+		int begin = ++index;
+		int end = responseBody.length();
+		for (int i = begin; i < end; i++) {
+			char find_c = name[n++];
+			char search_c = responseBody[i];
+
+			// We found an exact header match!
+			// Return the index *after* the header name.
+			if (!find_c && search_c == ' ') {
+				return i + 1;
+			}
+
+			// This isn't the header we're looking for,
+			// move to the next header.
+			if (search_c != find_c) {
+				break;
+			}
+		}
+	}
+
+	return -1;
+}
+
+int Request::readChunkSize() {
+	int size = 0;
+
+#ifndef EMULATE
+	int c = client.read();
+	while (c == '\r' || c == '\n') {
+		c = client.read();
+	}
+
+	while (c != -1 && c != '\n') {
+		if (c >= 'A' && c <= 'Z') {
+			size = size * 16 + c - 'A' + 10;
+		} else if (c >= 'a' && c <= 'z') {
+			size = size * 16 + c - 'a' + 10;
+		} else if (c >= '0' && c <= '9') {
+			size = size * 16 + c - '0';
+		} else {
+			c = client.read();
+			continue;
+		}
+
+		c = client.read();
+	}
+#endif
+
+	return size;
 }
 
 } // namespace net
