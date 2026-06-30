@@ -72,7 +72,13 @@ optional<std::vector<Song>> Response<std::vector<Song>>::await() {
 		return {};
 	}
 
-	return jsonDecode<std::vector<Song>>(json["subsonic-response"]["playlist"]["entry"], client);
+	if (json_contains_key(json["subsonic-response"], "playlist")) {
+		// Querying from a playlist
+		return jsonDecode<std::vector<Song>>(json["subsonic-response"]["playlist"]["entry"], client);
+	}
+
+	// Querying from an album
+	return jsonDecode<std::vector<Song>>(json["subsonic-response"]["directory"]["child"], client);
 }
 
 template <>

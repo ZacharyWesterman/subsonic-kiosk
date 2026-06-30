@@ -1,9 +1,21 @@
 #include "album.hpp"
 #include "../../emulation_helpers.hpp"
+#include "../client.hpp"
 #include "../response.hpp"
 #include <vector>
 
 namespace subsonic {
+
+Album::Album(const Client *client, int id, String &&name, String &&artist, String &&coverArt, optional<int> &&year, optional<int> &&averageRating, int playCount, optional<std::vector<Song>> &&songList) : client(client), id(id), name(name), artist(artist), coverArt(coverArt), year(year), averageRating(averageRating), playCount(playCount), songList(songList) {}
+
+const std::vector<Song> &Album::songs() {
+	if (!songList.has_value()) {
+		// Fetch list of songs if not already fetched.
+		songList = client->albumSongs(id).await().value_or<std::vector<Song>>({});
+	}
+
+	return songList.value();
+}
 
 template <>
 optional<Album> jsonDecode(const JsonDocument &document, const Client *client) {
@@ -12,7 +24,7 @@ optional<Album> jsonDecode(const JsonDocument &document, const Client *client) {
 	}
 
 	return (Album{
-		(json_contains_key(document, "song") ? jsonDecode<std::vector<Song>>(document["song"], client) : optional<std::vector<Song>>{}),
+		client,
 		json_to(String, document["id"]).toInt(),
 		json_key_to_or(String, document, "album", ""),
 		json_key_to_or(String, document, "artist", ""),
@@ -20,6 +32,7 @@ optional<Album> jsonDecode(const JsonDocument &document, const Client *client) {
 		json_optional_key_to(int, document, "year"),
 		json_optional_key_to(int, document, "averageRating"),
 		json_to_int(document["playCount"]),
+		(json_contains_key(document, "song") ? jsonDecode<std::vector<Song>>(document["song"], client) : optional<std::vector<Song>>{}),
 	});
 }
 

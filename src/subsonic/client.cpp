@@ -40,6 +40,10 @@ Response<Album> Client::album(int id) const {
 	return Response<Album>(query("getAlbum", "id=" + String(id)), this);
 }
 
+Response<std::vector<Song>> Client::albumSongs(int albumId) const {
+	return Response<std::vector<Song>>(query("getMusicDirectory", "id=" + String(albumId)), this);
+}
+
 Response<SearchResults> Client::search(const String &text) const {
 	return Response<SearchResults>(query("search2", "query=" + net::urlencode(text)), this);
 }

@@ -111,7 +111,7 @@ public:
 		if (engaged) {
 			val.~T();
 		}
-		val.T(other);
+		new (&val) T(other);
 		engaged = true;
 		return *this;
 	};
@@ -125,7 +125,7 @@ public:
 		if (engaged) {
 			val.~T();
 		}
-		val.T(other);
+		new (&val) T(other);
 		engaged = true;
 		return *this;
 	}

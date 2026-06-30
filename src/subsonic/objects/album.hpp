@@ -7,10 +7,12 @@
 
 namespace subsonic {
 
+class Client;
+
 /// @brief Represents a music album with metadata and related operations.
 struct Album {
-	/// @brief The list of songs the album contains, if any.
-	optional<std::vector<Song>> songs;
+	/// @brief The Subsonic client used for deferred requests.
+	const Client *client;
 
 	/// @brief The album ID.
 	int id;
@@ -34,6 +36,18 @@ struct Album {
 	int playCount;
 
 	/// TODO created (datetime)
+
+	Album(const Client *client, int id, String &&name, String &&artist, String &&coverArt, optional<int> &&year, optional<int> &&averageRating, int playCount, optional<std::vector<Song>> &&songList);
+
+	const std::vector<Song> &songs();
+
+private:
+	/**
+	 * @brief The list of songs the album contains, if any.
+	 *
+	 * Some queries may not return an album's song list, in which case this optional will be empty.
+	 */
+	optional<std::vector<Song>> songList;
 };
 
 } // namespace subsonic

@@ -77,6 +77,13 @@ public:
 	Response<Album> album(int id) const;
 
 	/**
+	 * @brief Get the list of all songs in an album.
+	 * @param albumId The ID of the album.
+	 * @return A response containing the list of songs if the album exists.
+	 */
+	Response<std::vector<Song>> albumSongs(int albumId) const;
+
+	/**
 	 * @brief Search for albums, songs or artists.
 	 * @param text The text to search for. This may be title, description, etc.
 	 * @return A response that resolves to the search results.
