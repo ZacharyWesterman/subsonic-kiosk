@@ -103,31 +103,233 @@ $(document).ready(function(){initNavTree('classsubsonic_1_1Response.html',''); i
   <div class="headertitle"><div class="title">subsonic::Response&lt; T &gt; Class Template Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>This class represents a deferred response to any subsonic query.  
+ <a href="classsubsonic_1_1Response.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="response_8hpp_source.html">response.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aa9412a2b3198ed132d37648fe429a554" id="r_aa9412a2b3198ed132d37648fe429a554"><td class="memItemLeft" align="right" valign="top"><a id="aa9412a2b3198ed132d37648fe429a554" name="aa9412a2b3198ed132d37648fe429a554"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Response</b> (<a class="el" href="classnet_1_1Request.html">net::Request</a> &amp;&amp;request, const <a class="el" href="classsubsonic_1_1Client.html">Client</a> *client)</td></tr>
+<tr class="memitem:aa9412a2b3198ed132d37648fe429a554" id="r_aa9412a2b3198ed132d37648fe429a554"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsubsonic_1_1Response.html#aa9412a2b3198ed132d37648fe429a554">Response</a> (<a class="el" href="classnet_1_1Request.html">net::Request</a> &amp;&amp;<a class="el" href="classsubsonic_1_1Response.html#a6a3a47ef1ac8c82599434645c2ff87a3">request</a>, const <a class="el" href="classsubsonic_1_1Client.html">Client</a> *client)</td></tr>
+<tr class="memdesc:aa9412a2b3198ed132d37648fe429a554"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a deferred response.  <br /></td></tr>
 <tr class="separator:aa9412a2b3198ed132d37648fe429a554"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6a3a47ef1ac8c82599434645c2ff87a3" id="r_a6a3a47ef1ac8c82599434645c2ff87a3"><td class="memItemLeft" align="right" valign="top"><a id="a6a3a47ef1ac8c82599434645c2ff87a3" name="a6a3a47ef1ac8c82599434645c2ff87a3"></a>
-<a class="el" href="classnet_1_1Request.html">net::Request</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>request</b> ()</td></tr>
+<tr class="memitem:a6a3a47ef1ac8c82599434645c2ff87a3" id="r_a6a3a47ef1ac8c82599434645c2ff87a3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnet_1_1Request.html">net::Request</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsubsonic_1_1Response.html#a6a3a47ef1ac8c82599434645c2ff87a3">request</a> ()</td></tr>
+<tr class="memdesc:a6a3a47ef1ac8c82599434645c2ff87a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the actual request object.  <br /></td></tr>
 <tr class="separator:a6a3a47ef1ac8c82599434645c2ff87a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1619317cfe010b2c5754205cf2c7250c" id="r_a1619317cfe010b2c5754205cf2c7250c"><td class="memItemLeft" align="right" valign="top"><a id="a1619317cfe010b2c5754205cf2c7250c" name="a1619317cfe010b2c5754205cf2c7250c"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>ready</b> () const</td></tr>
+<tr class="memitem:a1619317cfe010b2c5754205cf2c7250c" id="r_a1619317cfe010b2c5754205cf2c7250c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsubsonic_1_1Response.html#a1619317cfe010b2c5754205cf2c7250c">ready</a> () const</td></tr>
+<tr class="memdesc:a1619317cfe010b2c5754205cf2c7250c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if the request has finished.  <br /></td></tr>
 <tr class="separator:a1619317cfe010b2c5754205cf2c7250c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4e2d5fde8ba957093894244f3ca1ea31" id="r_a4e2d5fde8ba957093894244f3ca1ea31"><td class="memItemLeft" align="right" valign="top"><a id="a4e2d5fde8ba957093894244f3ca1ea31" name="a4e2d5fde8ba957093894244f3ca1ea31"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>operator bool</b> () const</td></tr>
+<tr class="memitem:a4e2d5fde8ba957093894244f3ca1ea31" id="r_a4e2d5fde8ba957093894244f3ca1ea31"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsubsonic_1_1Response.html#a4e2d5fde8ba957093894244f3ca1ea31">operator bool</a> () const</td></tr>
+<tr class="memdesc:a4e2d5fde8ba957093894244f3ca1ea31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if the request is good.  <br /></td></tr>
 <tr class="separator:a4e2d5fde8ba957093894244f3ca1ea31"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a122d47849be2e5051217d4d7991d2ae9" id="r_a122d47849be2e5051217d4d7991d2ae9"><td class="memItemLeft" align="right" valign="top"><a id="a122d47849be2e5051217d4d7991d2ae9" name="a122d47849be2e5051217d4d7991d2ae9"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>ok</b> () const</td></tr>
+<tr class="memitem:a122d47849be2e5051217d4d7991d2ae9" id="r_a122d47849be2e5051217d4d7991d2ae9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsubsonic_1_1Response.html#a122d47849be2e5051217d4d7991d2ae9">ok</a> () const</td></tr>
+<tr class="memdesc:a122d47849be2e5051217d4d7991d2ae9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if the request is good.  <br /></td></tr>
 <tr class="separator:a122d47849be2e5051217d4d7991d2ae9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aefa4144d50b00ea9656f258736a269d4" id="r_aefa4144d50b00ea9656f258736a269d4"><td class="memItemLeft" align="right" valign="top"><a id="aefa4144d50b00ea9656f258736a269d4" name="aefa4144d50b00ea9656f258736a269d4"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>process</b> ()</td></tr>
+<tr class="memdesc:aefa4144d50b00ea9656f258736a269d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process any more of the request as needed. <br /></td></tr>
 <tr class="separator:aefa4144d50b00ea9656f258736a269d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0bd4ebd0c6ed014c1a2efdcfcd40c6c5" id="r_a0bd4ebd0c6ed014c1a2efdcfcd40c6c5"><td class="memItemLeft" align="right" valign="top"><a id="a0bd4ebd0c6ed014c1a2efdcfcd40c6c5" name="a0bd4ebd0c6ed014c1a2efdcfcd40c6c5"></a>
-<a class="el" href="classoptional.html">optional</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>await</b> ()</td></tr>
+<tr class="memitem:a0bd4ebd0c6ed014c1a2efdcfcd40c6c5" id="r_a0bd4ebd0c6ed014c1a2efdcfcd40c6c5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classoptional.html">optional</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsubsonic_1_1Response.html#a0bd4ebd0c6ed014c1a2efdcfcd40c6c5">await</a> ()</td></tr>
+<tr class="memdesc:a0bd4ebd0c6ed014c1a2efdcfcd40c6c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wait for the request to finish, then parse the response and (if valid) return it.  <br /></td></tr>
 <tr class="separator:a0bd4ebd0c6ed014c1a2efdcfcd40c6c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><div class="compoundTemplParams">template&lt;typename T&gt;<br />
+class subsonic::Response&lt; T &gt;</div><p>This class represents a deferred response to any subsonic query. </p>
+<p>The client is queried, and when needed (or when ready), the data can be awaited. The request text is only actually parsed when <a class="el" href="classsubsonic_1_1Response.html#a0bd4ebd0c6ed014c1a2efdcfcd40c6c5" title="Wait for the request to finish, then parse the response and (if valid) return it.">await()</a> is called. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="aa9412a2b3198ed132d37648fe429a554" name="aa9412a2b3198ed132d37648fe429a554"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa9412a2b3198ed132d37648fe429a554">&#9670;&#160;</a></span>Response()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classsubsonic_1_1Response.html">subsonic::Response</a>&lt; T &gt;::Response </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classnet_1_1Request.html">net::Request</a> &amp;&amp;&#160;</td>
+          <td class="paramname"><em>request</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classsubsonic_1_1Client.html">Client</a> *&#160;</td>
+          <td class="paramname"><em>client</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Construct a deferred response. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">request</td><td>The request associated with this response. </td></tr>
+    <tr><td class="paramname">client</td><td>The client that may be passed to the resolved object. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a0bd4ebd0c6ed014c1a2efdcfcd40c6c5" name="a0bd4ebd0c6ed014c1a2efdcfcd40c6c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0bd4ebd0c6ed014c1a2efdcfcd40c6c5">&#9670;&#160;</a></span>await()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classoptional.html">optional</a>&lt; T &gt; <a class="el" href="classsubsonic_1_1Response.html">subsonic::Response</a>&lt; T &gt;::await </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Wait for the request to finish, then parse the response and (if valid) return it. </p>
+<dl class="section return"><dt>Returns</dt><dd>An optional containing the response object if valid, or nothing if invalid. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>When developing, a template specialization for every possible <code>T</code> must be implemented. </dd></dl>
+
+</div>
+</div>
+<a id="a122d47849be2e5051217d4d7991d2ae9" name="a122d47849be2e5051217d4d7991d2ae9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a122d47849be2e5051217d4d7991d2ae9">&#9670;&#160;</a></span>ok()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classsubsonic_1_1Response.html">subsonic::Response</a>&lt; T &gt;::ok </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Check if the request is good. </p>
+<dl class="section return"><dt>Returns</dt><dd>True if the request is good, false otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="a4e2d5fde8ba957093894244f3ca1ea31" name="a4e2d5fde8ba957093894244f3ca1ea31"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e2d5fde8ba957093894244f3ca1ea31">&#9670;&#160;</a></span>operator bool()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classsubsonic_1_1Response.html">subsonic::Response</a>&lt; T &gt;::operator bool </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Check if the request is good. </p>
+<dl class="section return"><dt>Returns</dt><dd>True if the request is good, false otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="a1619317cfe010b2c5754205cf2c7250c" name="a1619317cfe010b2c5754205cf2c7250c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1619317cfe010b2c5754205cf2c7250c">&#9670;&#160;</a></span>ready()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classsubsonic_1_1Response.html">subsonic::Response</a>&lt; T &gt;::ready </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Check if the request has finished. </p>
+<dl class="section return"><dt>Returns</dt><dd>True if finished, false otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="a6a3a47ef1ac8c82599434645c2ff87a3" name="a6a3a47ef1ac8c82599434645c2ff87a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a3a47ef1ac8c82599434645c2ff87a3">&#9670;&#160;</a></span>request()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classnet_1_1Request.html">net::Request</a> &amp; <a class="el" href="classsubsonic_1_1Response.html">subsonic::Response</a>&lt; T &gt;::request </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the actual request object. </p>
+<dl class="section return"><dt>Returns</dt><dd>The request object. </dd></dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>src/subsonic/<a class="el" href="response_8hpp_source.html">response.hpp</a></li>
 </ul>

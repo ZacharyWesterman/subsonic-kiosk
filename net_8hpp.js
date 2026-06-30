@@ -4,6 +4,7 @@ var net_8hpp =
     [ "client", "net_8hpp.html#a6f0c7250da7ffb5994e346a116574dbc", null ],
     [ "connected", "net_8hpp.html#ad64f5941dd42dfcce4c4bccbc26b4f1f", null ],
     [ "disconnect", "net_8hpp.html#a4035db0c991825c38f48e32bc2078fa9", null ],
+    [ "get", "net_8hpp.html#ad51ee1d93d3d6a8bb8ef1d510a4783bb", null ],
     [ "init", "net_8hpp.html#a439bc02a83ae4a963bcd67f3d7da7af9", null ],
     [ "ping", "net_8hpp.html#a29b5ce5759a4bb0baad3ce5096092e00", null ],
     [ "tryConnect", "net_8hpp.html#afef7a16f3b3a3b9148635396c1a8960c", null ],

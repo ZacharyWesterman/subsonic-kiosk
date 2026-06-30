@@ -6,8 +6,8 @@ var searchData=
   ['ping_3',['ping',['../classsubsonic_1_1Client.html#a415927f5f09f43cea573d3b3ed91bebb',1,'subsonic::Client::ping()'],['../net_8hpp.html#a29b5ce5759a4bb0baad3ce5096092e00',1,'net::ping()']]],
   ['play_4',['play',['../classaudio_1_1Player.html#a5c8effb943523dcb1d8400fa2dc2d25c',1,'audio::Player']]],
   ['player_5',['Player',['../classaudio_1_1Player.html#a36e93244dd32ee01e95174407636c01e',1,'audio::Player']]],
-  ['playlist_6',['playlist',['../classsubsonic_1_1Client.html#a282835725c8713f265cf2e46d4d674fc',1,'subsonic::Client']]],
+  ['playlist_6',['playlist',['../classsubsonic_1_1Client.html#a282835725c8713f265cf2e46d4d674fc',1,'subsonic::Client::playlist()'],['../structsubsonic_1_1Playlist.html#a53c27421175541e42eb57ffae2b2681e',1,'subsonic::Playlist::Playlist()']]],
   ['playlists_7',['playlists',['../classsubsonic_1_1Client.html#a39f5dcda1a69b139f70526cf4cff7ea1',1,'subsonic::Client']]],
-  ['process_8',['process',['../classutil_1_1DownloadQueue.html#a2aa089b8dab92c75f62acf2724baf55d',1,'util::DownloadQueue']]],
+  ['process_8',['process',['../classnet_1_1Request.html#a1b0e700d9f92bad49f1bdd9507d3f65d',1,'net::Request::process()'],['../classsubsonic_1_1Response.html#aefa4144d50b00ea9656f258736a269d4',1,'subsonic::Response::process()'],['../classutil_1_1DownloadQueue.html#a2aa089b8dab92c75f62acf2724baf55d',1,'util::DownloadQueue::process()']]],
   ['progress_9',['progress',['../classaudio_1_1Player.html#ab6226279e7ed410397f097d4b8ee22eb',1,'audio::Player::progress()'],['../classnet_1_1Request.html#a341ee5dfb7b5bf8c3798f77aaa614c7e',1,'net::Request::progress()']]]
 ];

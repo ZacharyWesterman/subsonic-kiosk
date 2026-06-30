@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['get_0',['get',['../classnet_1_1NetClient.html#a1bf8eacd0bbae969dc75e6ac6ea6d470',1,'net::NetClient']]],
+  ['get_0',['get',['../classnet_1_1NetClient.html#a1bf8eacd0bbae969dc75e6ac6ea6d470',1,'net::NetClient::get()'],['../net_8hpp.html#ad51ee1d93d3d6a8bb8ef1d510a4783bb',1,'net::get()']]],
   ['getchunk_1',['getChunk',['../header_8hpp.html#a2e1e5920b24bd85fd275d042e526a574',1,'audio']]],
   ['getcurrentseconds_2',['getCurrentSeconds',['../header_8hpp.html#a03a5dbdb505578d0847ca36d30eff3a0',1,'audio']]],
   ['gettotalseconds_3',['getTotalSeconds',['../header_8hpp.html#af3f3bfb4cb89a043fce95c9dc9d5c385',1,'audio']]],

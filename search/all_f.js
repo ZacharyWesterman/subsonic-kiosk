@@ -1,17 +1,19 @@
 var searchData=
 [
   ['off_0',['off',['../pins_8hpp.html#aa465e67f60b61ed797009a5a4851ee5c',1,'pins']]],
-  ['ok_1',['ok',['../classnet_1_1Request.html#a0cb2a1245739a7849fba0383efdaed91',1,'net::Request::ok()'],['../structsubsonic_1_1Ping.html#a1428343e1b9096d7e4cc5fd6b05140ae',1,'subsonic::Ping::ok()']]],
-  ['operator_20bool_2',['operator bool',['../classfs_1_1FileStream.html#ab1c976497df3c8f965c1659c8c97433a',1,'fs::FileStream::operator bool()'],['../classnet_1_1Request.html#ae591117f0d9610b55a9d8078e15f5da8',1,'net::Request::operator bool()']]],
-  ['operator_21_3d_3',['operator!=',['../classutil_1_1DownloadQueueIter.html#ac281d1ea486a642a23811ae5366aec3a',1,'util::DownloadQueueIter::operator!=()'],['../classfs_1_1IterDir.html#a6943c6c4dee7b9f721643662c6341ca4',1,'fs::IterDir::operator!=()']]],
+  ['ok_1',['ok',['../classnet_1_1Request.html#a0cb2a1245739a7849fba0383efdaed91',1,'net::Request::ok()'],['../structsubsonic_1_1Ping.html#a1428343e1b9096d7e4cc5fd6b05140ae',1,'subsonic::Ping::ok()'],['../classsubsonic_1_1Response.html#a122d47849be2e5051217d4d7991d2ae9',1,'subsonic::Response::ok()']]],
+  ['operator_20bool_2',['operator bool',['../classfs_1_1FileStream.html#ab1c976497df3c8f965c1659c8c97433a',1,'fs::FileStream::operator bool()'],['../classnet_1_1Request.html#ae591117f0d9610b55a9d8078e15f5da8',1,'net::Request::operator bool()'],['../classoptional.html#aab262ade58e138af879d464e89140ef6',1,'optional::operator bool()'],['../classsubsonic_1_1Response.html#a4e2d5fde8ba957093894244f3ca1ea31',1,'subsonic::Response::operator bool()']]],
+  ['operator_21_3d_3',['operator!=',['../classfs_1_1IterDir.html#a6943c6c4dee7b9f721643662c6341ca4',1,'fs::IterDir::operator!=()'],['../classutil_1_1DownloadQueueIter.html#ac281d1ea486a642a23811ae5366aec3a',1,'util::DownloadQueueIter::operator!=()']]],
   ['operator_28_29_4',['operator()',['../classcallback_1_1repeat.html#a7081b5aae5df97290fc93d71c186c268',1,'callback::repeat']]],
-  ['operator_2a_5',['operator*',['../classfs_1_1IterDir.html#ae58a541fef230b7ac101e2fb4da5638d',1,'fs::IterDir::operator*()'],['../classutil_1_1DownloadQueueIter.html#ad37c958db2f29efa55a528264f5770df',1,'util::DownloadQueueIter::operator*()']]],
+  ['operator_2a_5',['operator*',['../classutil_1_1DownloadQueueIter.html#ad37c958db2f29efa55a528264f5770df',1,'util::DownloadQueueIter::operator*()'],['../classoptional.html#a388cdaceaa085274ee7a0ccae3b11b14',1,'optional::operator*() &amp;&amp;'],['../classoptional.html#a0b0108fe8ae87044f11ca10ec77a8dd2',1,'optional::operator*() &amp;'],['../classfs_1_1IterDir.html#ae58a541fef230b7ac101e2fb4da5638d',1,'fs::IterDir::operator*() const']]],
   ['operator_2b_2b_6',['operator++',['../classfs_1_1IterDir.html#ad1271f38fb415e48194afa6964c3adfd',1,'fs::IterDir::operator++()'],['../classutil_1_1DownloadQueueIter.html#adf40762882905022b828aec4c9fe7c5b',1,'util::DownloadQueueIter::operator++()']]],
   ['operator_2f_7',['operator/',['../classfs_1_1Path.html#a74303e488de52167c96c404e231af4c7',1,'fs::Path']]],
   ['operator_2f_3d_8',['operator/=',['../classfs_1_1Path.html#a1130d15816d451d82bd1f7814394056e',1,'fs::Path']]],
-  ['optional_9',['optional',['../classoptional.html',1,'']]],
-  ['optional_3c_20int_20_3e_10',['optional&lt; int &gt;',['../classoptional.html',1,'']]],
-  ['optional_3c_20std_3a_3avector_3c_20subsonic_3a_3asong_20_3e_20_3e_11',['optional&lt; std::vector&lt; subsonic::Song &gt; &gt;',['../classoptional.html',1,'']]],
-  ['output_12',['output',['../classaudio_1_1Player.html#ab97c5ca5710c9f7b6921bb73cb5e17d9',1,'audio::Player']]],
-  ['owner_13',['owner',['../structsubsonic_1_1Playlist.html#afd5e1929f744115339d91e7f03183a8e',1,'subsonic::Playlist']]]
+  ['operator_3d_9',['operator=',['../classoptional.html#a93a78e86c5412d5a4b217f2424645b22',1,'optional::operator=(const optional &amp;other)'],['../classoptional.html#a352d806d3576b1a08978649a1c4212be',1,'optional::operator=(const T &amp;other)'],['../classoptional.html#a8abcbfb989ec0c66f470d9bcddbddeed',1,'optional::operator=(T &amp;&amp;other)']]],
+  ['optional_10',['optional',['../classoptional.html#a26775aede786b92016dafc26aab341aa',1,'optional::optional()'],['../classoptional.html',1,'optional&lt; T &gt;'],['../classoptional.html#a16dc091818989ac0fec680d55693bcaf',1,'optional::optional() noexcept'],['../classoptional.html#a24e85721c2e85567279f147391ab2c26',1,'optional::optional(nullopt_t opt) noexcept'],['../classoptional.html#a6b785fab5d4be1678797729c200a3c7f',1,'optional::optional(const optional &amp;other)'],['../classoptional.html#aa1dd3333d5e0ee72e2e5da3fae51c96b',1,'optional::optional(optional &amp;&amp;other)'],['../classoptional.html#a3f106864dd07802bfde6061e203c6fd1',1,'optional::optional(T &amp;&amp;u)']]],
+  ['optional_2ehpp_11',['optional.hpp',['../optional_8hpp.html',1,'']]],
+  ['optional_3c_20int_20_3e_12',['optional&lt; int &gt;',['../classoptional.html',1,'']]],
+  ['optional_3c_20std_3a_3avector_3c_20subsonic_3a_3asong_20_3e_20_3e_13',['optional&lt; std::vector&lt; subsonic::Song &gt; &gt;',['../classoptional.html',1,'']]],
+  ['output_14',['output',['../classaudio_1_1Player.html#ab97c5ca5710c9f7b6921bb73cb5e17d9',1,'audio::Player']]],
+  ['owner_15',['owner',['../structsubsonic_1_1Playlist.html#afd5e1929f744115339d91e7f03183a8e',1,'subsonic::Playlist']]]
 ];

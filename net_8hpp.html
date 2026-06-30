@@ -103,7 +103,8 @@ $(document).ready(function(){initNavTree('net_8hpp.html',''); initResizable(); }
   <div class="headertitle"><div class="title">net.hpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-
+<div class="textblock"><code>#include &quot;<a class="el" href="netClient_8hpp_source.html">net/netClient.hpp</a>&quot;</code><br />
+</div>
 <p><a href="net_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
@@ -130,8 +131,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>net::disconnect</b> (
 <tr class="memitem:a6f0c7250da7ffb5994e346a116574dbc" id="r_a6f0c7250da7ffb5994e346a116574dbc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnet_1_1NetClient.html">NetClient</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="net_8hpp.html#a6f0c7250da7ffb5994e346a116574dbc">net::client</a> (const String &amp;host, int port=80)</td></tr>
 <tr class="memdesc:a6f0c7250da7ffb5994e346a116574dbc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a network client for the specified host and port.  <br /></td></tr>
 <tr class="separator:a6f0c7250da7ffb5994e346a116574dbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad51ee1d93d3d6a8bb8ef1d510a4783bb" id="r_ad51ee1d93d3d6a8bb8ef1d510a4783bb"><td class="memItemLeft" align="right" valign="top"><a id="ad51ee1d93d3d6a8bb8ef1d510a4783bb" name="ad51ee1d93d3d6a8bb8ef1d510a4783bb"></a>
-<a class="el" href="classnet_1_1Request.html">Request</a>&#160;</td><td class="memItemRight" valign="bottom"><b>net::get</b> (const String &amp;url, unsigned long timeout=10000)</td></tr>
+<tr class="memitem:ad51ee1d93d3d6a8bb8ef1d510a4783bb" id="r_ad51ee1d93d3d6a8bb8ef1d510a4783bb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnet_1_1Request.html">Request</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="net_8hpp.html#ad51ee1d93d3d6a8bb8ef1d510a4783bb">net::get</a> (const String &amp;url, unsigned long timeout=10000)</td></tr>
+<tr class="memdesc:ad51ee1d93d3d6a8bb8ef1d510a4783bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a network request for a given url.  <br /></td></tr>
 <tr class="separator:ad51ee1d93d3d6a8bb8ef1d510a4783bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af0eba5e0dffcc7f9c3e019da4826d02f" id="r_af0eba5e0dffcc7f9c3e019da4826d02f"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="net_8hpp.html#af0eba5e0dffcc7f9c3e019da4826d02f">net::urlencode</a> (const String &amp;text)</td></tr>
 <tr class="memdesc:af0eba5e0dffcc7f9c3e019da4826d02f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Escape special characters so they can be passed as a URL param.  <br /></td></tr>
@@ -224,6 +225,50 @@ String&#160;</td><td class="memItemRight" valign="bottom"><b>net::NETWORK_PASS</
 
 <p>Check if the network is connected. </p>
 <dl class="section return"><dt>Returns</dt><dd>True if the network is connected, false otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="ad51ee1d93d3d6a8bb8ef1d510a4783bb" name="ad51ee1d93d3d6a8bb8ef1d510a4783bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad51ee1d93d3d6a8bb8ef1d510a4783bb">&#9670;&#160;</a></span>get()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Request net::get </td>
+          <td>(</td>
+          <td class="paramtype">const String &amp;&#160;</td>
+          <td class="paramname"><em>url</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned long&#160;</td>
+          <td class="paramname"><em>timeout</em> = <code>10000</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Create a network request for a given url. </p>
+<p>This request can be formatted as expected for a url, so urls like the following are all valid.</p><ul>
+<li><code><a href="http://www.example.com">http://www.example.com</a></code></li>
+<li><code><a href="https://example.com:1234/some_path">https://example.com:1234/some_path</a></code></li>
+<li><code><a href="https://example.com/some_path?arg1=value1">https://example.com/some_path?arg1=value1</a>&amp;arg2=value2</code></li>
+</ul>
+<p>Note that the request may not always be fully complete, especially if it's streaming in chunks.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">url</td><td>The full url to query. </td></tr>
+    <tr><td class="paramname">timeout</td><td>The timeout for the query in milliseconds. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The (possibly incomplete) request. </dd></dl>
 
 </div>
 </div>

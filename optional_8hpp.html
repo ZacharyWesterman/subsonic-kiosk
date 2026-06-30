@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>subsonic-kiosk: subsonic::SearchResults Struct Reference</title>
+<title>subsonic-kiosk: src/polyfill/optional.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,7 +71,7 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('structsubsonic_1_1SearchResults.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('optional_8hpp.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -98,43 +98,37 @@ $(document).ready(function(){initNavTree('structsubsonic_1_1SearchResults.html',
 
 <div class="header">
   <div class="summary">
-<a href="#pub-attribs">Public Attributes</a> &#124;
-<a href="structsubsonic_1_1SearchResults-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">subsonic::SearchResults Struct Reference</div></div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#var-members">Variables</a>  </div>
+  <div class="headertitle"><div class="title">optional.hpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-
-<p>This class represents the results of a Subsonic search.  
- <a href="structsubsonic_1_1SearchResults.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="search__results_8hpp_source.html">search_results.hpp</a>&gt;</code></p>
+<div class="textblock"><code>#include &lt;utility&gt;</code><br />
+</div>
+<p><a href="optional_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:ac1cddcda2ec8adb6f9115e56e930d765" id="r_ac1cddcda2ec8adb6f9115e56e930d765"><td class="memItemLeft" align="right" valign="top"><a id="ac1cddcda2ec8adb6f9115e56e930d765" name="ac1cddcda2ec8adb6f9115e56e930d765"></a>
-std::vector&lt; <a class="el" href="structsubsonic_1_1Artist.html">Artist</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>artists</b></td></tr>
-<tr class="memdesc:ac1cddcda2ec8adb6f9115e56e930d765"><td class="mdescLeft">&#160;</td><td class="mdescRight">The list of artists returned from the search. <br /></td></tr>
-<tr class="separator:ac1cddcda2ec8adb6f9115e56e930d765"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab788a9ee9a512ca2956b0bfc1bd63d3c" id="r_ab788a9ee9a512ca2956b0bfc1bd63d3c"><td class="memItemLeft" align="right" valign="top"><a id="ab788a9ee9a512ca2956b0bfc1bd63d3c" name="ab788a9ee9a512ca2956b0bfc1bd63d3c"></a>
-std::vector&lt; <a class="el" href="structsubsonic_1_1Album.html">Album</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>albums</b></td></tr>
-<tr class="memdesc:ab788a9ee9a512ca2956b0bfc1bd63d3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The list of albums returned from the search. <br /></td></tr>
-<tr class="separator:ab788a9ee9a512ca2956b0bfc1bd63d3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a32791113c768df38156e73072398e76b" id="r_a32791113c768df38156e73072398e76b"><td class="memItemLeft" align="right" valign="top"><a id="a32791113c768df38156e73072398e76b" name="a32791113c768df38156e73072398e76b"></a>
-std::vector&lt; <a class="el" href="structsubsonic_1_1Song.html">Song</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>songs</b></td></tr>
-<tr class="memdesc:a32791113c768df38156e73072398e76b"><td class="mdescLeft">&#160;</td><td class="mdescRight">The list of songs returned from the search. <br /></td></tr>
-<tr class="separator:a32791113c768df38156e73072398e76b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structnullopt__t.html">nullopt_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The empty optional type.  <a href="structnullopt__t.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoptional.html">optional&lt; T &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Safely handle data that may or may not have a value.  <a href="classoptional.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a3052f5fbb6fc7bc98ecb11360c416a8f" id="r_a3052f5fbb6fc7bc98ecb11360c416a8f"><td class="memItemLeft" align="right" valign="top"><a id="a3052f5fbb6fc7bc98ecb11360c416a8f" name="a3052f5fbb6fc7bc98ecb11360c416a8f"></a>
+constexpr <a class="el" href="structnullopt__t.html">nullopt_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>nullopt</b> {0}</td></tr>
+<tr class="memdesc:a3052f5fbb6fc7bc98ecb11360c416a8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">The canonical empty optional value. <br /></td></tr>
+<tr class="separator:a3052f5fbb6fc7bc98ecb11360c416a8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This class represents the results of a Subsonic search. </p>
-</div><hr/>The documentation for this struct was generated from the following file:<ul>
-<li>src/subsonic/objects/<a class="el" href="search__results_8hpp_source.html">search_results.hpp</a></li>
-</ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>subsonic</b></li><li class="navelem"><a class="el" href="structsubsonic_1_1SearchResults.html">SearchResults</a></li>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_23ade36c7121245784c80106d21d571c.html">polyfill</a></li><li class="navelem"><a class="el" href="optional_8hpp.html">optional.hpp</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>

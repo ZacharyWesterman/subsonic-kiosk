@@ -103,12 +103,21 @@ $(document).ready(function(){initNavTree('classsubsonic_1_1Client.html',''); ini
   <div class="headertitle"><div class="title">subsonic::Client Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>This class represents a client connection to a single Subsonic instance.  
+ <a href="classsubsonic_1_1Client.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="client_8hpp_source.html">client.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a2d3f94b14f430e8923fc39d5e61b8450" id="r_a2d3f94b14f430e8923fc39d5e61b8450"><td class="memItemLeft" align="right" valign="top"><a id="a2d3f94b14f430e8923fc39d5e61b8450" name="a2d3f94b14f430e8923fc39d5e61b8450"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Client</b> (const String &amp;host, const String &amp;user, const String &amp;pass_md5, const String &amp;salt)</td></tr>
+<tr class="memitem:a2d3f94b14f430e8923fc39d5e61b8450" id="r_a2d3f94b14f430e8923fc39d5e61b8450"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsubsonic_1_1Client.html#a2d3f94b14f430e8923fc39d5e61b8450">Client</a> (const String &amp;host, const String &amp;user, const String &amp;pass_md5, const String &amp;salt)</td></tr>
+<tr class="memdesc:a2d3f94b14f430e8923fc39d5e61b8450"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a Subsonic client with all required information.  <br /></td></tr>
 <tr class="separator:a2d3f94b14f430e8923fc39d5e61b8450"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55c8492e80804a7516757348c0bc0a19" id="r_a55c8492e80804a7516757348c0bc0a19"><td class="memItemLeft" align="right" valign="top"><a id="a55c8492e80804a7516757348c0bc0a19" name="a55c8492e80804a7516757348c0bc0a19"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>~Client</b> ()</td></tr>
+<tr class="memdesc:a55c8492e80804a7516757348c0bc0a19"><td class="mdescLeft">&#160;</td><td class="mdescRight">The destructor. <br /></td></tr>
+<tr class="separator:a55c8492e80804a7516757348c0bc0a19"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5143550eb55c6489f6e0b3af1159ff47" id="r_a5143550eb55c6489f6e0b3af1159ff47"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnet_1_1Request.html">net::Request</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsubsonic_1_1Client.html#a5143550eb55c6489f6e0b3af1159ff47">query</a> (const String &amp;action, const String &amp;parameters=&quot;&quot;) const</td></tr>
 <tr class="memdesc:a5143550eb55c6489f6e0b3af1159ff47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes a query against the Subsonic API.  <br /></td></tr>
 <tr class="separator:a5143550eb55c6489f6e0b3af1159ff47"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -134,6 +143,60 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a8bcac0e55b35a055db04ddee34c4d519"><td class="mdescLeft">&#160;</td><td class="mdescRight">Search for albums, songs or artists.  <br /></td></tr>
 <tr class="separator:a8bcac0e55b35a055db04ddee34c4d519"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>This class represents a client connection to a single Subsonic instance. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a2d3f94b14f430e8923fc39d5e61b8450" name="a2d3f94b14f430e8923fc39d5e61b8450"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d3f94b14f430e8923fc39d5e61b8450">&#9670;&#160;</a></span>Client()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">subsonic::Client::Client </td>
+          <td>(</td>
+          <td class="paramtype">const String &amp;&#160;</td>
+          <td class="paramname"><em>host</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const String &amp;&#160;</td>
+          <td class="paramname"><em>user</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const String &amp;&#160;</td>
+          <td class="paramname"><em>pass_md5</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const String &amp;&#160;</td>
+          <td class="paramname"><em>salt</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Construct a Subsonic client with all required information. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">host</td><td>The host url, e.g. <code><a href="http://example.com/airsonic">http://example.com/airsonic</a></code>. </td></tr>
+    <tr><td class="paramname">user</td><td>The username. </td></tr>
+    <tr><td class="paramname">pass_md5</td><td>The salted MD5sum of the user's password. </td></tr>
+    <tr><td class="paramname">salt</td><td>The salt used when hashing the password. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="a368dc6292a7520677278cc16d44d9dea" name="a368dc6292a7520677278cc16d44d9dea"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a368dc6292a7520677278cc16d44d9dea">&#9670;&#160;</a></span>album()</h2>
