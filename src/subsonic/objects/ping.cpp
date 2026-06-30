@@ -17,9 +17,9 @@ optional<Ping> Response<Ping>::await() {
 	}
 
 	return Ping{
-		json_to_str(json["subsonic-response"]["status"]),
-		json_to_str(json["subsonic-response"]["version"]),
-		json_to_str(json["subsonic-response"]["type"]),
+		json_to(String, json["subsonic-response"]["status"]),
+		json_to(String, json["subsonic-response"]["version"]),
+		json_to(String, json["subsonic-response"]["type"]),
 	};
 }
 

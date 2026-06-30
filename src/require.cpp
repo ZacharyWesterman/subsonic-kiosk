@@ -76,14 +76,14 @@ void netInit() {
 			return;
 		}
 
-		if (net::connected() && (json_to_str(config["ssid"]) == net::NETWORK_SSID && json_to_str(config["password"]) == net::NETWORK_PASS)) {
+		if (net::connected() && (json_to(String, config["ssid"]) == net::NETWORK_SSID && json_to(String, config["password"]) == net::NETWORK_PASS)) {
 			return; // Already connected with the same credentials
 		}
 
 		if (net::connected()) {
 			net::disconnect();
 		}
-		net::init(json_to_str(config["ssid"]), json_to_str(config["password"]));
+		net::init(json_to(String, config["ssid"]), json_to(String, config["password"]));
 		NET_AVAILABLE = true;
 	}
 }

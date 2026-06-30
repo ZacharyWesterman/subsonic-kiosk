@@ -7,7 +7,6 @@
 #define json_is_null(o) o.is_null()
 #define json_is_array(o) o.is_array()
 
-#define json_to_str(o) o.get<String>()
 #define json_to(type, obj) obj.get<type>()
 #define json_to_array(obj) obj.get<JsonArray>()
 
@@ -21,7 +20,6 @@
 #define json_is_null(o) o.isNull()
 #define json_is_array(o) o.is<JsonArray>()
 
-#define json_to_str(o) o.as<String>()
 #define json_to(type, obj) obj.as<type>()
 #define json_to_array(obj) obj.as<JsonArrayConst>()
 
