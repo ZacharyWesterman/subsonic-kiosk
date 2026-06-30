@@ -7,6 +7,6 @@ var searchData=
   ['red_4',['red',['../pins_8hpp.html#a3d83cd1e33786ad4505f103beb4be5bf',1,'pins']]],
   ['redirected_5',['redirected',['../classnet_1_1Request.html#af105fbb7b6b628fccea2773d5188be5b',1,'net::Request']]],
   ['repeat_6',['repeat',['../classcallback_1_1repeat.html#adc0c65ba6a747e221afcc73b303ced54',1,'callback::repeat']]],
-  ['request_7',['request',['../classnet_1_1Request.html#ad9fcc662e07c341f6e19442ec2942b5e',1,'net::Request::Request()'],['../classsubsonic_1_1Response.html#a6a3a47ef1ac8c82599434645c2ff87a3',1,'subsonic::Response::request()']]],
+  ['request_7',['request',['../classsubsonic_1_1Response.html#a6a3a47ef1ac8c82599434645c2ff87a3',1,'subsonic::Response::request()'],['../classnet_1_1Request.html#ad9fcc662e07c341f6e19442ec2942b5e',1,'net::Request::Request()']]],
   ['response_8',['Response',['../classsubsonic_1_1Response.html#aa9412a2b3198ed132d37648fe429a554',1,'subsonic::Response']]]
 ];
