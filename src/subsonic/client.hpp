@@ -10,6 +10,7 @@
 
 namespace subsonic {
 
+/// @brief This class represents a client connection to a single Subsonic instance.
 class Client {
 	String host;
 	String user;
@@ -17,7 +18,16 @@ class Client {
 	String salt;
 
 public:
+	/**
+	 * @brief Construct a Subsonic client with all required information.
+	 * @param host The host url, e.g. `http://example.com/airsonic`.
+	 * @param user The username.
+	 * @param pass_md5 The salted MD5sum of the user's password.
+	 * @param salt The salt used when hashing the password.
+	 */
 	Client(const String &host, const String &user, const String &pass_md5, const String &salt);
+
+	/// @brief The destructor.
 	~Client();
 
 	/**

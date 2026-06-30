@@ -62,6 +62,21 @@ int ping(const char *host, int timeout = 5000);
  */
 NetClient client(const String &host, int port = 80);
 
+/**
+ * @brief Create a network request for a given url.
+ *
+ * This request can be formatted as expected for a url, so urls like the following are all valid.
+ * - `http://www.example.com`
+ * - `https://example.com:1234/some_path`
+ * - `https://example.com/some_path?arg1=value1&arg2=value2`
+ *
+ * Note that the request may not always be fully complete, especially if
+ * it's streaming in chunks.
+ *
+ * @param url The full url to query.
+ * @param timeout The timeout for the query in milliseconds.
+ * @return The (possibly incomplete) request.
+ */
 Request get(const String &url, unsigned long timeout = 10000);
 
 /**

@@ -59,6 +59,7 @@ public:
 	/**
 	 * @brief Constructor for the Request class.
 	 * @param client The WiFiClient object to use for the request.
+	 * @param timeout The timeout for the query in milliseconds.
 	 */
 #ifdef EMULATE
 	Request(const String &url, unsigned long timeout);
@@ -92,6 +93,9 @@ public:
 	 */
 	StatusCode status() const;
 
+	/**
+	 * @brief Fetch any more data that's available.
+	 */
 	void process();
 
 	/**

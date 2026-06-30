@@ -6,7 +6,7 @@
 
 namespace subsonic {
 
-Playlist::Playlist(const Client *client, int id, String &&name, String &&comment, String &&owner, String &&coverArt, int songCount, int duration, int isPublic) : client(client), id(id), name(name), comment(comment), owner(owner), coverArt(coverArt), songCount(songCount), duration(duration), isPublic(isPublic) {}
+Playlist::Playlist(const Client *client, int id, String &&name, String &&comment, String &&owner, String &&coverArt, int songCount, int duration, bool isPublic) : client(client), id(id), name(name), comment(comment), owner(owner), coverArt(coverArt), songCount(songCount), duration(duration), isPublic(isPublic) {}
 
 Response<std::vector<Song>> Playlist::songs() {
 	return Response<std::vector<Song>>(client->query("getPlaylist", String("id=") + id), client);

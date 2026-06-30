@@ -38,6 +38,7 @@ public:
 	/**
 	 * @brief Make a GET request to the specified path.
 	 * @param path The path to request from the host.
+	 * @param timeout The timeout for the query in milliseconds.
 	 * @return A Request object containing the response from the server.
 	 */
 	Request get(const String &path, unsigned long timeout = 10000);
