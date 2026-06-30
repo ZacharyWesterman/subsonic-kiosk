@@ -19,31 +19,52 @@ struct Song {
 	/// @brief The name of the album that the song belongs to.
 	String album;
 
+	/// @brief The artist name, or an empty string if none.
 	String artist;
 
 	/// TODO created (datetime)
 
+	/// @brief The mime type of the song content, e.g. `audio/mpeg`.
 	String contentType;
+
+	/// @brief The file suffix, e.g. `mp3`.
 	String suffix;
+
+	/// @brief The actual filename of the object as stored on the server, e.g. `song.mp3`.
 	String path;
-	String type;
 
 	/// @brief The number of times the song has been played.
 	int playCount;
 
+	/// @brief The size of the file in bytes.
 	unsigned long size;
+
+	/// @brief The duration of the songs in seconds.
 	int duration;
+
 	// int bitRate; (OPTIONAL)
+
+	/// @brief The ID of the album this song belongs to.
 	int albumId;
 
 	// optional<String> coverArt;
 	// optional<String> artistId;
+
+	/// @brief The track number of this song, if any.
 	optional<int> track;
+
+	/// @brief The year this song was released, if any.
 	optional<int> year;
+
 	// optional<String> genre;
-	optional<int> discNumber;
+
+	/// @brief The disk this song was on, if the album comes from multiple disks.
+	optional<int> diskNumber;
+
 	// optional<String> transcodedContentType;
 	// optional<String> transcodedSuffix;
+
+	/// @brief The average rating of this song, if any.
 	optional<int> averageRating;
 
 	// String uri() const;

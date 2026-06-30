@@ -25,7 +25,6 @@ optional<Song> jsonDecode(const JsonDocument &document, const Client *client) {
 		json_to(String, document["contentType"]),
 		json_to(String, document["suffix"]),
 		json_to(String, document["path"]),
-		json_to(String, document["type"]),
 		json_to(int, document["playCount"]),
 		json_to(unsigned long, document["size"]),
 		json_to(int, document["duration"]),
