@@ -2,7 +2,9 @@
 #include "pins.hpp"
 #include <Arduino.h>
 
+#ifndef DEBUG
 #define DEBUG
+#endif
 
 namespace logger {
 

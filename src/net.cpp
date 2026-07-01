@@ -145,7 +145,7 @@ String urlencode(const String &text) {
 	String result;
 	result.reserve(text.length()); // Will be *at least* the length of the original string.
 
-	for (int i = 0; i < text.length(); i++) {
+	for (size_t i = 0; i < text.length(); i++) {
 		unsigned char c = text[i];
 		if (c == '-' || c == '_' || c == '.' || c == '~' || (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9')) {
 			result.concat((char)c);

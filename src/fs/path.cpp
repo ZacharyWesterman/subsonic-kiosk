@@ -158,7 +158,7 @@ std::vector<String> Path::readlines() const {
 		return lines; // Return empty vector if no data
 	}
 
-	int index = 0;
+	size_t index = 0;
 	while (index < data.length()) {
 		int nextIndex = data.indexOf('\n', index);
 		if (nextIndex == -1) {
