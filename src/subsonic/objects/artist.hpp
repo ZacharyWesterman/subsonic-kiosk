@@ -20,8 +20,21 @@ struct Artist {
 	/// @brief The name of the artist.
 	String name;
 
+	/**
+	 * @brief Construct this artist with all fields.
+	 * @param client The Subsonic client.
+	 * @param id The artist ID.
+	 * @param name The artist name.
+	 */
 	Artist(const Client *client, int id, String &&name);
 
+	/**
+	 * @brief Get a list of all albums by the artist.
+	 * @return A list of all albums by the artist.
+	 * @note If the albums have not already been fetched, this will make
+	 * a network request and wait until the response is parsed. Future calls will then
+	 * use this cached data.
+	 */
 	std::vector<Album> &albums();
 
 private:
