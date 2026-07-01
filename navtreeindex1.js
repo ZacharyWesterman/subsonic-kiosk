@@ -1,5 +1,7 @@
 var NAVTREEINDEX1 =
 {
+"statusCodes_8hpp.html#a85e56800e889acd3704beb9e441179ffa199dc804e367b9e8ed353934366f52c6":[4,0,0,2,2,0,34],
+"statusCodes_8hpp.html#a85e56800e889acd3704beb9e441179ffa1b52bfbe3073d85968c0684fe49eee35":[4,0,0,2,2,0,17],
 "statusCodes_8hpp.html#a85e56800e889acd3704beb9e441179ffa1e96db96998257130d23e05c890f3637":[4,0,0,2,2,0,38],
 "statusCodes_8hpp.html#a85e56800e889acd3704beb9e441179ffa25df716f26d838e6ccff83f6c5fbedcf":[4,0,0,2,2,0,43],
 "statusCodes_8hpp.html#a85e56800e889acd3704beb9e441179ffa2d6ecf34a3f551b46383b7917df5d569":[4,0,0,2,2,0,51],
@@ -79,8 +81,9 @@ var NAVTREEINDEX1 =
 "structsubsonic_1_1Album.html#ad366beaf62b537b02b1b086b11127629":[3,0,4,0,8],
 "structsubsonic_1_1Album.html#afb47460571eab5e45ba2fccc7ef68bc2":[3,0,4,0,6],
 "structsubsonic_1_1Artist.html":[3,0,4,1],
-"structsubsonic_1_1Artist.html#a10542a5ff1b5bb0e7d6b27f0d7ad6b81":[3,0,4,1,1],
-"structsubsonic_1_1Artist.html#a5be7821793cb2265e2bd3642d8bec4cf":[3,0,4,1,0],
+"structsubsonic_1_1Artist.html#a10542a5ff1b5bb0e7d6b27f0d7ad6b81":[3,0,4,1,2],
+"structsubsonic_1_1Artist.html#a5be7821793cb2265e2bd3642d8bec4cf":[3,0,4,1,1],
+"structsubsonic_1_1Artist.html#aa4a59ff1433f55f89893dd3abecbb088":[3,0,4,1,0],
 "structsubsonic_1_1Folder.html":[3,0,4,3],
 "structsubsonic_1_1Folder.html#a9b89839d41cc125f549be14c859e6411":[3,0,4,3,1],
 "structsubsonic_1_1Folder.html#a9f20e200b3d5db9dbe346b78d698ab70":[3,0,4,3,0],

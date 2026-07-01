@@ -142,6 +142,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a307041e9616fe011f7694e4ff856be7b" id="r_a307041e9616fe011f7694e4ff856be7b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsubsonic_1_1Response.html">Response</a>&lt; std::vector&lt; <a class="el" href="structsubsonic_1_1Song.html">Song</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsubsonic_1_1Client.html#a307041e9616fe011f7694e4ff856be7b">albumSongs</a> (int albumId) const</td></tr>
 <tr class="memdesc:a307041e9616fe011f7694e4ff856be7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the list of all songs in an album.  <br /></td></tr>
 <tr class="separator:a307041e9616fe011f7694e4ff856be7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7115a5c7abda256b130b0f06dd8e711" id="r_af7115a5c7abda256b130b0f06dd8e711"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsubsonic_1_1Response.html">Response</a>&lt; <a class="el" href="structsubsonic_1_1Artist.html">Artist</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsubsonic_1_1Client.html#af7115a5c7abda256b130b0f06dd8e711">artist</a> (int id) const</td></tr>
+<tr class="memdesc:af7115a5c7abda256b130b0f06dd8e711"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get an artist by its ID.  <br /></td></tr>
+<tr class="separator:af7115a5c7abda256b130b0f06dd8e711"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaed4976d967b9279918e0a58aaccab9f" id="r_aaed4976d967b9279918e0a58aaccab9f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsubsonic_1_1Response.html">Response</a>&lt; std::vector&lt; <a class="el" href="structsubsonic_1_1Album.html">Album</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsubsonic_1_1Client.html#aaed4976d967b9279918e0a58aaccab9f">artistAlbums</a> (int artistId) const</td></tr>
+<tr class="memdesc:aaed4976d967b9279918e0a58aaccab9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the list of all albums by an artist.  <br /></td></tr>
+<tr class="separator:aaed4976d967b9279918e0a58aaccab9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8bcac0e55b35a055db04ddee34c4d519" id="r_a8bcac0e55b35a055db04ddee34c4d519"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsubsonic_1_1Response.html">Response</a>&lt; <a class="el" href="structsubsonic_1_1SearchResults.html">SearchResults</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsubsonic_1_1Client.html#a8bcac0e55b35a055db04ddee34c4d519">search</a> (const String &amp;text) const</td></tr>
 <tr class="memdesc:a8bcac0e55b35a055db04ddee34c4d519"><td class="mdescLeft">&#160;</td><td class="mdescRight">Search for albums, songs or artists.  <br /></td></tr>
 <tr class="separator:a8bcac0e55b35a055db04ddee34c4d519"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -252,6 +258,60 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A response containing the list of songs if the album exists. </dd></dl>
+
+</div>
+</div>
+<a id="af7115a5c7abda256b130b0f06dd8e711" name="af7115a5c7abda256b130b0f06dd8e711"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af7115a5c7abda256b130b0f06dd8e711">&#9670;&#160;</a></span>artist()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classsubsonic_1_1Response.html">Response</a>&lt; <a class="el" href="structsubsonic_1_1Artist.html">Artist</a> &gt; subsonic::Client::artist </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get an artist by its ID. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>The ID of the artist. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A response containing the artist if it exists. </dd></dl>
+
+</div>
+</div>
+<a id="aaed4976d967b9279918e0a58aaccab9f" name="aaed4976d967b9279918e0a58aaccab9f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaed4976d967b9279918e0a58aaccab9f">&#9670;&#160;</a></span>artistAlbums()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classsubsonic_1_1Response.html">Response</a>&lt; std::vector&lt; <a class="el" href="structsubsonic_1_1Album.html">Album</a> &gt; &gt; subsonic::Client::artistAlbums </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>artistId</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the list of all albums by an artist. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">artistId</td><td>The ID of the artist. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A response containing the list of albums if the artist exists. </dd></dl>
 
 </div>
 </div>
