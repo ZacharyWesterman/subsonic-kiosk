@@ -71,4 +71,19 @@ optional<Album> Response<Album>::await() {
 	return jsonDecode<Album>(json["subsonic-response"]["album"], client);
 }
 
+template <>
+optional<std::vector<Album>> Response<std::vector<Album>>::await() {
+	if (!requestData.ok()) {
+		return {};
+	}
+
+	auto json = requestData.json();
+
+	if (json["subsonic-response"]["status"] != "ok") {
+		return {};
+	}
+
+	return jsonDecode<std::vector<Album>>(json["subsonic-response"]["directory"]["child"], client);
+}
+
 } // namespace subsonic
