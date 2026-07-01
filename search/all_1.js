@@ -2,9 +2,9 @@ var searchData=
 [
   ['album_0',['album',['../structsubsonic_1_1Album.html',1,'subsonic::Album'],['../structsubsonic_1_1Album.html#a5cb05cbf8432a3499d72cbc7e72e3926',1,'subsonic::Album::Album()'],['../structsubsonic_1_1Song.html#ac76fc9c94460544ac48f79678d089c2a',1,'subsonic::Song::album'],['../classsubsonic_1_1Client.html#a368dc6292a7520677278cc16d44d9dea',1,'subsonic::Client::album()']]],
   ['albumid_1',['albumId',['../structsubsonic_1_1Song.html#af0d6352da7e4011e977adeb82c53e775',1,'subsonic::Song']]],
-  ['albums_2',['albums',['../structsubsonic_1_1SearchResults.html#ab788a9ee9a512ca2956b0bfc1bd63d3c',1,'subsonic::SearchResults']]],
+  ['albums_2',['albums',['../structsubsonic_1_1SearchResults.html#ab788a9ee9a512ca2956b0bfc1bd63d3c',1,'subsonic::SearchResults::albums'],['../structsubsonic_1_1Artist.html#afef4ef8e558f9566d38e3c8864d28d16',1,'subsonic::Artist::albums()']]],
   ['albumsongs_3',['albumSongs',['../classsubsonic_1_1Client.html#a307041e9616fe011f7694e4ff856be7b',1,'subsonic::Client']]],
-  ['artist_4',['artist',['../structsubsonic_1_1Artist.html',1,'subsonic::Artist'],['../classsubsonic_1_1Client.html#af7115a5c7abda256b130b0f06dd8e711',1,'subsonic::Client::artist()'],['../structsubsonic_1_1Song.html#a28c676a7566ea8c937bf1543d2371380',1,'subsonic::Song::artist'],['../structsubsonic_1_1Album.html#a9be7a4cfc516fed434913cc3a55bf508',1,'subsonic::Album::artist']]],
+  ['artist_4',['artist',['../structsubsonic_1_1Artist.html',1,'subsonic::Artist'],['../structsubsonic_1_1Artist.html#a4aa952429256f4c587c64927cdd404a7',1,'subsonic::Artist::Artist()'],['../classsubsonic_1_1Client.html#af7115a5c7abda256b130b0f06dd8e711',1,'subsonic::Client::artist()'],['../structsubsonic_1_1Song.html#a28c676a7566ea8c937bf1543d2371380',1,'subsonic::Song::artist'],['../structsubsonic_1_1Album.html#a9be7a4cfc516fed434913cc3a55bf508',1,'subsonic::Album::artist']]],
   ['artistalbums_5',['artistAlbums',['../classsubsonic_1_1Client.html#aaed4976d967b9279918e0a58aaccab9f',1,'subsonic::Client']]],
   ['artists_6',['artists',['../structsubsonic_1_1SearchResults.html#ac1cddcda2ec8adb6f9115e56e930d765',1,'subsonic::SearchResults']]],
   ['audio_2ehpp_7',['audio.hpp',['../audio_8hpp.html',1,'']]],

@@ -112,11 +112,11 @@ $(document).ready(function(){initNavTree('structsubsonic_1_1Artist.html',''); in
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a4aa952429256f4c587c64927cdd404a7" id="r_a4aa952429256f4c587c64927cdd404a7"><td class="memItemLeft" align="right" valign="top"><a id="a4aa952429256f4c587c64927cdd404a7" name="a4aa952429256f4c587c64927cdd404a7"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Artist</b> (const <a class="el" href="classsubsonic_1_1Client.html">Client</a> *<a class="el" href="structsubsonic_1_1Artist.html#aa4a59ff1433f55f89893dd3abecbb088">client</a>, int <a class="el" href="structsubsonic_1_1Artist.html#a5be7821793cb2265e2bd3642d8bec4cf">id</a>, String &amp;&amp;<a class="el" href="structsubsonic_1_1Artist.html#a10542a5ff1b5bb0e7d6b27f0d7ad6b81">name</a>)</td></tr>
+<tr class="memitem:a4aa952429256f4c587c64927cdd404a7" id="r_a4aa952429256f4c587c64927cdd404a7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structsubsonic_1_1Artist.html#a4aa952429256f4c587c64927cdd404a7">Artist</a> (const <a class="el" href="classsubsonic_1_1Client.html">Client</a> *<a class="el" href="structsubsonic_1_1Artist.html#aa4a59ff1433f55f89893dd3abecbb088">client</a>, int <a class="el" href="structsubsonic_1_1Artist.html#a5be7821793cb2265e2bd3642d8bec4cf">id</a>, String &amp;&amp;<a class="el" href="structsubsonic_1_1Artist.html#a10542a5ff1b5bb0e7d6b27f0d7ad6b81">name</a>)</td></tr>
+<tr class="memdesc:a4aa952429256f4c587c64927cdd404a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct this artist with all fields.  <br /></td></tr>
 <tr class="separator:a4aa952429256f4c587c64927cdd404a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afef4ef8e558f9566d38e3c8864d28d16" id="r_afef4ef8e558f9566d38e3c8864d28d16"><td class="memItemLeft" align="right" valign="top"><a id="afef4ef8e558f9566d38e3c8864d28d16" name="afef4ef8e558f9566d38e3c8864d28d16"></a>
-std::vector&lt; <a class="el" href="structsubsonic_1_1Album.html">Album</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>albums</b> ()</td></tr>
+<tr class="memitem:afef4ef8e558f9566d38e3c8864d28d16" id="r_afef4ef8e558f9566d38e3c8864d28d16"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structsubsonic_1_1Album.html">Album</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structsubsonic_1_1Artist.html#afef4ef8e558f9566d38e3c8864d28d16">albums</a> ()</td></tr>
+<tr class="memdesc:afef4ef8e558f9566d38e3c8864d28d16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a list of all albums by the artist.  <br /></td></tr>
 <tr class="separator:afef4ef8e558f9566d38e3c8864d28d16"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
@@ -136,7 +136,74 @@ String&#160;</td><td class="memItemRight" valign="bottom"><b>name</b></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Represents a music artist. </p>
-</div><hr/>The documentation for this struct was generated from the following file:<ul>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a4aa952429256f4c587c64927cdd404a7" name="a4aa952429256f4c587c64927cdd404a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4aa952429256f4c587c64927cdd404a7">&#9670;&#160;</a></span>Artist()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">subsonic::Artist::Artist </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classsubsonic_1_1Client.html">Client</a> *&#160;</td>
+          <td class="paramname"><em>client</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">String &amp;&amp;&#160;</td>
+          <td class="paramname"><em>name</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Construct this artist with all fields. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">client</td><td>The Subsonic client. </td></tr>
+    <tr><td class="paramname">id</td><td>The artist ID. </td></tr>
+    <tr><td class="paramname">name</td><td>The artist name. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="afef4ef8e558f9566d38e3c8864d28d16" name="afef4ef8e558f9566d38e3c8864d28d16"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afef4ef8e558f9566d38e3c8864d28d16">&#9670;&#160;</a></span>albums()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="structsubsonic_1_1Album.html">Album</a> &gt; &amp; subsonic::Artist::albums </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get a list of all albums by the artist. </p>
+<dl class="section return"><dt>Returns</dt><dd>A list of all albums by the artist. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>If the albums have not already been fetched, this will make a network request and wait until the response is parsed. Future calls will then use this cached data. </dd></dl>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
 <li>src/subsonic/objects/<a class="el" href="artist_8hpp_source.html">artist.hpp</a></li>
 </ul>
 </div><!-- contents -->
