@@ -1,3 +1,4 @@
+/// @file search_results.hpp
 #pragma once
 
 #include "album.hpp"

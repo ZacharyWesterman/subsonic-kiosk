@@ -1,3 +1,4 @@
+/// @file client.hpp
 #pragma once
 #include "objects/album.hpp"
 #include "objects/folder.hpp"

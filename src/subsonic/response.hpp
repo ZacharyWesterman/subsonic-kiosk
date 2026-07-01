@@ -1,3 +1,4 @@
+/// @file response.hpp
 #pragma once
 #include "../net/request.hpp"
 #include "../polyfill/optional.hpp"

@@ -1,3 +1,4 @@
+/// @file ping.hpp
 #pragma once
 
 #include <Arduino.h>

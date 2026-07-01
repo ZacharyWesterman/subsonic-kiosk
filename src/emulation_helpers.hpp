@@ -1,3 +1,4 @@
+/// @file emulation_helpers.hpp
 #pragma once
 
 #ifdef EMULATE
