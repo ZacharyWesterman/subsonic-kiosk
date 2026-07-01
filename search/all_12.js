@@ -12,5 +12,6 @@ var searchData=
   ['require_2ehpp_9',['require.hpp',['../require_8hpp.html',1,'']]],
   ['requirements_10',['Build Requirements',['../index.html#autotoc_md1',1,'']]],
   ['response_11',['response',['../classsubsonic_1_1Response.html#aa9412a2b3198ed132d37648fe429a554',1,'subsonic::Response::Response()'],['../classsubsonic_1_1Response.html',1,'subsonic::Response&lt; T &gt;']]],
-  ['road_20map_12',['Road Map',['../index.html#autotoc_md2',1,'']]]
+  ['response_2ehpp_12',['response.hpp',['../response_8hpp.html',1,'']]],
+  ['road_20map_13',['Road Map',['../index.html#autotoc_md2',1,'']]]
 ];

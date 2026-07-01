@@ -56,8 +56,8 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"album_8hpp_source.html",
-"statusCodes_8hpp.html#a85e56800e889acd3704beb9e441179ffa199dc804e367b9e8ed353934366f52c6"
+"album_8hpp.html",
+"song_8hpp.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

@@ -100,80 +100,82 @@ $(document).ready(function(){initNavTree('response_8hpp_source.html',''); initRe
   <div class="headertitle"><div class="title">response.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &quot;../net/request.hpp&quot;</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;../polyfill/optional.hpp&quot;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;ArduinoJson.h&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span>subsonic {</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">class </span>Client;</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="foldopen" id="foldopen00016" data-start="{" data-end="};">
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="classsubsonic_1_1Response.html">   16</a></span><span class="keyword">class </span><a class="code hl_class" href="classsubsonic_1_1Response.html">Response</a> {</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <a class="code hl_class" href="classnet_1_1Request.html">net::Request</a> requestData;</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="keyword">const</span> <a class="code hl_class" href="classsubsonic_1_1Client.html">Client</a> *client;</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="classsubsonic_1_1Response.html#aa9412a2b3198ed132d37648fe429a554">   26</a></span>    <a class="code hl_function" href="classsubsonic_1_1Response.html#aa9412a2b3198ed132d37648fe429a554">Response</a>(<a class="code hl_class" href="classnet_1_1Request.html">net::Request</a> &amp;&amp;<a class="code hl_function" href="classsubsonic_1_1Response.html#a6a3a47ef1ac8c82599434645c2ff87a3">request</a>, <span class="keyword">const</span> <a class="code hl_class" href="classsubsonic_1_1Client.html">Client</a> *client) : requestData(<a class="code hl_function" href="classsubsonic_1_1Response.html#a6a3a47ef1ac8c82599434645c2ff87a3">request</a>), client(client) {}</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="foldopen" id="foldopen00032" data-start="{" data-end="}">
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="classsubsonic_1_1Response.html#a6a3a47ef1ac8c82599434645c2ff87a3">   32</a></span>    <span class="keyword">inline</span> <a class="code hl_class" href="classnet_1_1Request.html">net::Request</a> &amp;<a class="code hl_function" href="classsubsonic_1_1Response.html#a6a3a47ef1ac8c82599434645c2ff87a3">request</a>() {</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <span class="keywordflow">return</span> requestData;</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    }</div>
+<a href="response_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;../net/request.hpp&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;../polyfill/optional.hpp&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;ArduinoJson.h&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span>subsonic {</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">class </span>Client;</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00017" data-start="{" data-end="};">
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="classsubsonic_1_1Response.html">   17</a></span><span class="keyword">class </span><a class="code hl_class" href="classsubsonic_1_1Response.html">Response</a> {</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <a class="code hl_class" href="classnet_1_1Request.html">net::Request</a> requestData;</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="keyword">const</span> <a class="code hl_class" href="classsubsonic_1_1Client.html">Client</a> *client;</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="classsubsonic_1_1Response.html#aa9412a2b3198ed132d37648fe429a554">   27</a></span>    <a class="code hl_function" href="classsubsonic_1_1Response.html#aa9412a2b3198ed132d37648fe429a554">Response</a>(<a class="code hl_class" href="classnet_1_1Request.html">net::Request</a> &amp;&amp;<a class="code hl_function" href="classsubsonic_1_1Response.html#a6a3a47ef1ac8c82599434645c2ff87a3">request</a>, <span class="keyword">const</span> <a class="code hl_class" href="classsubsonic_1_1Client.html">Client</a> *client) : requestData(<a class="code hl_function" href="classsubsonic_1_1Response.html#a6a3a47ef1ac8c82599434645c2ff87a3">request</a>), client(client) {}</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="foldopen" id="foldopen00033" data-start="{" data-end="}">
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="classsubsonic_1_1Response.html#a6a3a47ef1ac8c82599434645c2ff87a3">   33</a></span>    <span class="keyword">inline</span> <a class="code hl_class" href="classnet_1_1Request.html">net::Request</a> &amp;<a class="code hl_function" href="classsubsonic_1_1Response.html#a6a3a47ef1ac8c82599434645c2ff87a3">request</a>() {</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keywordflow">return</span> requestData;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    }</div>
 </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="foldopen" id="foldopen00040" data-start="{" data-end="}">
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="classsubsonic_1_1Response.html#a1619317cfe010b2c5754205cf2c7250c">   40</a></span>    <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="classsubsonic_1_1Response.html#a1619317cfe010b2c5754205cf2c7250c">ready</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <span class="keywordflow">return</span> requestData.<a class="code hl_function" href="classnet_1_1Request.html#ad1f0452724b2aa03711393327e669b39">done</a>();</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    }</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="foldopen" id="foldopen00041" data-start="{" data-end="}">
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="classsubsonic_1_1Response.html#a1619317cfe010b2c5754205cf2c7250c">   41</a></span>    <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="classsubsonic_1_1Response.html#a1619317cfe010b2c5754205cf2c7250c">ready</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <span class="keywordflow">return</span> requestData.<a class="code hl_function" href="classnet_1_1Request.html#ad1f0452724b2aa03711393327e669b39">done</a>();</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    }</div>
 </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="foldopen" id="foldopen00048" data-start="{" data-end="}">
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="classsubsonic_1_1Response.html#a4e2d5fde8ba957093894244f3ca1ea31">   48</a></span>    <span class="keyword">inline</span> <span class="keyword">operator</span> bool()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        <span class="keywordflow">return</span> requestData.<a class="code hl_function" href="classnet_1_1Request.html#a0cb2a1245739a7849fba0383efdaed91">ok</a>();</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    }</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="foldopen" id="foldopen00049" data-start="{" data-end="}">
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="classsubsonic_1_1Response.html#a4e2d5fde8ba957093894244f3ca1ea31">   49</a></span>    <span class="keyword">inline</span> <span class="keyword">operator</span> bool()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        <span class="keywordflow">return</span> requestData.<a class="code hl_function" href="classnet_1_1Request.html#a0cb2a1245739a7849fba0383efdaed91">ok</a>();</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    }</div>
 </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="foldopen" id="foldopen00056" data-start="{" data-end="}">
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="classsubsonic_1_1Response.html#a122d47849be2e5051217d4d7991d2ae9">   56</a></span>    <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="classsubsonic_1_1Response.html#a122d47849be2e5051217d4d7991d2ae9">ok</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        <span class="keywordflow">return</span> requestData.<a class="code hl_function" href="classnet_1_1Request.html#a0cb2a1245739a7849fba0383efdaed91">ok</a>();</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    }</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="foldopen" id="foldopen00057" data-start="{" data-end="}">
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="classsubsonic_1_1Response.html#a122d47849be2e5051217d4d7991d2ae9">   57</a></span>    <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="classsubsonic_1_1Response.html#a122d47849be2e5051217d4d7991d2ae9">ok</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        <span class="keywordflow">return</span> requestData.<a class="code hl_function" href="classnet_1_1Request.html#a0cb2a1245739a7849fba0383efdaed91">ok</a>();</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    }</div>
 </div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="foldopen" id="foldopen00061" data-start="{" data-end="}">
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="classsubsonic_1_1Response.html#aefa4144d50b00ea9656f258736a269d4">   61</a></span>    <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classsubsonic_1_1Response.html#aefa4144d50b00ea9656f258736a269d4">process</a>() {</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        requestData.<a class="code hl_function" href="classnet_1_1Request.html#a1b0e700d9f92bad49f1bdd9507d3f65d">process</a>();</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    }</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="foldopen" id="foldopen00062" data-start="{" data-end="}">
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="classsubsonic_1_1Response.html#aefa4144d50b00ea9656f258736a269d4">   62</a></span>    <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classsubsonic_1_1Response.html#aefa4144d50b00ea9656f258736a269d4">process</a>() {</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        requestData.<a class="code hl_function" href="classnet_1_1Request.html#a1b0e700d9f92bad49f1bdd9507d3f65d">process</a>();</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    }</div>
 </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="classsubsonic_1_1Response.html#a0bd4ebd0c6ed014c1a2efdcfcd40c6c5">   70</a></span>    <a class="code hl_class" href="classoptional.html">optional&lt;T&gt;</a> <a class="code hl_function" href="classsubsonic_1_1Response.html#a0bd4ebd0c6ed014c1a2efdcfcd40c6c5">await</a>();</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>};</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="classsubsonic_1_1Response.html#a0bd4ebd0c6ed014c1a2efdcfcd40c6c5">   71</a></span>    <a class="code hl_class" href="classoptional.html">optional&lt;T&gt;</a> <a class="code hl_function" href="classsubsonic_1_1Response.html#a0bd4ebd0c6ed014c1a2efdcfcd40c6c5">await</a>();</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>};</div>
 </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><a class="code hl_class" href="classoptional.html">optional&lt;T&gt;</a> jsonDecode(<span class="keyword">const</span> JsonDocument &amp;json, <span class="keyword">const</span> <a class="code hl_class" href="classsubsonic_1_1Client.html">Client</a> *client);</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>} <span class="comment">// namespace subsonic</span></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="response_8hpp.html#ad91e785724443802d3751a7a9c5c09f2">   82</a></span><a class="code hl_class" href="classoptional.html">optional&lt;T&gt;</a> <a class="code hl_function" href="response_8hpp.html#ad91e785724443802d3751a7a9c5c09f2">jsonDecode</a>(<span class="keyword">const</span> JsonDocument &amp;json, <span class="keyword">const</span> <a class="code hl_class" href="classsubsonic_1_1Client.html">Client</a> *client);</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>} <span class="comment">// namespace subsonic</span></div>
 <div class="ttc" id="aclassnet_1_1Request_html"><div class="ttname"><a href="classnet_1_1Request.html">net::Request</a></div><div class="ttdoc">A class to represent an HTTP request.</div><div class="ttdef"><b>Definition</b> request.hpp:20</div></div>
 <div class="ttc" id="aclassnet_1_1Request_html_a0cb2a1245739a7849fba0383efdaed91"><div class="ttname"><a href="classnet_1_1Request.html#a0cb2a1245739a7849fba0383efdaed91">net::Request::ok</a></div><div class="ttdeci">bool ok() const</div><div class="ttdoc">Check if the request was successful.</div></div>
 <div class="ttc" id="aclassnet_1_1Request_html_a1b0e700d9f92bad49f1bdd9507d3f65d"><div class="ttname"><a href="classnet_1_1Request.html#a1b0e700d9f92bad49f1bdd9507d3f65d">net::Request::process</a></div><div class="ttdeci">void process()</div><div class="ttdoc">Fetch any more data that's available.</div></div>
 <div class="ttc" id="aclassnet_1_1Request_html_ad1f0452724b2aa03711393327e669b39"><div class="ttname"><a href="classnet_1_1Request.html#ad1f0452724b2aa03711393327e669b39">net::Request::done</a></div><div class="ttdeci">bool done() const</div><div class="ttdoc">Check if the request is finished.</div></div>
 <div class="ttc" id="aclassoptional_html"><div class="ttname"><a href="classoptional.html">optional</a></div><div class="ttdoc">Safely handle data that may or may not have a value.</div><div class="ttdef"><b>Definition</b> optional.hpp:28</div></div>
-<div class="ttc" id="aclasssubsonic_1_1Client_html"><div class="ttname"><a href="classsubsonic_1_1Client.html">subsonic::Client</a></div><div class="ttdoc">This class represents a client connection to a single Subsonic instance.</div><div class="ttdef"><b>Definition</b> client.hpp:14</div></div>
-<div class="ttc" id="aclasssubsonic_1_1Response_html"><div class="ttname"><a href="classsubsonic_1_1Response.html">subsonic::Response</a></div><div class="ttdoc">This class represents a deferred response to any subsonic query.</div><div class="ttdef"><b>Definition</b> response.hpp:16</div></div>
+<div class="ttc" id="aclasssubsonic_1_1Client_html"><div class="ttname"><a href="classsubsonic_1_1Client.html">subsonic::Client</a></div><div class="ttdoc">This class represents a client connection to a single Subsonic instance.</div><div class="ttdef"><b>Definition</b> client.hpp:15</div></div>
+<div class="ttc" id="aclasssubsonic_1_1Response_html"><div class="ttname"><a href="classsubsonic_1_1Response.html">subsonic::Response</a></div><div class="ttdoc">This class represents a deferred response to any subsonic query.</div><div class="ttdef"><b>Definition</b> response.hpp:17</div></div>
 <div class="ttc" id="aclasssubsonic_1_1Response_html_a0bd4ebd0c6ed014c1a2efdcfcd40c6c5"><div class="ttname"><a href="classsubsonic_1_1Response.html#a0bd4ebd0c6ed014c1a2efdcfcd40c6c5">subsonic::Response::await</a></div><div class="ttdeci">optional&lt; T &gt; await()</div><div class="ttdoc">Wait for the request to finish, then parse the response and (if valid) return it.</div></div>
-<div class="ttc" id="aclasssubsonic_1_1Response_html_a122d47849be2e5051217d4d7991d2ae9"><div class="ttname"><a href="classsubsonic_1_1Response.html#a122d47849be2e5051217d4d7991d2ae9">subsonic::Response::ok</a></div><div class="ttdeci">bool ok() const</div><div class="ttdoc">Check if the request is good.</div><div class="ttdef"><b>Definition</b> response.hpp:56</div></div>
-<div class="ttc" id="aclasssubsonic_1_1Response_html_a1619317cfe010b2c5754205cf2c7250c"><div class="ttname"><a href="classsubsonic_1_1Response.html#a1619317cfe010b2c5754205cf2c7250c">subsonic::Response::ready</a></div><div class="ttdeci">bool ready() const</div><div class="ttdoc">Check if the request has finished.</div><div class="ttdef"><b>Definition</b> response.hpp:40</div></div>
-<div class="ttc" id="aclasssubsonic_1_1Response_html_a6a3a47ef1ac8c82599434645c2ff87a3"><div class="ttname"><a href="classsubsonic_1_1Response.html#a6a3a47ef1ac8c82599434645c2ff87a3">subsonic::Response::request</a></div><div class="ttdeci">net::Request &amp; request()</div><div class="ttdoc">Get the actual request object.</div><div class="ttdef"><b>Definition</b> response.hpp:32</div></div>
-<div class="ttc" id="aclasssubsonic_1_1Response_html_aa9412a2b3198ed132d37648fe429a554"><div class="ttname"><a href="classsubsonic_1_1Response.html#aa9412a2b3198ed132d37648fe429a554">subsonic::Response::Response</a></div><div class="ttdeci">Response(net::Request &amp;&amp;request, const Client *client)</div><div class="ttdoc">Construct a deferred response.</div><div class="ttdef"><b>Definition</b> response.hpp:26</div></div>
-<div class="ttc" id="aclasssubsonic_1_1Response_html_aefa4144d50b00ea9656f258736a269d4"><div class="ttname"><a href="classsubsonic_1_1Response.html#aefa4144d50b00ea9656f258736a269d4">subsonic::Response::process</a></div><div class="ttdeci">void process()</div><div class="ttdoc">Process any more of the request as needed.</div><div class="ttdef"><b>Definition</b> response.hpp:61</div></div>
+<div class="ttc" id="aclasssubsonic_1_1Response_html_a122d47849be2e5051217d4d7991d2ae9"><div class="ttname"><a href="classsubsonic_1_1Response.html#a122d47849be2e5051217d4d7991d2ae9">subsonic::Response::ok</a></div><div class="ttdeci">bool ok() const</div><div class="ttdoc">Check if the request is good.</div><div class="ttdef"><b>Definition</b> response.hpp:57</div></div>
+<div class="ttc" id="aclasssubsonic_1_1Response_html_a1619317cfe010b2c5754205cf2c7250c"><div class="ttname"><a href="classsubsonic_1_1Response.html#a1619317cfe010b2c5754205cf2c7250c">subsonic::Response::ready</a></div><div class="ttdeci">bool ready() const</div><div class="ttdoc">Check if the request has finished.</div><div class="ttdef"><b>Definition</b> response.hpp:41</div></div>
+<div class="ttc" id="aclasssubsonic_1_1Response_html_a6a3a47ef1ac8c82599434645c2ff87a3"><div class="ttname"><a href="classsubsonic_1_1Response.html#a6a3a47ef1ac8c82599434645c2ff87a3">subsonic::Response::request</a></div><div class="ttdeci">net::Request &amp; request()</div><div class="ttdoc">Get the actual request object.</div><div class="ttdef"><b>Definition</b> response.hpp:33</div></div>
+<div class="ttc" id="aclasssubsonic_1_1Response_html_aa9412a2b3198ed132d37648fe429a554"><div class="ttname"><a href="classsubsonic_1_1Response.html#aa9412a2b3198ed132d37648fe429a554">subsonic::Response::Response</a></div><div class="ttdeci">Response(net::Request &amp;&amp;request, const Client *client)</div><div class="ttdoc">Construct a deferred response.</div><div class="ttdef"><b>Definition</b> response.hpp:27</div></div>
+<div class="ttc" id="aclasssubsonic_1_1Response_html_aefa4144d50b00ea9656f258736a269d4"><div class="ttname"><a href="classsubsonic_1_1Response.html#aefa4144d50b00ea9656f258736a269d4">subsonic::Response::process</a></div><div class="ttdeci">void process()</div><div class="ttdoc">Process any more of the request as needed.</div><div class="ttdef"><b>Definition</b> response.hpp:62</div></div>
+<div class="ttc" id="aresponse_8hpp_html_ad91e785724443802d3751a7a9c5c09f2"><div class="ttname"><a href="response_8hpp.html#ad91e785724443802d3751a7a9c5c09f2">subsonic::jsonDecode</a></div><div class="ttdeci">optional&lt; T &gt; jsonDecode(const JsonDocument &amp;json, const Client *client)</div><div class="ttdoc">Decode a JSON document into a specific Subsonic response object.</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b5a5b125e9b29ac6da97925b4bd62375.html">subsonic</a></li><li class="navelem"><b>response.hpp</b></li>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b5a5b125e9b29ac6da97925b4bd62375.html">subsonic</a></li><li class="navelem"><a class="el" href="response_8hpp.html">response.hpp</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>
